@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Overview
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="0.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html" id="current_middle">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+
+<p>
+In a process-oriented model, queues are used to synchronise simulation processes which are conceptually acting concurrently. For example, in our simple model of the loading zone of a container terminal, arriving trucks had to wait until a van carrier was available for service. DESMO-J's <tt>core.advancedModellingFeatures</tt> package provides higher-level constructs to aid the model designer in expressing synchronisation in more problem relevant terms.
+</p>
+
+<p>
+These constructs can only be used with simulation processes. Processes are automatically inserted into internal queues and automatically activated again when they leave the queue. Relevant statistical measures are automatically recorded and reported.
+</p>
+
+<p>DESMO-J supports four different patterns of synchronisation:</p>
+
+<ul>
+<li>
+<a href="./res0.html">Capacity constrained resources (class <tt>Res</tt>)</a>. Processes wait until sufficient resource capacity is available to proceed.</li>
+<li>
+<a href="./bin0.html">Producer/consumer relationships with unlimited capacity buffers (class <tt>Bin</tt>)</a>.
+</li>
+<li>
+<a href="./condqueue0.html">Conditional waiting (class <tt>CondQueue</tt>)</a> until a specified model state has occurred.
+</li>
+<li>
+<a href="./waitqueue0.html">direct process co-operation (class <tt>WaitQueue</tt>)</a> in the form of asymmetric master-slave relationships.
+</li>
+</ul>
+
+<p>
+In addition to these process synchronisation constructs, DESMO-J provides a simple form of direct process communication via the <tt>interrupt()</tt> method of the <tt>SimProcess</tt> class. This method allows to <a href="./interrupt0.html">interrupt the execution of an active process</a>.
+</p>
+
+<p>
+<b>Note:</b> The examples in this section assume that you are familiar with how to build a process-oriented model in DESMO-J. If you need an in-depth introduction to process-oriented modelling with DESMO-J, please turn to the <a href="../processes/0.html">Processes Step by Step</a> section first.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="0.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

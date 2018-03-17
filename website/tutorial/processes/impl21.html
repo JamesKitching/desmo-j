@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Processes Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Processes Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Model Implementation (2)
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Van Carrier Process
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl22.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html">The Dynamic Model Components</a></li>
+<li><a href="impl21.html" id="current_middle">The Van Carrier Process</a></li>
+<li><a href="impl22.html">The Truck Process</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+To implement the <b>van carrier</b> simulation process derive a class named <tt>VanCarrier</tt> from <tt>SimProcess</tt>, add the appropriate import statement and define the constructor. This time, we also define a field (attribute) to store a reference to the model in and assign it a value inside the constructor.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+/**
+ * This class represents a van carrier in the ProcessesExample
+ * model.
+ * The VC waits until a truck requests its service.
+ * It will then fetch the container and load it onto
+ * the truck.
+ * If there is another truck waiting it starts serving this
+ * truck. Otherwise it waits again for the next truck to arrive.
+ */
+public class VanCarrier extends SimProcess {
+
+   /** a reference to the model this process is a part of
+    *  useful shortcut to access the model's static components
+    */
+   private ProcessesExample myModel;
+   /**
+    * Constructor of the van carrier process
+    *
+    * Used to create a new VC to serve trucks.
+    *
+    * @param owner the model this process belongs to
+    * @param name this VC's name
+    * @param showInTrace flag to indicate if this process shall produce output
+    *                    for the trace
+    */
+   public VanCarrier(Model owner, String name, boolean showInTrace) {
+
+      super(owner, name, showInTrace);
+      // store a reference to the model this VC is associated with
+      myModel = (ProcessesExample)owner;
+   }
+
+   ...
+
+} /* end of process class */
+</pre>
+
+<p>
+Now we have to implement the <tt>lifeCycle()</tt> method. Please refer to the <a href="design2.html#VanCarrier">conceptual model</a> if you need a reminder of what a van carrier does. There is an endless service loop and we choose the "while{ }" construct of the Java language to implement it. We will then use an "if"-statement for the decision whether there is a truck waiting or not.
+</p>
+
+<pre class="code">
+   /**
+    * Describes this van carrier's life cycle.
+    *
+    * It will continually loop through the following steps:
+    * Check if there is a customer waiting.
+    * If there is someone waiting
+    *   a) remove customer from queue
+    *   b) serve customer
+    *   c) return to top
+    * If there is no one waiting
+    *   a) wait (passivate) until someone arrives (who reactivates the VC)
+    *   b) return to top
+    */
+   public void lifeCycle() throws SuspendExecution {
+
+      // the server is always on duty and will never stop working
+      while (true) {
+         // check if there is someone waiting
+         if (myModel.truckQueue.isEmpty()) {
+
+            ...
+</pre>
+
+<p>
+First we will follow the "YES" branch of the statement, meaning "No, there is no truck waiting for service". In this case we have to put the VC in its queue in order to wait for the next truck. We will access the <tt>idleVCQueue</tt> via the model class where it is defined.
+</p>
+
+<pre class="code">
+            // ... lifeCycle() continued
+
+            // NO, there is no one waiting
+
+            // insert yourself into the idle VC queue
+            myModel.idleVCQueue.insert(this);
+            // and wait for things to happen
+            passivate();
+         }
+</pre>
+
+<p>
+Now we will follow the "NO" branch, meaning "Yes, there is a truck waiting". We start with removing the first truck in line to get it serviced.
+</p>
+
+<p>
+Due to the definition of the <tt>first()</tt> method of <tt>desmoj.core.simulator.ProcessQueue</tt> <a href="../../doc/desmoj/core/simulator/ProcessQueue.html#first()">(API)</a>, we will only get a reference to the first object in line. But it will not yet be removed from the queue. Therefore we will have to do this afterwards in a separate step using the <tt>remove()</tt> method of this object.
+</p>
+
+<pre class="code">
+         // ... lifeCycle() continued
+
+         else {
+
+            // YES, there is a customer (truck) waiting
+
+            // get a reference to the first truck from the truck queue
+            Truck nextTruck = myModel.truckQueue.first();
+            // remove the truck from the queue
+            myModel.truckQueue.remove(nextTruck);
+
+            ...
+</pre>
+
+<p>
+Last, but not least, we are going to service the truck just removed from the queue. We will ask the model for the time we are going to need to service the truck and hold the execution of this <tt>lifeCycle()</tt> for the time determined. After that, we reactivate the just serviced truck to enable it to do some clean-up operation and to leave the system.
+</p>
+
+<pre class="code">
+            // ... lifeCycle() continued
+
+            // now serve it (fetch container and load it onto truck)
+            // service time is represented by a hold of the VC process
+            hold(new TimeSpan(myModel.getServiceTime(), TimeUnit.MINUTES));
+            // from inside to outside...
+            // ...draw a new period of service time
+            // ...make a TimeSpan object out of it
+            // ...and hold for this amount of time
+
+            // now the truck has received its container and can leave
+            // we will reactivate it, to allow it to finish its life cycle
+            nextTruck.activate();
+            // the VC can return to top and check for a new customer
+         }
+      }
+   }
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl22.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl21.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

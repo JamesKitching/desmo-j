@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+The DESMO-J Tutorial
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Overview
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="0.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="0.html" id="current_top">The DESMO-J Tutorial</a><ol>
+<li><a href="0.html" id="current_middle">Overview</a></li>
+</ol></li>
+<li><a href="../prerequisites/0.html" id="current_bottom">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>Welcome to the DESMO-J Tutorial!<p>
+
+<p>
+This is the right place to stop by if you want to learn how to use the discrete-event simulation framework DESMO-J. We assume that you are already familiar with object-oriented programming in Java and have a basic understanding of what discrete-event simulation is all about. Please refer to the <a href="../prerequisites/0.html">Prerequisites</a> section for details on what you are supposed to know / have installed on your computer in order to use DESMO-J.
+</p>
+
+<p>
+As you can see from the mindmap below the tutorial is organised in separate sections. The ones on the left-hand side deal with using DESMO-J in general, from a brief overview of its functionality (<a href="../nutshell/0.html">DESMO-J in a Nutshell</a>) to a demonstration of what a simulation with DESMO-J looks like (<a href="../at_work/0.html">DESMO-J at Work</a>) to a concise guide to model building with DESMO-J (<a href="../distilled/0.html">DESMO-J Distilled</a>). The sections on the right-hand side of the mindmap offer more in-depth introductions to different parts of the framework like its <a href="../distributions/0.html">stochastic distributions</a>, <a href="../statistics/0.html">statistical data collectors</a>, and <a href="../advanced/0.html">advanced modelling features</a>.
+</p>
+
+<p>
+DESMO-J supports both the process-oriented and the event-oriented modelling style, also known as process-interaction approach or event-scheduling approach, respectively. The tutorial provides a step-by-step introduction on how to build a model with DESMO-J, following either the <a href="../processes/0.html">process-oriented</a> style or the <a href="../events/0.html">event-oriented</a> style. Both sections build a model for the same example system to aid you in comparing the two different modelling approaches. We recommend starting with one of these sections if you are looking for a guided tour on model building using DESMO-J. 
+</p>
+
+<p>The tutorial has been completely revised and enhanced for DESMO-J Version 2.2.0 in the context of a research project funded by <a href="http://www.e-learning-hamburg.de/">ELCH (E-Learning Consortium Hamburg)</a></p>
+
+<p>Enjoy!</p>
+
+<p>The DESMO-J developers team</p>
+
+<p>
+<img src="../images/overview_imagemap.gif"
+usemap="#mindmap" border="0">
+<map name="mindmap">
+<area shape="rect" coords="17,218,181,236"
+href="../nutshell/0.html"
+title="A brief overview of what Desmo-J is all about">
+<area shape="rect" coords="491,12,669,30"
+href="../processes/0.html"
+title="How to build a process-oriented model with Desmo-J">
+<area shape="rect" coords="532,292,758,311"
+href="../advanced/0.html"
+title="Desmo-J's components for process synchronisation and cooperation">
+<area shape="rect" coords="546,208,616,227"
+href="../statistics/0.html"
+title="How to use Desmo-J's statistical data collectors">
+<area shape="rect" coords="540,157,638,176"
+href="../distributions/0.html"
+title="An introduction to Desmo-J's stochastic distributions">
+<area shape="rect" coords="108,326,209,345"
+href="../prerequisites/0.html"
+title="Everything you need to start using Desmo-J">
+<area shape="rect" coords="152,38,283,57"
+href="../distilled/0.html"
+title="A concise guide to model building with Desmo-J">
+<area shape="rect" coords="497,76,647,95" href="../events/0.html"
+title="How to build an event-oriented model with Desmo-J">
+<area shape="rect" coords="101,126,229,145"
+href="../at_work/0.html"
+title="What does simulation with Desmo-J look like?">
+</map>
+</p>
+
+<!-- aus imagemap entfernt 
+	<area shape="rect" coords="416,391,502,410"
+	href="../extensions/0.html"
+	title="Extensions to the core Desmo-J framework">
+	<area shape="rect" coords="538,384,648,400"
+	href="../extensions/harbour0.html"
+	title="Components to model harbour logistics">
+	<area shape="rect" coords="538,406,663,422"
+	href="../extensions/production0.html"
+	title="Components to model production systems">
+-->
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="0.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/overview/0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

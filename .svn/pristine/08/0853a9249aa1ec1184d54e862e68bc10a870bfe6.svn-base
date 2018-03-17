@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Design
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Description of Behaviour (Life Cycles)
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design0.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html" id="current_middle">Model Design</a><ol>
+<li><a href="design0.html">Identification of Relevant Entities (Dynamic Model Components)</a></li>
+<li><a href="design1.html" id="current_middle">Description of Behaviour (Life Cycles)</a></li>
+<li><a href="design2.html">UML Diagrams of Life Cycles</a></li>
+</ol></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+The active entities in our model are the van carrier(s) and the trucks. All trucks have the same "behaviour" in that they arrive at the terminal, queue for service by a van carrier, and finally leave the terminal again. Thus they can all be classed as one <em>type</em> of entity. The same holds true for the van carriers, respectively. We will represent each type of active entity by a different class of simulation process when we implement our conceptual model later.
+</p>
+
+<p>We have identified the following types of entities:</p>
+
+<ul>
+<li>A van carrier is a server in our queueing system. It is a permanent entity, i.e. it is always part of the system, never entering or leaving. </li>
+<li>A truck requests service and can therefore be called a customer (or transaction) in our queueing system. It is a temporary entity, i.e. that it is not always present. It enters the system at some point in time, stays for a while, and then leaves again at some other point in time. In fact, there will be a constant "flow" of trucks through the system.</li>
+</ul>
+
+<p>
+<table><tr><td><img src="../images/pp.gif"></img></td><td>&nbsp;</td>
+<td valign=top>The second step in designing our model of the truck loading zone of a container terminal is to describe the behaviour of every type of entity. We need a clear idea of what these entities do and how they interact. So now it's your turn: Start with the van carrier and write down its tasks, then proceed with the truck. Or better still, draw a UML activity diagram depicting the life cycle of each entity type.</td></tr></table>
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design0.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/design1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

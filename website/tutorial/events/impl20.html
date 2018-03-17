@@ -1,0 +1,154 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Implementation (2)
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Entities
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl21.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html" id="current_middle">The Entities</a></li>
+<li><a href="impl21.html">The Truck Generator Event</a></li>
+<li><a href="impl22.html">The Truck Arrival Event</a></li>
+<li><a href="impl23.html">The Service End Event</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+After finishing the model class we have to implement the dynamic model components of our model. Using the event-oriented modelling style, dynamic model components are represented as events that manipulate entities. We will start with implementing the entities as they are very simple.
+</p>
+
+<p>
+We have identified two types of entities: the trucks and the van carriers. For each type of entity we will derive a class from <tt>desmoj.core.simulator.Entity</tt> <a href="../../doc/desmoj/core/simulator/Entity.html"> (API)</a>. The <b>truck entity</b> doesn't have any attibutes (which is actually quite uncommon but due to the simplicity of our model), so the implementation is straightforward. We only have to define a constructor and pass all parameters over to the constructor of the superclass. Don't forget to import the <tt>desmoj.core.simulator</tt> package.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+/**
+ * The Truck entity encapsulates all information associated with a truck.
+ * Due to the fact that the only thing a truck wants in our model is a single
+ * container, our truck has no special attributes.
+ * All necessary statistical information are collected by the queue object.
+ */
+public class Truck extends Entity {
+   /**
+    * Constructor of the truck entity.
+    *
+    * @param owner the model this entity belongs to
+    * @param name this truck's name
+    * @param showInTrace flag to indicate if this entity shall produce output
+    *                    for the trace
+    */
+   public Truck(Model owner, String name, boolean showInTrace) {
+      super(owner, name, showInTrace);
+   }
+}
+</pre>
+
+<p>
+The <b>van carrier entity</b> is similarly straightforward to implement: Same as the truck, no attributes are required for the purpose of our simple model.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+/**
+ * The VanCarrier entity encapsulates all data relevant for a van carrier.
+ * In our model, it only stores a reference to the truck it is currently
+ * (un)loading.
+ */
+public class VanCarrier extends Entity {
+
+   /**
+    * Constructor of the van carrier entity.
+    *
+    * @param owner the model this entity belongs to
+    * @param name this VC's name
+    * @param showInTrace flag to indicate if this entity shall produce output
+    *                    for the trace
+    */
+   public VanCarrier(Model owner, String name, boolean showInTrace) {
+      super(owner, name, showInTrace);
+   }
+}
+</pre>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl21.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/impl20.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

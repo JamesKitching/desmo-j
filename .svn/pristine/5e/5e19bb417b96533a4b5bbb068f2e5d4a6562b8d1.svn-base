@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Interrupts
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Model Description
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt0.html">prev</a></li><li><a href="interrupt2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html" id="current_middle">Model Description</a></li>
+<li><a href="interrupt2.html">The Model Class</a></li>
+<li><a href="interrupt3.html">The Truck Process</a></li>
+<li><a href="interrupt4.html">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Let us return to the <a href="../processes/1.html">example model</a> of the Processes Step by Step section. It considers the loading zone of a container terminal where trucks arrive to load and/or unload a container. Van carriers operate the yard where containers are stored and fetch or deliver the required container for the trucks. The trucks wait in line until one of the van carriers is free for service. 
+</p>
+
+<p>We assume the following changes to the model description in order to add interrupt behaviour:</p>
+
+<ul>
+<li>Some trucks are marked as <em>urgent</em> (have a high priority) which means they demand immediate service. They may want to reach a particular ship or carry perishable freight.</li>
+<li>If an urgent truck arrives while no van carrier is available it interrupts one of the busy van carriers. This van carrier then immediately places its current customer back into line, services the urgent truck and then continues with the truck that was put back.</li>
+<li>Service for an interrupted truck will have to start over again, i.e. we will not consider that the time needed to "resume" service is any shorter.</li>
+</ul>
+
+<p>
+Urgency will be modelled as a higher priority than usual. In DESMO-J, each entity (including simulation processes) has an in-built attribute <tt>priority</tt> with default value 0. For urgent trucks, this will be set to 2. All queues in DESMO-J are priority-based so that entities with a higher priority are placed on top of the queue. We will use this feature not only to have the urgent trucks served first, but also to ensure that the interrupted trucks are served before any "normal" trucks waiting in line. This is done by raising the priority of an interrupted truck to 1.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt0.html">prev</a></li><li><a href="interrupt2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

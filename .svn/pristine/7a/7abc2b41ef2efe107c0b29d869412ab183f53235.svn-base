@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Processes Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Processes Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Model Implementation (1)
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+Defining Static Model Components
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl0.html">prev</a></li><li><a href="impl2.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html" id="current_middle">Model Implementation (1)</a><ol>
+<li><a href="impl0.html">Deriving the Model Class</a></li>
+<li><a href="impl1.html" id="current_middle">Defining Static Model Components</a></li>
+<li><a href="impl2.html">The init() Method</a></li>
+<li><a href="impl3.html">The doInitialSchedules() Method</a></li>
+<li><a href="impl4.html">The main() Method</a></li>
+</ol></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>Obviously we will at least need the following four items:</p>
+
+<ol>
+<li><p>
+A random number stream to model the time span between the arrival of the trucks at the port.
+We will use a <tt>ContDistExponential</tt> distribution from the <tt>desmoj.core.dist</tt> package <a href="../../doc/desmoj/core/dist/ContDistExponential.html">(see the DESMO-J API)</a>. It provides an exponentially distributed stream of pseudo-random numbers of type <tt>Double</tt> (thanks to Java's automatic "unboxing", this will be automatically converted to the primitive type  <tt>double</tt> where needed). Exponentially distributed random numbers are typically used to model arrival processes in simulation models. As we assume a truck to arrive about every three minutes the mean value of this <tt>ContDistExponential</tt> distribution will be 3.0.
+</p></li>
+<li><p>
+A random number stream to model the time the VC needs to locate the requested container in the storage area, transport it to the loading zone and load it onto the truck. We will use a <tt>ContDistUniform</tt> object from the <tt>desmoj.core.dist</tt> package for this purpose. We will assume that the VC will need between 3.0 to 7.0 minutes to service a truck.
+</p></li>
+<li><p>
+A queue for the waiting container trucks. Since the truck is a subclass of the <tt>SimProcess</tt> class, it is necessary to use a <tt>ProcessQueue</tt> object for the trucks waiting to be serviced. This applies to the queue for the waiting VC too.
+</p></li>
+<li><p>
+A queue for the waiting VC, in case it is idle.
+</p></li>
+</ol>
+
+<p>
+<b>Note:</b> Two quick notes have to be made here. Firstly, we don't bother about reality levels within this tutorial. That means, we will not assume that our models approximate reality in any way more than to fit our imagination. So we will not bother about validating our models, although we <em>don't forget</em> that this is necessary when you model real systems. Our main goal is to <em>teach the use of DESMO-J</em>, not to teach simulation knowledge.
+</p>
+
+<p>
+Secondly, we are free in choosing a time unit for our simulation model. DESMO-J makes no assumption about the time scale to use within its internal event list. It is up to the programmer to keep all simulation times in a proper scale. This becomes extremely important when you start to implement component models, because they possibly use different time scales. For our van carrier model we will use minutes as the time unit.
+</p>
+
+<p>
+Let us now start to turn these results into DESMO-J code. Firstly, we define fields in our model class for the four objects. Note that the streams carry the qualifier <tt>private</tt> in order to encapsulate them as much as possible from their environment, while the queues carry the qualifier <tt>protected</tt>, because we must access them extensively during our simulation. We do not yet instantiate objects for these fields. We will do this later in the <tt>init()</tt> method and an explanation for this approach will follow there.
+</p>
+
+<p>
+Secondly, we will define the number of van carriers operating the loading zone as a model parameter. Thus it is easy to change its value for different experiments.
+</p>
+
+<pre class="code">
+public class ProcessesExample extends Model {
+
+   /**
+    * Model parameter: the number of van carriers
+    */
+   protected static int NUM_VC = 1;
+   /**
+    * Random number stream used to draw an arrival time for the next truck.
+    * See init() method for stream parameters.
+    */
+   private desmoj.core.dist.ContDistExponential truckArrivalTime;
+   /**
+    * Random number stream used to draw a service time for a truck.
+    * Describes the time needed by the VC to fetch and load the container
+    * onto the truck.
+    * See init() method for stream parameters.
+    */
+   private desmoj.core.dist.ContDistUniform serviceTime;
+   /**
+    * A waiting queue object is used to represent the parking area for
+    * the trucks.
+    * Every time a truck arrives it is inserted into this queue (it parks)
+    * and will be removed by the VC for service.
+    *
+    * This way all necessary basic statistics are monitored by the queue.
+    */
+   protected desmoj.core.simulator.ProcessQueue&lt;Truck&gt; truckQueue;
+   /**
+    * A waiting queue object is used to represent the parking spot for
+    * the VC.
+    * If there is no truck waiting for service the VC will return here
+    * and wait for the next truck to come.
+    *
+    * This way all idle time statistics of the VC are monitored by the queue.
+    */
+   protected desmoj.core.simulator.ProcessQueue&lt;VanCarrier&gt; idleVCQueue;
+
+   ...
+
+}
+</pre>
+
+<p>
+Due to the fact that the streams we just have created are private members of the model class, it is necessary to make them accessible through getter-methods. We will therefore implement two getter-methods within the model class to access the random distributions <tt>serviceTime</tt> and <tt>truckArrivalTime</tt>. This is safer than giving them the "protected" status and it is feasible because we will only need to access one method (<tt>sample()</tt>) of these objects, not several.
+</p>
+
+<p>
+The <tt>sample()</tt> method is implemented in every distribution of <tt>desmoj.core.dist</tt>. It returns a sample out of a random stream defined and distributed by the object this method is called on. (<a href="../../doc/desmoj/core/dist/package-summary.html">see API documentation</a>)
+</p>
+
+<pre class="code">
+   /**
+    * Returns a sample of the random stream used to determine the
+    * time needed to fetch the container for a truck from the
+    * storage area and the time the VC needs to load it onto the truck.
+    *
+    * @return double a serviceTime sample
+    */
+   public double getServiceTime() {
+      return serviceTime.sample();
+   }
+   /**
+    * Returns a sample of the random stream used to determine
+    * the next truck arrival time.
+    *
+    * @return double a truckArrivalTime sample
+    */
+   public double getTruckArrivalTime() {
+      return truckArrivalTime.sample();
+   }
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl0.html">prev</a></li><li><a href="impl2.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl1.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

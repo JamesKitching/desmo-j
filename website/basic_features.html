@@ -1,0 +1,165 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>DESMO-J: Basic Features</TITLE>
+
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<A NAME="top"></A>
+
+<TABLE BORDER="0" CELLSPACING="15" CELLPADDING="0" WIDTH="800" NOSAVE >
+ <TR>
+  <td align="right" valign="top">
+        <a href="http://www.uni-hamburg.de"><img src="./images/uhhlogo.gif" width="49" height="49" border="0"></a>
+  </td>
+  <td align="left" valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr><td>
+        <a href="http://www.informatik.uni-hamburg.de"><img src="./images/fbilogo.gif" border="0"></a>
+        </td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td valign="bottom">University of Hamburg<br />Department of Computer Science</td>
+        </tr></table>
+  </td>
+ </TR>
+
+   <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+  <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <a href="./home.html">
+        <img src="./images/desmoj150.jpg" alt="DESMO-J Logo" border="0">
+        </a>
+    </TD>
+    <TD ALIGN="left" valign="bottom">
+        <b>Basic Features</b>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">&nbsp;
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <p>
+The framework DESMO-J extends Java by adding features which greatly simplify the
+construction of discrete-event simulation models. It provides the modeller with
+<ul>
+<li>ready-to-use classes for common model components like queues, stochastic
+distributions based on random number streams, and data collectors.</li>
+<li>abstract classes to be adapted to model-specific behaviour, like model,
+entity, event, and simulation process. Depending on the modelling style applied
+you will have to either define your own simulation processes or define your own
+entities and events.</li>
+<li>ready-to-use simulation infrastructure comprising scheduler, event list, and
+simulation time clock, all encapsulated in an experiment class. This experiment
+class also provides for the generation of reports and traces of a simulation
+run.</li>
+</ul>
+</p>
+<TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Separation of Model and Experiment</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <p>DESMO-J supports the separation of model and experiment, a widely
+acknowledged requirement of good simulation software as it allows for performing
+the same experiment with different models which may represent competing system
+designs or alternative strategies as well as performing different experiments
+with the same model. In DESMO-J the model class handles all model components
+whereas the experiment class provides the simulation infrastructure. Both are
+explicitly connected during a simulation run.
+</p>
+<p>
+<img src="./images/model_exp_separation.gif" title="The separation of model and
+experiment in DESMO-J" alt="The separation of model and
+experiment in DESMO-J"></img>
+</p>
+
+    </TD>
+  </TR>
+<TR>
+    <TD ALIGN="right" VALIGN="top"><b>Package Structure</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+<p>
+The framework is structured into several Java packages; the most important include:
+<ul>
+<li><p><code>desmoj.core</code> provides within its sub-packages all the necessary classes to
+start modelling with DESMO-J:</p>
+<ul>
+<li><p><code>desmoj.core.simulator</code> contains the core classes needed to build a model and
+set up an experiment. Every simulation model will have to derive a subclass of
+<code>Model</code> which sets up the model and connects it to an experiment (an instance of
+<code>Experiment</code>) which in turn controls the simulation run. Other classes in this
+package comprise model components which can either be used directly like <code>Queue</code>
+or <code>ProcessQueue</code> or have to be subclassed like <code>Entity</code>, <code>Event</code>, and
+<code>SimProcess</code>.</p></li>
+<li><p><code>desmoj.core.dist</code> provides numerous probability distributions.</p></li>
+<li><p><code>desmoj.core.report</code> provides DESMO-J's automatic report functionality. At the
+moment, output can be generated in HTML and XML formats.</p></li>
+<li><p><code>desmoj.core.statistic</code> provides a wide range of data collectors, from simple
+counters (Count) to (non) time-weighted mean and deviation of time series data
+(Tally, Accumulate) to frequency distributions (Histogram). All data collectors'
+statistics will be computed and displayed automatically in the end-of-run
+report.</p></li>
+<li><p><code>desmoj.core.advancedModellingFeature</code>s contains classes to be used in
+modelling process synchronization on a more abstract level.</p></li>
+</ul>
+</li>
+
+<li><p>Additional functionality is located at <code>desmoj.extensions</code>:</p>
+<ul>
+<li><p><code>desmoj.extensions.applications</code> contains components to
+facilitate model building in the application domains
+<ul>
+<li>Container terminal logistics</li>
+<li>Production systems</li>
+</ul></p></li>
+<li><p><code>desmoj.extensions.experimentation</code> provides a basic graphical user interface to DESMO-J to run
+experiments and view results.</p></li>
+<li><p><code>desmoj.extensions.visualization2d</code> contains the extension for <a href="http://www.wi-bw.tfh-wildau.de/~cmueller/SimulationAnimation/">2d animation</a>.</p></li>
+<li><p><code>desmoj.extensions.visualization3d</code> contains the 3d visualization component (Java 3D required).</p></li>
+</ul>
+</li>
+</ul>
+
+</p>
+
+<p>Please refer to the <a href="./version_history.html">version history</a> if you are interested in DESMO-J's development.
+    </TD>
+  </TR>
+
+
+    </TD>
+  </TR>
+
+  <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+ <TR>
+    <TD ALIGN="right" VALIGN="top">
+     <FONT SIZE=-1><A HREF="#top">top</A></FONT>
+    </TD>
+    <TD ALIGN="left" valign="top"><FONT SIZE=-1>http://desmoj.sourceforge.net/basic_features.html</FONT></TD>
+  </TR>
+
+  <TR>
+    <TD WIDTH="250"><SPACER type=horizontal size=200></TD>
+    <TD WIDTH="550"><SPACER type=horizontal size=600></TD>
+  </TR>
+</TABLE>
+
+&nbsp;
+
+</BODY>
+
+</HTML>

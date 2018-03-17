@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Advanced Modelling Features
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Advanced Modelling Features
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Interrupts
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Truck Process
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt2.html">prev</a></li><li><a href="interrupt4.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html">Model Description</a></li>
+<li><a href="interrupt2.html">The Model Class</a></li>
+<li><a href="interrupt3.html" id="current_middle">The Truck Process</a></li>
+<li><a href="interrupt4.html">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+There are some distinct changes to the <tt>Truck</tt> class, mostly regarding a truck's life cycle. In the constructor, we now have to determine if the truck is urgent and set its priority accordingly. The <tt>setQueueingPriority(int priority)</tt> and <tt>getQueueingPriority()</tt> methods are provided by DESMO-J's <tt>Entity</tt> class. To keep the code clear and easy to maintain, we define a constant <tt>HIGH</tt> to represent high priority.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+
+public class Truck extends SimProcess {
+
+   /** a code for high priority (= urgent trucks) */
+   public static final int HIGH = 2;
+
+   /** a reference to the model this process is a part of */
+   private InterruptsExample myModel;
+
+   /** constructor of the truck process */
+   public Truck(Model owner, String name, boolean showInTrace) {
+
+      super(owner, name, showInTrace);
+      // store a reference to the model this truck is associated with
+      myModel = (InterruptsExample)owner;
+
+      // determine if this truck is urgent
+      // by drawing a sample of the boolean distribution
+      if (myModel.getTruckIsUrgent()) {
+         // set truck's priority to HIGH
+         this.setQueueingPriority(HIGH);
+      }
+      // default priority of an entity is 0
+   }
+
+</pre>
+
+<p>
+The behaviour of "normal" and urgent trucks is the same as far as arrival at the terminal, enqueueing in the queue for waiting trucks, and checking for available van carriers is concerned. Only if all van carriers are busy, an urgent truck has to get hold of one of the van carriers (by asking the <tt>busyVCQueue</tt> for a reference to the first one) and send it an <tt>interrupt()</tt> message. After that, it can just wait to be serviced as usual. This is possible because the different priorities of standard and urgent trucks make sure that urgent trucks are automatically inserted at the front of the truck queue. Thus the interrupted van carrier will always remove the right truck from the queue.
+</p>
+
+<pre class="code">
+
+public void lifeCycle() throws SuspendExecution {
+
+   // arrive at the loading zone --> insert into queue for waiting trucks
+   myModel.truckQueue.insert(this);
+
+   // check if a VC is available
+   if (!myModel.idleVCQueue.isEmpty()) {
+      // yes, it is
+        // --> remove first van carrier from idle VC queue and activate it
+        ...
+   }
+   // if not, check if this is an urgent truck
+   else if (this.getQueueingPriority() == HIGH) {
+      // yes, this truck is urgent --> interrupt the first busy VC
+
+      // get a reference to the first  VC from the busy VC queue
+      VanCarrier vanCarrier = myModel.busyVCQueue.first();
+      // remove the van carrier from the queue
+      myModel.busyVCQueue.remove(vanCarrier);
+      // interrupt it
+      vanCarrier.interrupt(myModel.urgentTruckArrived);
+   }
+
+   // wait for service
+   passivate();
+
+   // service completed --> leave the system
+   ...
+}
+
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt2.html">prev</a></li><li><a href="interrupt4.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt3.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

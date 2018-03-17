@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+Properties of Entities, EntityTypes, Lists, Processes, Stations and Routes... required for 2D animation. 
+The classes in this package describes only the logical properties, on example: which entities are in a list, 
+or which attributes has an entity). The graphical properties are stored in the package engine.modelGrafic.
+All classes except Attribute, Model and ModelException implements the interface animation.orga.ClassBasic.
+The classes with a graphical representation implements the interface engine.model.Basic, too.   
+The class Model manages all properties of the animated model (simulation-time, ect.)
+Model has also create- and set-methods for all Entities, Lists, ect. 
+So, engine.command.Command.execute must only work with methods from Model.
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Implementation (1)
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Deriving the Model Class
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl0.html">prev</a></li><li><a href="impl1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html" id="current_middle">Model Implementation (1)</a><ol>
+<li><a href="impl0.html" id="current_middle">Deriving the Model Class</a></li>
+<li><a href="impl1.html">Defining Static Model Components</a></li>
+<li><a href="impl2.html">The init() Method</a></li>
+<li><a href="impl3.html">The doInitialSchedules() Method</a></li>
+<li><a href="impl4.html">The main() Method</a></li>
+</ol></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+To implement our conceptual model with DESMO-J we need a model class and simulation process classes for each entity type. The model class has to be derived from the abstract <tt>desmoj.core.simulator.Model</tt> class.
+</p>
+
+<p>
+Open your editor or IDE and create a class called <tt>ProcessesExample</tt> which is derived from <tt>desmoj.core.simulator.Model</tt>. Don't forget to import the relevant DESMO-J packages:
+</p>
+
+<ul>
+<li><tt>desmoj.core.simulator</tt> for all basic modelling classes like <tt>Model</tt>, <tt>SimProcess</tt> and <tt>ProcessQueue</tt>.</li>
+<li><tt>desmoj.core.dist</tt> for stochastic distributions (random number streams).</li>
+</ul>
+
+<p>Then define a constructor that simply hands its parameter values over to its superclass.</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+
+/**
+ * This is the model class. It is the main class of a simple process-oriented
+ * model of the loading zone of a container terminal. Trucks arrive at the
+ * terminal to load containers. They wait in line until a van carrier (VC) is
+ * available to fetch a certain container and load it onto the truck. After
+ * loading is completed, the truck leaves the terminal while the van carrier
+ * serves the next truck.
+ */
+public class ProcessesExample extends Model {
+
+   ...
+
+   /**
+    * ProcessesExample constructor.
+    *
+    * Creates a new ProcessesExample model via calling
+    * the constructor of the superclass.
+    *
+    * @param owner the model this model is part of (set to <tt>null</tt> when there is 
+    *              no such model)
+    * @param modelName this model's name
+    * @param showInReport flag to indicate if this model shall produce output 
+    *                     to the report file
+    * @param showInTrace flag to indicate if this model shall produce output 
+    *                    to the trace file
+    */
+   public ProcessesExample(Model owner, String modelName, boolean showInReport, 
+                                           boolean showInTrace) {
+      super(owner, modelName, showInReport, showInTrace);
+   }
+
+   ...
+
+} /* end of model class */
+</pre>
+
+<p>
+As you look at the <a href="../../doc/desmoj/core/simulator/Model.html">DESMO-J API</a> (Application Programmers Interface) for the <tt>desmoj.core.simulator.Model</tt> class, you will find that this class has three methods which carry the qualifier <tt>abstract</tt>. Therefore you are forced to implement these three methods:
+</p>
+
+     <ol>
+         <li><tt>description()</tt></li>
+         <li><tt>doInitialSchedules()</tt></li>
+         <li><tt>init()</tt></li>
+     </ol>
+
+<p>
+Read the code comments below to see what these methods are intended for. If you are using an IDE, it probably already has added these three methods to your code. If you don't use an IDE, please add the code below to your model class. We will start with implementing the <tt>description()</tt> method because it is the easiest one to do. This method returns a string describing what this model is all about. It will be included in the automatically generated report file.
+</p>
+
+<pre class="code">
+   /**
+    * Returns a description of the model to be used in the report.
+    * @return model description as a string
+    */
+   public String description() {
+      return "This model describes a queueing system located at a "+
+                  "container terminal. Trucks will arrive and "+
+                  "require the loading of a container. A van carrier (VC) is "+
+                  "on duty and will head off to find the required container "+
+                  "in the storage. It will then load the container onto the "+
+                  "truck. Afterwards, the truck leaves the terminal. "+
+                  "In case the VC is busy, the truck waits "+
+                  "for its turn on the parking-lot. "+
+                  "If the VC is idle, it waits on its own parking spot for the "+
+                  "truck to come.";
+   }
+   /**
+    * Activates dynamic model components (simulation processes).
+    *
+    * This method is used to place all events or processes on the
+    * internal event list of the simulator which are necessary to start
+    * the simulation.
+    *
+    * In this case, the truck generator and the van carrier(s) have to be
+    * created and activated.
+    */
+   public void doInitialSchedules() { ... }
+   /**
+    * Initialises static model components like distributions and queues.
+    */
+   public void init() { ... }
+</pre>
+
+<p>
+<table><tr><td><img src="../images/pp.gif"></img></td><td>&nbsp;</td>
+<td valign=top>Before we continue with implementing the other two methods take some time to think about the static model components we will need for our model. Static model components comprise distributions, queues and statistical data collectors. We will skip the data collectors in this simple model, but we will definitely use distributions and queues. Can you work out what kind of each we need?</td></tr></table>
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl0.html">prev</a></li><li><a href="impl1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

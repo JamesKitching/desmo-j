@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+CondQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Model Description
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue0.html">prev</a></li><li><a href="condqueue2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html" id="current_middle">CondQueue</a><ol>
+<li><a href="condqueue0.html">What Is a CondQueue?</a></li>
+<li><a href="condqueue1.html" id="current_middle">Model Description</a></li>
+<li><a href="condqueue2.html">The Model Class</a></li>
+<li><a href="condqueue3.html">The Ship Process</a></li>
+<li><a href="condqueue4.html">The Truck Process</a></li>
+<li><a href="condqueue5.html">The Condition Class</a></li>
+<li><a href="condqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+To demonstrate the use of the <tt>CondQueue&lt;P&gt;</tt> construct we will consider a simple process-oriented model of a container port where trucks are waiting for ships to arrive, in order to deliver or retrieve a container. The model focuses on the interaction of the truck and ship processes and their synchronisation via the condition queue. (Un)loading of ships and trucks is therefore not modelled.
+</p>
+
+<p>
+We assume that each truck is assigned to a particular ship. The truck will arrive at the port when this ship is expected to visit the port and it will wait there until the ship docks and the container exchange can take place.
+</p>
+
+<p>
+The terminal office collects all messages from shipping companies about the expected arrival of one of their ships at the port. Every day at 7 o'clock the terminal office announces which ships are due to arrive at the port within the next 48 hours. (In our implementation we will use this terminal office to generate and activate the ship processes.)
+</p>
+
+<p>
+Now trucks will arrive at the port with loading orders regarding one of the incoming ships. They will enter the parking lot, modelled by a <tt>CondQueue&lt;Truck&gt;</tt> object, and wait until their ship reaches the port.
+</p>
+
+<p>
+Each ship sends a signal message to the <tt>CondQueue&lt;Truck&gt;</tt> to notify the waiting trucks of its arrival. All trucks waiting for this particular ship will thus be able to leave the queue and proceed to the container exchange area. The (un)loading of ships and trucks is not part of the model, so ship and truck processes will simply terminate after their successful synchronisation.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue0.html">prev</a></li><li><a href="condqueue2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/condqueue1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

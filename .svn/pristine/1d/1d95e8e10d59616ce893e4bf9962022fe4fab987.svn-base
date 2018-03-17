@@ -1,0 +1,9 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+ <html>
+   <head>
+     <title>desmoj.extensions.visualization3d</title>
+   </head>
+   <body>
+     Core package of DESMO-J's 3D animation component.
+   </body>
+ </html>

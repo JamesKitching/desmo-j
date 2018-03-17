@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Statistical Data Collectors
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Statistical Data Collectors
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+General Use
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="0.html" id="current_top">Statistical Data Collectors</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="1.html" id="current_middle">General Use</a></li>
+<li><a href="counter0.html">Using a Counter</a></li>
+<li><a href="extended0.html">An Extended Example</a></li>
+</ol></li>
+<li><a href="../advanced/0.html" id="current_bottom">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+
+<p>In general, you will need to apply the following if you want to use a statistical data collector in a DESMO-J model:</p>
+
+<ol>
+<li>Import the package <tt>desmoj.core.statistic</tt> into your model class.</li>
+<li>Add a field (an attribute) of the desired data collector type to your model class.</li>
+<li>Initialise your data collector object in the <tt>init()</tt> method of the model class.</li>
+<li>Throughout your dynamic model components (processes or events), call the <tt>update()</tt> method of the data collector object whenever the value of interest changes.</li>
+</ol>
+
+<p>
+Every statistical data collector in DESMO-J can simply be updated via the <tt>update(type value)</tt> method. The type of value passed as a parameter depends on the data collector; most expect a <tt>double</tt> value whereas the <tt>Count</tt> object needs an integer (type <tt>long</tt>). Counters also provide a parameter-less <tt>update()</tt> method to automatically increment the counter by one.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/statistics/1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

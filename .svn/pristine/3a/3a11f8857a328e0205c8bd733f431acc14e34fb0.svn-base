@@ -1,0 +1,228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+DESMO-J Distilled
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+DESMO-J Distilled
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+Model Implementation (2)
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="2.html">prev</a></li><li><a href="4.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="0.html" id="current_top">DESMO-J Distilled</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Design</a></li>
+<li><a href="2.html">Model Implementation (1)</a></li>
+<li><a href="3.html" id="current_middle">Model Implementation (2)</a></li>
+<li><a href="4.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../at_work/0.html" id="current_bottom">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<h3>Part 2: Classes for Dynamic Model Components</h3>
+<p>
+For each type of dynamic model component you will have to subclass one or more
+of DESMO-J’s abstract component classes. Depending on the modelling style you
+choose this means either defining subclasses of <tt>desmoj.core.simulator.SimProcess</tt>
+or of <tt>desmoj.core.simulator.Entity</tt> and <tt>desmoj.core.simulator.Event</tt>.
+</p>
+
+<h3>Process-interaction Approach (or Process-oriented Modelling Style)</h3>
+
+<p>
+Write a subclass of <tt>desmoj.core.simulator.SimProcess</tt> for each type of dynamic
+model component. This comprises implementing
+</p>
+
+<ul>
+<li>the <tt>lifeCycle()</tt> method. This describes the component’s behaviour consisting
+of instantaneous state changes like setting internal attribute values,
+(de-)queueing entities or scheduling other processes for (re-)activation, and time-consuming
+activities. For these, the <tt>SimProcess</tt> class defines the methods <tt>hold()</tt>
+to model an activity of known duration and <tt>passivate()</tt> to model waiting for an
+indefinite duration. </li>
+<li>a constructor. Here, you should always call the constructor of <tt>SimProcess</tt>
+via <tt>super()</tt> first before you initialise any attributes, if needed.</li>
+</ul>
+
+<p>
+You may download the following <a
+href="../downloads/Processclass_template.java">process class template</a> to aid
+you in building your own simulation process.
+</p>
+
+<pre class="code">
+package &lt;my.package.name&gt;;
+
+// import the DESMO-J stuff
+import desmoj.core.simulator.*;
+
+public class &lt;MyComponentType&gt; extends SimProcess {
+
+   // define attributes here (optional)
+
+   /** constructs a process... */
+   public MyComponentType(MyModel model) {
+      super (model, "&lt;MyComponentTypeName&gt;", true);
+   }
+
+   /** describes this process's life cycle */
+   public void lifeCycle() {
+   }
+
+   // define additional methods here (optional)
+
+} /* end of process class */
+</pre>
+
+<h3>Event-scheduling Approach (or Event-oriented Modelling Style)</h3>
+
+<p>
+Write a subclass of <tt>desmoj.core.simulator.Entity</tt> for each type of dynamic model
+component. This comprises defining entity-specific attributes as class fields,
+implementing a constructor with a call to the constructor of <tt>Entity</tt> via <tt>super()</tt>
+as the first statement, and implementing additional methods if necessary.
+</p>
+
+<p>
+The behaviour of these dynamic model components is specified in events. Write a
+subclass of one of the following classes (all derived from <tt>desmoj.core.simulator.AbstractEvent</tt>)
+<ul>
+<li><tt>Event</tt> (an event that refers to one entity - e.g. a customer leaving the model)</li>
+<li><tt>EventOf2Entities</tt> (an event that refers to two entities - e.g. a server entity completing the request of a customer entity)</li>
+<li><tt>EventOf3Entities</tt> (an event that refers to three entities - e.g. a machine entity assembles two parts represented by two other entities)</li>
+<li><tt>ExternalEvent</tt> (an event that doesn't refer to a entity, but e.g. to the model as whole - e.g. arrival of new custome who is not yet represented by an entity)</li>
+</ul>
+for each type of event in your model.
+
+This comprises implementing
+</p>
+
+<ul>
+<li>the <tt>eventRoutine(...)</tt> method, where the parameters include up to three
+Entities (depending on the relevant subclass of <tt>AbstraceEntity</tt>, see above). 
+This method describes the given entities' behaviour consisting of instantaneous state 
+changes like setting internal attribute values, (de-)queueing entities or scheduling 
+new events. Note that the <tt>eventRoutine()</tt> method of <tt>ExternalEvents</tt>
+is parameterless as it does not take an entity as parameter.</li>
+<li>a constructor. Here, you should always call the constructor of the relevant superclass
+via <tt>super()</tt> first before you initialise any attributes, if needed.</li>
+</ul>
+
+<p>
+You may download the following <a
+href="../downloads/Entityclass_template.java">entity class template</a> and <a
+href="../downloads/Eventclass_template.java">event class template</a> (here, a subclass of
+<tt>Event</tt>, thus accepting one entity as parameter, serves as example) to aid you
+in building your own entities and events.
+</p>
+
+<pre class="code">
+package &lt;my.package.name&gt;;
+
+// import the DESMO-J stuff
+import desmoj.core.simulator.*;
+
+public class &lt;MyEntityType&gt; extends Entity {
+
+   // define attributes here (optional)
+
+   /** constructs an entity... */
+   public MyEntityType(MyModel model) {
+      super (model, "&lt;MyEntityTypeName&gt;", true );
+   }
+
+   // define additional methods here (optional)
+
+} /* end of entity class */
+</pre>
+
+<pre class="code">
+package &lt;my.package.name&gt;;
+
+public class &lt;MyEventType&gt; extends Event&lt;MyEntity&gt {
+
+   // define attributes here (optional)
+
+   /** constructs an event... */
+   public MyEventType(MyModel model) {
+      super (model, "&lt;MyEventTypeName&gt;", true );
+   }
+
+   /** describes what happens during this event */
+   public void eventRoutine(MyEntity who) {
+   }
+
+   // define additional methods here (optional)
+
+} /* end of event class */
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="2.html">prev</a></li><li><a href="4.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/distilled/3.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

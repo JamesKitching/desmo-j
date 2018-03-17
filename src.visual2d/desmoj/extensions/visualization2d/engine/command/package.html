@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+Read and write animation command (cmds) files.
+The syntax of the commands as defined in interface CommandSyntax is checked. 
+CommandFrame includes all static basis functions for read and write cmds and syntax check. For every cmd
+exist a template. The templates are stored in a static hashtable cmdTemplate. 
+When a cmd is read or write, a clone of this cmd-template will created and updated with the 
+parameter of the  cmd.
+The class Command extends from CommandFrame and has a method execute. This method
+is the interface to package engine.model and describe the semantic of a command.
+</body>
+</html>

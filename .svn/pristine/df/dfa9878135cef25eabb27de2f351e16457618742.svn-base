@@ -1,0 +1,29 @@
+<HTML><HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META NAME="Author" CONTENT="Tim Lechler">
+<META NAME="GENERATOR" CONTENT="DESMO-J 1.6">
+<TITLE>.\ResExampleExperiment_report.html</TITLE></HEAD>
+<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#551A8B" ALINK="#FF0000">
+<A NAME="top"></A><br>
+<P><H2><DIV align=center>ResExampleExperiment Report</DIV></H2><P><DIV align=center><H3>Model ResExample</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Description</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>This is a simple model to demonstrate the use of the Res construct.In this model, the 8 berths at the quay of a container terminal are represented by resources.A ship coming into the harbour requires 1 to 3 berths for unloading.After service the ship releases the berths again and leaves the harbour. Report drawn at 1500.0. Last reset at 0.0.</TD></TR>
+</TABLE><P>
+<FONT SIZE=-1><A HREF=#top>top</A></FONT><P>
+<HR><DIV align=center><H3>Resources</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>Order</DIV></B></TD><TD><B><DIV align=left>pass</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Users</DIV></B></TD><TD><B><DIV align=left>Limit</DIV></B></TD><TD><B><DIV align=left>Min</DIV></B></TD><TD><B><DIV align=left>Now</DIV></B></TD><TD><B><DIV align=left>Usage[%]</DIV></B></TD><TD><B><DIV align=left>avg.Wait</DIV></B></TD><TD><B><DIV align=left>QLimit</DIV></B></TD><TD><B><DIV align=left>QMaxL</DIV></B></TD><TD><B><DIV align=left>refus.</DIV></B></TD><TD><B><DIV align=left>DL</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Berths</TD><TD>FIFO</TD><TD>no</TD><TD>0.0</TD><TD>461</TD><TD>8</TD><TD>0</TD><TD>2</TD><TD>89.65</TD><TD>67.95805</TD><TD>unlimit.</TD><TD>38</TD><TD>0</TD><TD>no</TD></TR>
+</TABLE><P>
+<FONT SIZE=-1><A HREF=#top>top</A></FONT><P>
+<HR><DIV align=center><H3>Distributions</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Type</DIV></B></TD><TD><B><DIV align=left>Parameter 1</DIV></B></TD><TD><B><DIV align=left>Parameter 2</DIV></B></TD><TD><B><DIV align=left>Seed</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Service time</TD><TD>0.0</TD><TD>463</TD><TD>Normal</TD><TD>1.0</TD><TD>6.0</TD><TD>43946618</TD></TR>
+<TR VALIGN=TOP><TD>Ship arrival</TD><TD>0.0</TD><TD>473</TD><TD>Negative Exponential</TD><TD>3.0</TD><TD> </TD><TD>91080577</TD></TR>
+<TR VALIGN=TOP><TD>Ship size</TD><TD>0.0</TD><TD>472</TD><TD>Integer Uniform</TD><TD>1.0</TD><TD>3.0</TD><TD>71529105</TD></TR>
+</TABLE><P>
+<FONT SIZE=-1><A HREF=#top>top</A></FONT><P>
+<FONT SIZE=-2>created using <A HREF=http://www.desmoj.de>DESMO-J</A> Version 1.6 at Mon Jan 24 08:40:45 CET 2005 - DESMO-J is licensed under the <A HREF=http://www.apache.org/licenses/LICENSE-2.0>Apache License, Version 2.0</A>.</FONT>
+</BODY></HTML>

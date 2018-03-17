@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Statistical Data Collectors
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Statistical Data Collectors
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+An Extended Example
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Report
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="extended2.html">prev</a></li><li><a href="extended3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="0.html" id="current_top">Statistical Data Collectors</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="1.html">General Use</a></li>
+<li><a href="counter0.html">Using a Counter</a></li>
+<li><a href="extended0.html" id="current_middle">An Extended Example</a><ol>
+<li><a href="extended0.html">Model Description</a></li>
+<li><a href="extended1.html">Necessary Changes to the Model Class</a></li>
+<li><a href="extended2.html">Necessary Changes to the Train and Ship Classes</a></li>
+<li><a href="extended3.html" id="current_middle">The Report</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../advanced/0.html" id="current_bottom">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+The model report now includes a section each for the <tt>Accumulate</tt>, <tt>Tally</tt> and <tt>Histogram</tt> objects where they list their results.
+</p>
+
+<pre class="report">
+<A NAME="top"></A><br>
+<P><H2><DIV align=center>StatisticsExampleExperiment Report</DIV></H2><P><DIV align=center><H3>Model StatisticsExample</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Description</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>
+This is a simple process-oriented model of the railway station inside a container terminal using bins to represent different storage areas. Container ships arrive at the terminal and deliver containers to the storage areas. From there they are loaded onto trains that leave for four different destinations: Northern, Central, and Eastern Europe
+and Germany. Each destination is allocated a storage area (Bin). Trains only load containers from the storage area that is associated with their destination whereas ships deliver containers to all storage areas.<br>
+In addition to the two counters from the CountExample model, several other data collectors are added: a tally to record the average time a trains needs to wait for containers, an accumulate to calculate the mean storage load level of the four storage areas, a time series to log the storage load level of the Northern Europe dedicated storage area, and a histogram to record a distribution of ship sizes. Report drawn at 1500.0. Last reset at 0.0.</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Accumulates</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Mean</DIV></B></TD><TD><B><DIV align=left>Std.Dev</DIV></B></TD><TD><B><DIV align=left>Min</DIV></B></TD><TD><B><DIV align=left>Max</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>storage load level</TD><TD>0.0</TD><TD>3681</TD><TD>293.69475</TD><TD>318.0643</TD><TD>20.0</TD><TD>2541.0</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Tallies</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Mean</DIV></B></TD><TD><B><DIV align=left>Std.Dev</DIV></B></TD><TD><B><DIV align=left>Min</DIV></B></TD><TD><B><DIV align=left>Max</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>train wait time</TD><TD>0.0</TD><TD>3431</TD><TD>1.24017</TD><TD>3.48362</TD><TD>0.0</TD><TD>34.53995</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Histograms</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Mean</DIV></B></TD><TD><B><DIV align=left>Std.Dev</DIV></B></TD><TD><B><DIV align=left>Min</DIV></B></TD><TD><B><DIV align=left>Max</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>ship size</TD><TD>0.0</TD><TD>250</TD><TD>822.44</TD><TD>212.17735</TD><TD>388.0</TD><TD>1505.0</TD></TR>
+</TABLE><P>
+<DIV align=center><H3> </H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Cell</DIV></B></TD><TD><B><DIV align=left>Lower Lim.</DIV></B></TD><TD><B><DIV align=left>n</DIV></B></TD><TD><B><DIV align=left>%</DIV></B></TD><TD><B><DIV align=left>Cum. %</DIV></B></TD><TD><B><DIV align=left>|</DIV></B></TD><TD><B><DIV align=left>Graph</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>0</TD><TD>-Infinity</TD><TD>0</TD><TD>0.0</TD><TD>0.0</TD><TD>|</TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>1</TD><TD>200.0</TD><TD>0</TD><TD>0.0</TD><TD>0.0</TD><TD>|</TD><TD></TD></TR>
+<TR VALIGN=TOP><TD>2</TD><TD>320.0</TD><TD>10</TD><TD>4.0</TD><TD>4.0</TD><TD>|</TD><TD>***</TD></TR>
+<TR VALIGN=TOP><TD>3</TD><TD>440.0</TD><TD>19</TD><TD>7.6</TD><TD>11.6</TD><TD>|</TD><TD>****</TD></TR>
+<TR VALIGN=TOP><TD>4</TD><TD>560.0</TD><TD>37</TD><TD>14.8</TD><TD>26.4</TD><TD>|</TD><TD>********</TD></TR>
+<TR VALIGN=TOP><TD>5</TD><TD>680.0</TD><TD>48</TD><TD>19.2</TD><TD>45.6</TD><TD>|</TD><TD>**********</TD></TR>
+<TR VALIGN=TOP><TD>6</TD><TD>800.0</TD><TD>57</TD><TD>22.8</TD><TD>68.4</TD><TD>|</TD><TD>************</TD></TR>
+<TR VALIGN=TOP><TD>7</TD><TD>920.0</TD><TD>44</TD><TD>17.6</TD><TD>86.0</TD><TD>|</TD><TD>*********</TD></TR>
+<TR VALIGN=TOP><TD>8</TD><TD>1040.0</TD><TD>22</TD><TD>8.8</TD><TD>94.8</TD><TD>|</TD><TD>*****</TD></TR>
+<TR VALIGN=TOP><TD>9</TD><TD>1160.0</TD><TD>8</TD><TD>3.2</TD><TD>98.0</TD><TD>|</TD><TD>**</TD></TR>
+<TR VALIGN=TOP><TD>10</TD><TD>1280.0</TD><TD>3</TD><TD>1.2</TD><TD>99.2</TD><TD>|</TD><TD>*</TD></TR>
+<TR VALIGN=TOP><TD>11</TD><TD>1400.0</TD><TD>2</TD><TD>0.8</TD><TD>100.0</TD><TD>|</TD><TD>*</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Counts</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Current Value</DIV></B></TD><TD><B><DIV align=left>Min</DIV></B></TD><TD><B><DIV align=left>Max</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>number of trains</TD><TD>0.0</TD><TD>3431</TD><TD>3431</TD><TD>0</TD><TD>3431</TD></TR>
+<TR VALIGN=TOP><TD>number of containers</TD><TD>0.0</TD><TD>3431</TD><TD>205685</TD><TD>0</TD><TD>205685</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Bins</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>Order</DIV></B></TD><TD><B><DIV align=left>pass</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Prod</DIV></B></TD><TD><B><DIV align=left>Cons</DIV></B></TD><TD><B><DIV align=left>Init</DIV></B></TD><TD><B><DIV align=left>Max</DIV></B></TD><TD><B><DIV align=left>Now</DIV></B></TD><TD><B><DIV align=left>Averg.</DIV></B></TD><TD><B><DIV align=left>avg.Wait</DIV></B></TD><TD><B><DIV align=left>QLimit</DIV></B></TD><TD><B><DIV align=left>QMaxL</DIV></B></TD><TD><B><DIV align=left>refus.</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Eastern Europe</TD><TD>FIFO</TD><TD>no</TD><TD>0.0</TD><TD>250</TD><TD>853</TD><TD>50</TD><TD>982</TD><TD>54</TD><TD>76.6829</TD><TD>1.24983</TD><TD>unlimit.</TD><TD>1</TD><TD>0</TD></TR>
+<TR VALIGN=TOP><TD>Northern Europe</TD><TD>FIFO</TD><TD>no</TD><TD>0.0</TD><TD>250</TD><TD>880</TD><TD>50</TD><TD>916</TD><TD>0</TD><TD>76.50206</TD><TD>1.19614</TD><TD>unlimit.</TD><TD>1</TD><TD>0</TD></TR>
+<TR VALIGN=TOP><TD>Central Europe</TD><TD>FIFO</TD><TD>no</TD><TD>0.0</TD><TD>250</TD><TD>822</TD><TD>50</TD><TD>603</TD><TD>69</TD><TD>66.30563</TD><TD>1.3146</TD><TD>unlimit.</TD><TD>1</TD><TD>0</TD></TR>
+<TR VALIGN=TOP><TD>Germany</TD><TD>FIFO</TD><TD>no</TD><TD>0.0</TD><TD>250</TD><TD>876</TD><TD>50</TD><TD>745</TD><TD>2</TD><TD>74.20416</TD><TD>1.20516</TD><TD>unlimit.</TD><TD>1</TD><TD>0</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Distributions</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Type</DIV></B></TD><TD><B><DIV align=left>Parameter 1</DIV></B></TD><TD><B><DIV align=left>Parameter 2</DIV></B></TD><TD><B><DIV align=left>Seed</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Ships Arrival Stream</TD><TD>0.0</TD><TD>251</TD><TD>Negative Exponential</TD><TD>6.0</TD><TD> </TD><TD>91080577</TD></TR>
+<TR VALIGN=TOP><TD>No of containers per destination</TD><TD>0.0</TD><TD>1000</TD><TD>Integer Uniform</TD><TD>25.0</TD><TD>400.0</TD><TD>71529105</TD></TR>
+<TR VALIGN=TOP><TD>Train Length Stream</TD><TD>0.0</TD><TD>3435</TD><TD>Integer Uniform</TD><TD>30.0</TD><TD>90.0</TD><TD>43946618</TD></TR>
+</TABLE><P>
+</pre>
+
+<p>
+The <tt>TimeSeries</tt> object has written its output to a log file. We named it <a href="./StatisticsExample_LoadLevelNorth.txt.html" target="new window">StatisticsExample_LoadLevelNorth.txt</a> when initialising the time series. It contains row after row of semi-colon separated pairs of values: the simulation time and the current storage load of the Northern Europe bin.
+</p>
+
+<p>
+You may download the full <a href="../downloads/StatisticsExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="extended2.html">prev</a></li><li><a href="extended3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/statistics/extended3.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

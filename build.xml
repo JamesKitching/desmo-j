@@ -1,0 +1,111 @@
+<project default="cleanup">
+
+	<property name="versionold" value="2.5.1e" />
+	<property name="version" value="2.5.1e" />
+
+	<property name="yearold" value="2017" />
+	<property name="year" value="2017" />
+	
+	<property name="releaseold" value="March 2017" />
+	<property name="release" value="March 2017" />
+
+	<path id="classpath">
+		<fileset dir="./libs" includes="*.jar" />
+		<fileset dir="./libs_jfreechart" includes="*.jar" />
+		<fileset dir="./libs_fiber" includes="*.jar" />
+	</path>
+
+	<target name="prepareversion">
+		<replace dir="." token="DESMO-J, Ver. ${versionold}" value="DESMO-J, Ver. ${version}">
+			<include name="**/*.java" />
+		</replace>
+		<replace dir="." token="copyright (c) ${yearold}" value="copyright (c) ${year}">
+			<include name="**/*.java" />
+		</replace>
+		<replace dir="." token='"${versionold}"' value='"${version}"'>
+			<include name="**/Experiment.java" />
+		</replace>
+		<replace dir="." token="/${versionold}/" value="/${version}/">
+		    <include name="**/*.html" />
+		</replace>
+		<replace dir="." token="-${versionold}-" value="-${version}-">
+		    <include name="**/*.html" />
+		</replace>
+		<replace dir="." token="version is &lt;b&gt;${versionold}&lt;/b&gt;" value="version is &lt;b&gt;${version}&lt;/b&gt;">
+		    <include name="**/*.html" />
+		</replace>
+		<replace dir="." token="version of DESMO-J is ${versionold} as of ${releaseold}" value="version of DESMO-J is ${version} as of ${release}">
+		    <include name="**/*.html" />
+		</replace>
+	</target>
+
+	<target name="javadoc" depends="prepareversion">
+		<delete dir="./bin" />
+		<mkdir dir="./bin" />
+		<javac srcdir="." destdir="./bin" classpathref="classpath" excludes="website/**,src.new/**,src.testFramework/**,src.development/**" target="1.7" source="1.7" />
+
+		<javadoc access="public" destdir="./_javadoc" author="true" version="true" use="true" windowtitle="DESMO-J ${version} API" useexternalfile="yes">
+			<fileset includes="**/*.java" dir="src.core" />
+			<fileset includes="**/*.java" dir="src.experimentation" />
+			<fileset includes="**/*.java" dir="src.application" />
+			<fileset includes="**/*.java" dir="src.visual2d" />
+			<fileset includes="**/*.java" dir="src.visual3d" />
+		</javadoc>
+	</target>
+
+	<target name="export-gen" depends="javadoc">
+
+		<zip destfile="desmoj-${version}-API.zip">
+			<fileset dir="./_javadoc" includes="**/*.*" />
+		</zip>
+
+		<jar destfile="desmoj-${version}-bin.jar">
+			<fileset dir="./bin" includes="**/*.class,**/*.xsl,**/*.html" excludes="**/desmoj/demo/**/*.*" />
+			<fileset dir="./src.visual2d" includes="**/viewer/files/*.xml,**/viewer/files/*.png,**/viewer/files/*.html" />
+			<fileset dir="./libs_bin" includes="**/*.*" excludes="**/org/jfree/**/*.*" />
+		</jar>
+
+		<zip destfile="desmoj-${version}-src.zip">
+			<zipfileset includes="**/*.java" dir="src.core" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.core.lib" prefix="" />
+			<zipfileset includes="**/*.java,**/*.xsl,**/*.html" dir="src.experimentation" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.application" prefix="" />
+			<zipfileset includes="**/*.java,**/viewer/files/*.xml,**/viewer/files/*.png,**/viewer/files/*.html" dir="src.visual2d" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.visual3d" prefix="" />
+			<zipfileset includes="*.jar" dir="./libs" prefix="" />
+			<zipfileset includes="*.jar" dir="./libs_fiber" prefix="" />
+		</zip>
+
+	</target>
+
+	<target name="export-demo" depends="export-gen">
+
+		<jar destfile="desmoj-${version}-demo-bin.jar">
+			<fileset dir="./bin" includes="**/*.class,**/*.xsl,**/*.html" excludes="**/burchardkai/**/*.*,**/constructionVis3D/**/*.*,**/balticSea/*.*" />
+			<fileset dir="./libs_bin" includes="**/*.*" excludes="**/org/jfree/**/*.*" />
+			<fileset dir="./src.visual2d" includes="**/viewer/files/*.xml,**/viewer/files/*.png,**/viewer/files/*.html" />
+			<manifest>
+				<attribute name="Main-Class" value="desmoj.demo.vc_model.Runner" />
+				<attribute name="Class-Path" value="." />
+			</manifest>
+		</jar>
+
+		<zip destfile="desmoj-${version}-demo-src.zip">
+			<zipfileset includes="**/*.java" dir="src.core" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.core.lib" prefix="" />
+			<zipfileset includes="**/*.java,**/*.xsl,**/*.html" dir="src.experimentation" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.application" prefix="" />
+			<zipfileset includes="**/*.java,**/viewer/files/*.xml,**/viewer/files/*.png,**/viewer/files/*.html" dir="src.visual2d" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.visual3d" prefix="" />
+			<zipfileset includes="**/*.java" dir="src.demo/desmoj/demo/vc_model" prefix="" />
+			<zipfileset includes="*.jar" dir="./libs" prefix="" />
+		    <zipfileset includes="*.jar" dir="./libs_fiber" prefix="" />			
+		</zip>
+
+	</target>
+
+	<target name="cleanup" depends="export-demo">
+		<delete dir="./_javadoc" />
+	</target>
+
+</project>

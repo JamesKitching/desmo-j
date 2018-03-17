@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+WaitQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Master-Slave Process Cooperation
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue0.html">prev</a></li><li><a href="waitqueue1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html" id="current_middle">WaitQueue</a><ol>
+<li><a href="waitqueue0.html" id="current_middle">Master-Slave Process Cooperation</a></li>
+<li><a href="waitqueue1.html">Model Description</a></li>
+<li><a href="waitqueue2.html">The Model Class</a></li>
+<li><a href="waitqueue3.html">The Train Process</a></li>
+<li><a href="waitqueue4.html">The Ship Process</a></li>
+<li><a href="waitqueue5.html">The Process Cooperation Class</a></li>
+<li><a href="waitqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<table border="0" cellpadding="8">
+
+<tr>
+<td>
+<img src="../images/common_task.gif" border="0" alt="common task" align=left>
+</td>
+<td valign=top>
+<p>
+Process cooperation is a very common problem in the field of computer science. The question to be solved is how to synchronise two processes so that they can work together on the same task. Usually, this is done in an asymmetric way with one process acting as the active <em>master</em> and the other process as the passive <em>slave</em>. After completing their common task, both processes continue with their separate life cycles.
+</p>
+</td>
+</tr>
+
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+<tr>
+<td valign="top">
+<p>
+DESMO-J provides the <tt>WaitQueue</tt> and <tt>ProcessCoop</tt> classes as a comfortable means to model asymmetric master-slave process synchronisations.
+</p>
+<p>
+A <tt>desmoj.core.advancedModellingFeatures.WaitQueue&lt;M extends SimProcess, S extends SimProcess&gt;</tt> <a href="../../doc/desmoj/core/advancedModellingFeatures/WaitQueue.html">(API)</a> object maintains two internal queues, one for processes cooperating as masters (the <tt>M</tt> queue) and one for processes cooperating as slaves (the <tt>S</tt> queue).
+</p>
+<p>
+A process of type <tt>S</tt> acting as a slave calls the <tt>waitOnCoop()</tt> method of the <tt>WaitQueue</tt> object. The <tt>WaitQueue</tt> automatically inserts the process into the internal slave queue and passivates it. If there is already a master process waiting, their cooperation will be initiated.
+</p>
+<p>
+A process of type <tt>M</tt> acting as a master signals its request for cooperation to the <tt>WaitQueue&lt;M,S&gt;</tt> object by calling the <tt>cooperate(ProcessCoop&lt;M,S&gt; coop)</tt> method. The <tt>WaitQueue&lt;M,S&gt;</tt> looks for a slave in the slave queue and, if there is one available, removes it from the queue and starts the cooperation. Otherwise, the master process will be automatically enqueued and passivated.
+</p>
+</td>
+<td>
+<img src="../images/waitqueue_object.gif" width="291" height="300" border="0" alt="wait queue object"  align=right>
+</td>
+</tr>
+
+<tr>
+<td valign="top">
+<p>
+After cooperation is completed, control returns to the master process and the slave process is scheduled for re-activation right after the master.
+</p>
+</td>
+<td>
+<img src="../images/processcooperation_object.gif" width="329" height="373" border="0" alt="cooperation  object" align=right>
+</td>
+</tr>
+
+</table>
+
+<p>Let us take a look at an example which applies this synchronisation construct.</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue0.html">prev</a></li><li><a href="waitqueue1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/waitqueue0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+DESMO-J at Work
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+DESMO-J at Work
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+The Plain Variant
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="plain0.html">prev</a></li><li><a href="plain2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="0.html" id="current_top">DESMO-J at Work</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="plain0.html" id="current_middle">The Plain Variant</a><ol>
+<li><a href="plain0.html">The Report</a></li>
+<li><a href="plain1.html" id="current_middle">The Trace</a></li>
+<li><a href="plain2.html">The Debug and Error Reports</a></li>
+</ol></li>
+<li><a href="gui0.html">The Graphics Variant</a></li>
+</ol></li>
+<li><a href="../processes/0.html" id="current_bottom">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>After inspecting the model's results you should have a look into the trace file.</p>
+
+<p>
+This file lists all relevant activities of the model's active entities (in our example: container ships) like inserting an entity into queues or scheduling new events. Thus, it is an important means for the modeller to help validate the model. You will find a complete list of
+</p>
+
+<ul>
+<li>the temporarily active model</li>
+<li>the time of action</li>
+<li>the occuring event</li>
+<li>the acting entity and </li>
+<li>the taken actions.</li>
+</ul>
+
+<p><a href="ResExampleExperiment_trace.html" target="new window">Open the trace!</a></p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="plain1.html">prev</a></li><li><a href="plain3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/at_work/plain1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<Layout>
+	<SpatialObjects>
+		<SpatialObject Type="SimpleLocation" Name="TruckSpring">
+			<Position x="-4.0" y="0.0" z="-25.0"/>	
+		</SpatialObject>
+		
+		<SpatialObject Type="SimpleLocation" Name="TruckDrain">
+			<Position x="25.0" y="0.0" z="12.0"/>
+		</SpatialObject>
+		
+		<SpatialObject Type="SimpleLocation" Name="ExcavatorPosition1">
+			<Position x="9.0" y="0.0" z="-4.5"/>
+		</SpatialObject>
+		
+		<SpatialObject Type="SimpleLocation" Name="ExcavatorPosition2">
+			<Position x="4.0" y="0.0" z="3.5"/>
+		</SpatialObject>
+		
+		<SpatialObject Type="SimpleLocation" Name="LoadingPoint1">
+			<Position x="8.0" y="0.0" z="-2.0"/>
+		</SpatialObject>
+		
+		<SpatialObject Type="SimpleLocation" Name="LoadingPoint2">
+			<Position x="2.5" y="0.0" z="5.8"/>
+		</SpatialObject>
+		
+		<SpatialObject Type="TruckQueue" Name="TruckQueue">
+			<EntryPoint name="QueueEntry" x="0.0" y="0.0" z="-1.0"/>
+			<ExitPoint name="QueueExit" x="0.0" y="0.0" z="1.0"/>
+			<Position x="2.0" y="0.0" z="-4.0"/>
+			<Rotation y="0.0"/>
+		</SpatialObject>
+	</SpatialObjects>
+	
+	<Tracks>
+		<Track Type="SimpleTrack" Name="SpringToQueue"
+				Start="TruckSpring"
+				Destination="TruckQueue" EntryPoint="QueueEntry">
+			<WayPoint x="-4.0" y="0.0" z="-8.0"/>
+			<WayPoint x="2.0" y="0.0" z="-6.0"/>	
+		</Track>
+		
+		<Track Type="SimpleTrack" Name="QueueToLoadingPoint1"
+				Start="TruckQueue" ExitPoint="QueueExit"
+				Destination="LoadingPoint1">
+				<WayPoint x="2.1" y="0.0" z="-2.9"/>	
+				<WayPoint x="7.0" y="0.0" z="-3"/>
+		</Track>
+		
+		<Track Type="SimpleTrack" Name="QueueToLoadingPoint2"
+				Start="TruckQueue" ExitPoint="QueueExit"
+				Destination="LoadingPoint2">
+		</Track>
+		
+		<Track Type="SimpleTrack" Name="LoadingPoint1ToDrain"
+				Start="LoadingPoint1"
+				Destination="TruckDrain">
+			<WayPoint x="7.0" y="0.0" z="2.0"/>
+			<WayPoint x="9.0" y="0.0" z="7.0"/>
+			<WayPoint x="12.0" y="0.0" z="12.0"/>
+		</Track>
+		
+		<Track Type="SimpleTrack" Name="LoadingPoint2ToDrain"
+				Start="LoadingPoint2"
+				Destination="TruckDrain">
+			<WayPoint x="2.5" y="0.0" z="9.0"/>
+			<WayPoint x="3.0" y="0.0" z="12.0"/>
+		</Track>
+		
+	</Tracks>
+</Layout>

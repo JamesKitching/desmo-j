@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Design
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+UML Diagrams of Life Cycles
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design1.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html" id="current_middle">Model Design</a><ol>
+<li><a href="design0.html">Identification of Relevant Entities (Dynamic Model Components)</a></li>
+<li><a href="design1.html">Description of Behaviour (Life Cycles)</a></li>
+<li><a href="design2.html" id="current_middle">UML Diagrams of Life Cycles</a></li>
+</ol></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+While describing the sequence of activities for the two entity types (van carrier, truck) in our model, you may have encountered some problems regarding the interaction of van carrier and truck. They do perform a joint activity -- the loading of a container -- but only one of them can be allocated the responsibility for it, i.e. only one of them can actually "do" it. In our case, the natural choice seems to be the van carrier since it is the one (actively) loading the container onto the truck, whereas the truck is only (passively) receiving the container. But keep in mind that in more complex situations the choice may not be so clear.
+</p>
+
+<p>
+Another detail we have neglected so far is how to model waiting space. The trucks need to wait in line until a van carrier is free to fetch and load their container. Well, the term queueing system already says it all: this is done using queues. Our model will need a queue for trucks to enter in case the van carrier is busy. And it will use a second queue for the van carriers to enter in case there are no trucks to serve. This second queue might not seem necessary so long as there's only one van carrier to consider. But it has several advantages:
+</p>
+
+<ul>
+<li>It is a flexible means to keep track of the van carrier(s). All other solutions become difficult to use if there is more than one van carrier in the model.</li>
+<li>In DESMO-J, queues automatically provide statistics about average queue length and waiting time, for example. Thus, we don't have to bother about collecting such data when we implement our model.
+</ul>
+
+<a name="VanCarrier">
+<p>Here's a UML activity diagram of the <b>van carrier's life cycle</b>:</p>
+
+<p>
+<img src="../images/VanCarrierLifeCycle.gif" title="UML activity diagram of the VC's life cycle" alt="UML activity diagram of the VC's life cycle">
+</p>
+
+<p>
+When the VC enters its life cycle it checks if there are any trucks waiting. If there aren't any, the VC inserts itself into the queue for idle VCs and passivates. If there is at least one truck waiting, the VC will remove it from the truck queue and serve it (fetch a container and load it onto the truck). Afterwards, it reactivates the truck (which has been passive since it started waiting) so that it can resume its own life cycle. The VC will then again check if there are any trucks waiting etc. Since the VC is a permanent entity, it will iterate its life cycle in an endless loop.
+</p>
+
+<a name="Truck">
+<p>Here's a UML activity diagram of the <b>truck's life cycle</b>:</p>
+
+<table><tr>
+<td><p>
+<img src="../images/TruckLifeCycle.gif" title="UML activity diagram of the truck's life cycle" alt="UML activity diagram of the truck's life cycle">
+</p></td>
+
+<td valign=top><p>
+Each truck starts its life cycle with inserting itself into the queue for waiting trucks. It then checks if there is an idle VC ready to serve it. If there is one, it removes the VC from the queue of idle VCs and activates it. This is necessary since idle VCs passivate themselves. The truck then just passivates, either waiting for its turn or being directly served by the reactivated VC. After service is completed, the truck is reactivated by the VC and can then leave the terminal -- which in our model means that the process representing the truck will terminate. Remember that trucks are temporary entities which enter and leave the system at some points in time.
+</p></td>
+</tr></table>
+
+<table><tr>
+<td valign=top><p>
+<a name="TruckGenerator">
+The last detail we haven't yet covered is how trucks enter the system. We will need to "generate" truck objects and "feed" them into the system throughout the simulation. There are a number of ways to achieve this, all with their own merits. We will adopt the purely process-oriented modelling style here and use a separate simulation process for the arrival of trucks. This <b>truck generator</b> loops through its life cycle (it is a permanent entity like the VC) of generating a new truck, activating this truck (i.e. letting it arrive at the terminal), and then waiting until the next truck is due to arrive. The inter-arrival times for trucks will be determined by a suitable random distribution.
+</p></td>
+
+<td><p>
+<img src="../images/TruckGeneratorLifeCycle.gif" title="UML activity diagram of the truck generator's life cycle" alt="UML activity diagram of the truck generator's life cycle">
+</p></td>
+</tr></table>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design1.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/design2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Statistical Data Collectors
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Statistical Data Collectors
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Using a Counter
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Necessary Changes to Model and Train Classes
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="counter0.html">prev</a></li><li><a href="counter2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="0.html" id="current_top">Statistical Data Collectors</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="1.html">General Use</a></li>
+<li><a href="counter0.html" id="current_middle">Using a Counter</a><ol>
+<li><a href="counter0.html">Model Description</a></li>
+<li><a href="counter1.html" id="current_middle">Necessary Changes to Model and Train Classes</a></li>
+<li><a href="counter2.html">The Report</a></li>
+</ol></li>
+<li><a href="extended0.html">An Extended Example</a></li>
+</ol></li>
+<li><a href="../advanced/0.html" id="current_bottom">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In the description of the implementation, we will focus on the <tt>Count</tt> objects and their use. To the <b>model class</b> we have to add (i) an import statement for the <tt>desmoj.core.statistic</tt> package, (ii) an attribute each for the two counter objects, and (iii) their initialisation in the <tt>init()</tt> method.
+</p>
+
+<pre class="code">
+
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+import desmoj.core.advancedModellingFeatures.*; 
+import desmoj.core.statistic.*; // NEW
+
+/**
+ * This is the model class. It is the main class of a simple process-oriented
+ * model of the railway station inside a container terminal using bins to
+ * represent different storage areas.
+ * Two counters are added to record the number of trains leaving the
+ * terminal and the overall number of containers exchanged.
+ */
+public class CountExample extends Model {
+   
+   // define model attributes:
+   // distributions
+   ...
+   // bins
+   ...
+
+   /** NEW: a counter to record the number of trains leaving the terminal */
+   protected Count numberOfTrains;
+
+   /** NEW: a counter to record the total number of containers exchanged */
+   protected Count numberOfContainers;
+
+   // constructor
+   ...
+
+   /**
+    * initialises static model components like distributions and queues.
+    */
+   public void init() {
+      // initialise distributions
+      ...
+      // initialise the bins (storage areas)
+      ...
+
+      // NEW: initialise the data collectors (counters)
+      numberOfTrains = new Count(this, "number of trains", true, false);
+      numberOfContainers = new Count(this, "number of containers", true, false);
+   }
+
+   // additional required methods
+   ...
+
+}
+
+</pre>
+
+<p>
+In the life cycle of the <b>train process</b>, the actual update of the counters has to be done. After finishing loading containers and before leaving the terminal, a train now (i) updates the <tt>numberOfTrains</tt> counter by 1, using the parameter-less <tt>update()</tt> method, and (ii) updates the <tt>numberOfContainers</tt> counter with the number of containers it carries, i.e. its length, using the standard <tt>update()</tt> method.
+</p>
+
+<pre class="code">
+
+public void lifeCycle() {
+
+   // arrive at the terminal and load containers
+   ...
+
+   // train is loaded and can leave the system
+
+   // NEW: update statistics (counters)
+   myModel.numberOfTrains.update();
+   myModel.numberOfContainers.update(length);
+
+   ...
+
+}
+
+</pre>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="counter0.html">prev</a></li><li><a href="counter2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/statistics/counter1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

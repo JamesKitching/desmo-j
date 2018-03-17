@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+A swing Application to view a simulation's animation. 
+When you click on an entity, then an InfoPane will be open and show you all properties of this entity. 
+The viewer works in three steps:<br>
+In a first step, you choose a cmds-file.<br>
+In a second step, its reads and animate all init-cmds of this file.<br>
+In the last step, you can start the simulation clock. In this step, the animation runs
+in the chosen speed. This is managed by Class SimulationThread.<br>
+The animation works in three different modes:<br>
+- Continues Flow means the simulation runs in a fixed speed. So it can be, that over a long time, 
+there is no action and in a other short time-period there is a lot of action.<br>
+- StepFlow means that the cmds are blocked in groups of cmds with the same simulation time.
+In this mode, the time between  the blocks are constant.<br>
+- SingleStep is a trace-mode. Here you must press the continue button when you to go from 
+one simulation-block to the next.  
+</body>
+</html>

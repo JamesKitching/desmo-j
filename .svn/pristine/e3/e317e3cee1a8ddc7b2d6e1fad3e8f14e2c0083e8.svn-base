@@ -1,0 +1,9 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+ <html>
+   <head>
+     <title>desmoj.extensions.chaining.report</title>
+   </head>
+   <body>
+        Reporters for the chaining components from <code>desmoj.extensions.chaining</code>.
+   </body>
+ </html>

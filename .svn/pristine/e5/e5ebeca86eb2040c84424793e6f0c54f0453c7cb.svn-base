@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Experimentation
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Conclusion
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp3.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html">Compiling and Running the Model</a></li>
+<li><a href="exp1.html">A Look at the Results</a></li>
+<li><a href="exp2.html">Changing Parameter Values</a></li>
+<li><a href="exp3.html">The Model Trace</a></li>
+<li><a href="exp4.html" id="current_middle">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>Congratulations! You have completed your first process-oriented simulation with DESMO-J.</p>
+
+<p>
+There are many more aspects to DESMO-J like using statistical data collectors or advanced model components, or applying other modelling styles. These are covered in other sections of this tutorial. But with completing this section, you've learned which necessary steps to take to get a (process-oriented) DESMO-J model up and running.
+</p>
+
+<p>Let us briefly summarise what we've done in this section of the tutorial:</p>
+
+<ol start="1" type="1">
+<li>We've started with designing a conceptual model of a system found in the "real" world and identified the most important entities (parts) of that model.</li>
+<li>Then we've implemented our model class. Starting with the static model components (queues, distributions...) we've worked our way through the constructor, the <tt>description()</tt>, <tt>init()</tt> and the <tt>doInitialSchedules()</tt> methods. Last but not least, we've implemented a <tt>main()</tt> method to be able to run our model.</li>
+<li>We've then implemented each of the dynamic model components as simulation processes, which includes defining their behaviour in the <tt>lifeCycle()</tt> method.</li>
+<li>Finally, we've run the model and taken a look at the results. We've also changed our model slightly (varied a model parameter) in order to optimise the queueing system's throughput.</li>
+</ol>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp3.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/exp4.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

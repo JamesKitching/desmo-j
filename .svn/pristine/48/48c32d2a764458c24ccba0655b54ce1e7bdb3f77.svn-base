@@ -1,0 +1,168 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+CondQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Class
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue1.html">prev</a></li><li><a href="condqueue3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html" id="current_middle">CondQueue</a><ol>
+<li><a href="condqueue0.html">What Is a CondQueue?</a></li>
+<li><a href="condqueue1.html">Model Description</a></li>
+<li><a href="condqueue2.html" id="current_middle">The Model Class</a></li>
+<li><a href="condqueue3.html">The Ship Process</a></li>
+<li><a href="condqueue4.html">The Truck Process</a></li>
+<li><a href="condqueue5.html">The Condition Class</a></li>
+<li><a href="condqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In the description of the implementation, we will focus on the <tt>CondQueue</tt> construct and its use. As usual, we derive our own model class from <tt>desmoj.core.simulator.Model</tt>, define the necessary attributes (in this case: distributions, a <tt>CondQueue</tt> object, a <tt>Condition</tt> object to use with the condition queue and references to the terminal office, the currently docked ship and the list of incoming ships), and implement a constructor and the required methods <tt>description()</tt>, <tt>init()</tt> and <tt>doInitialSchedules()</tt> as well as a <tt>main()</tt> method. To be able to use the <tt>CondQueue</tt> construct we will have to import the <tt>desmoj.core.advancedModellingFeatures</tt> package.
+</p>
+
+<p>The following code snippet shows only the parts of the model class relevant to the <tt>CondQueue</tt> object:</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+import desmoj.core.advancedModellingFeatures.*;
+
+/**
+ * This is the model class. It is the main class of a simple process-oriented
+ * model of a container terminal using a condition queue to synchronise incoming
+ * ships and trucks.
+ */
+public class CondQueueExample extends Model {
+
+   /** A CondQueue for trucks waiting on a particular ship */
+   protected CondQueue&lt;Truck&gt; waitingTrucks;
+   /** The condition for the trucks to check if their ship has arrived */
+   protected ShipArrivedCondition shipArrived;
+
+   /** A reference to the ship that's currently in the harbour */
+   protected Ship currentShipInPort = null;
+   /** A list to keep track of the awaited ships (so that trucks
+       can be assigned to them) */
+   protected Vector&lt;Ship&gt; incomingShips = new Vector&lt;Ship&gt;();
+   /** A reference to the terminal office */
+   protected TerminalOffice terminalOffice;
+
+   // additional model attributes: distributions
+   ...
+
+   // constructor
+   ...
+
+   /**
+    * initialises static model components like distributions and queues.
+    */
+   public void init() {
+
+      // initialise distributions
+      ...
+
+      // initialise condition queue
+      waitingTrucks = new CondQueue&lt;Truck&gt;(this, "Waiting Trucks", true, true);
+      // have queue check all entities when notified, not just the first one
+      waitingTrucks.setCheckAll(true);
+
+      // initialise condition the trucks are waiting on
+      shipArrived = new ShipArrivedCondition(this, "Your Ship Arrived!", true);
+   }
+
+
+   // additional required methods
+   ...
+
+}
+</pre>
+
+<p>
+The first statement shown in the <tt>init()</tt> method initialises the <tt>CondQueue</tt>. The subsequent call to the <tt>setCheckAll()</tt> method is necessary to ensure that the queue will check <b>all</b> processes waiting for arrival of ships, not just the first one. The condition itself is instantiated by the last statement. As conditions are specific to models, a model designer has to implement their own condition classes. In this case, we derive a subclass named <tt>ShipArrivedCondition</tt> from DESMO-J's abstract <tt>Condition</tt> class.
+</p>
+
+<p>
+But first we will take a look at the two dynamic model components that use the condition queue. Let us start with the ship.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue1.html">prev</a></li><li><a href="condqueue3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/condqueue2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

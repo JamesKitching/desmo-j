@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+CondQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Condition Class
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue4.html">prev</a></li><li><a href="condqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html" id="current_middle">CondQueue</a><ol>
+<li><a href="condqueue0.html">What Is a CondQueue?</a></li>
+<li><a href="condqueue1.html">Model Description</a></li>
+<li><a href="condqueue2.html">The Model Class</a></li>
+<li><a href="condqueue3.html">The Ship Process</a></li>
+<li><a href="condqueue4.html">The Truck Process</a></li>
+<li><a href="condqueue5.html" id="current_middle">The Condition Class</a></li>
+<li><a href="condqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+When using a condition queue to synchronise processes, a model designer has to specifiy the condition a process is waiting for. DESMO-J expects the model designer to derive a subclass from its abstract <tt>desmoj.core.simulator.Condition&lt;E extends Entity&gt;</tt> class and implement the abstract method <tt>check(E e)</tt>. In our case, a subclass of Condition&lt;Truck&gt; is created, where methode <tt>check(Truck t)</tt> compares the current ship in the harbour (stored in the model's <tt>currentShipInPort</tt> attribute) with the <tt>myShip</tt> attribute of the given truck process:
+</p>
+
+<pre class="code">
+public class ShipArrivedCondition extends Condition&lt;Truck&gt; {
+
+   /**
+    * Constructs a new ShipArrivedCondition.
+    * @param owner the model this condition belongs to
+    * @param name this condition's name
+    * @param showInTrace flag to indicate if this condition shall produce
+    *                    output for the trace
+    */
+   public ShipArrivedCondition(desmoj.core.simulator.Model owner,
+                               String name, boolean showInTrace) {
+	super(owner, name, showInTrace);
+   }
+
+   /** test routine that will be call from the condition queue to check whether
+    *  the condition is met for the given entity (truck).
+    */
+   public boolean check(Truck t) {
+	// is the current ship in port the ship this truck is waiting for?
+	return ((CondQueueExample)getModel()).currentShipInPort == t.myShip;
+   }
+}
+</pre>
+
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue4.html">prev</a></li><li><a href="condqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/condqueue5.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

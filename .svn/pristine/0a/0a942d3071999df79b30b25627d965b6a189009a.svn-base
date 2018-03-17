@@ -1,0 +1,174 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Experimentation
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+A Look at the Results
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp0.html">prev</a></li><li><a href="exp2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html">Compiling and Running the Model</a></li>
+<li><a href="exp1.html" id="current_middle">A Look at the Results</a></li>
+<li><a href="exp2.html">Changing Parameter Values</a></li>
+<li><a href="exp3.html">The Model Trace</a></li>
+<li><a href="exp4.html">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+A DESMO-J experiment automatically produces a number of pre-formatted files, the most important of which will probably be the report. For validation and/or calibration of a model, the error, debug and trace logs come in handy. It is always a good idea to first have a look into the error file, just to ensure that no DESMO-J rule violations occurred like trying to remove an entity from an empty queue.
+</p>
+
+<p><pre class="report">
+ <DIV align=center><H3>EventExampleExperiment - errors & warnings</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>model</DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>error</DIV></B></TD><TD><B><DIV align=left>content</DIV></B></TD></TR>
+</TABLE><P>
+</pre></p>
+
+<p>As you can see, there are no errors or warnings reported by DESMO-J. Note that this does <b>not</b> mean that</p>
+
+<ol start="1" type="a">
+<li>Your simulation is free of errors, especially logical errors.</li>
+<li>Your model is representing the real system in a realistic way.</li>
+</ol>
+
+<p>
+Therefore you have to validate your model before you can assume that its results can be transferred onto the real system. And <b>don't forget</b> that a <b>single</b> simulation run will not offer reliable results, since they are the outcome of a stochastical process. However, we will not discuss these issues here any further. We just assume our model is correct (bearing in mind that we have to compare it to observations we make on a real system).
+</p>
+
+<p>
+Let's have a look at the report. You will find the resulting report file in the directory from which you
+started your simulation run. It's called <tt>EventsExampleExperiment_report.html</tt> and you can simply open it in a browser.
+</p>
+
+<p>The report starts with the model description, followed by the report of the used queues:</p>
+
+<p><pre class="report">
+<P><H2><DIV align=center>EventsExampleExperiment Report</DIV></H2><P><DIV align=center><H3>Model Event-Oriented Simple Van Carrier Model</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Description</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>
+This model describes a queueing system located at a container terminal. Trucks will arrive and require <br>
+the loading of a container. A van carrier (VC) is on duty and will head off to find the required <br>
+container in the storage. It will then load the container onto the truck. Afterwards, the truck leaves <br>
+the terminal. In case the VC is busy, the truck waits for its turn on the parking-lot. If the VC is <br>
+idle, it waits on its own parking spot for the truck to come. Report drawn at 1500.0. Last reset at 0.0.
+</TD></TR>
+</TABLE><P>
+<HR><DIV align=center><H3>Queues</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>Qorder</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>QLimit</DIV></B></TD><TD><B><DIV align=left>Qmax</DIV></B></TD><TD><B><DIV align=left>Qnow</DIV></B></TD><TD><B><DIV align=left>Qavg.</DIV></B></TD><TD><B><DIV align=left>Zeros</DIV></B></TD><TD><B><DIV align=left>avg.Wait</DIV></B></TD><TD><B><DIV align=left>refus.</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Truck Queue</TD><TD>FIFO</TD><TD>0.0</TD><TD>304</TD><TD>unlimit.</TD><TD>171</TD><TD>169</TD><TD>93.19876</TD><TD>1</TD><TD>289.90371</TD><TD>0</TD></TR>
+<TR VALIGN=TOP><TD>idle VC Queue</TD><TD>FIFO</TD><TD>0.0</TD><TD>1</TD><TD>unlimit.</TD><TD>1</TD><TD>0</TD><TD>0.0</TD><TD>1</TD><TD>0.0</TD><TD>0</TD></TR>
+</TABLE><P>
+</pre></p>
+
+<p>
+These results show that there were 304 trucks serviced (Obs = trucks leaving the queue) during our simulation period and only one of it (Zeros =1) went into the queue and got serviced right away. This was most likely the very first truck to arrive at the terminal.
+</p>
+
+<p>
+At the moment the report was drawn there were 169 trucks waiting in the queue, with a maximum queue length of 171 trucks. The average waiting time for a truck was 289.90371 minutes (more than 4 hours) before it got serviced. The truck queue was on an average 93 trucks long (on an average there were 93 trucks waiting in line to be serviced). Well, being a the driver of a container truck certainly doesn't seem to be much fun... <code>;-)</code>
+</p>
+
+<p>
+The van carrier on the other hand is working continually without a break. It has only once entered the idle queue waiting for trucks to arrive, right at the beginning of the simulation.
+</p>
+
+<p>The report finishes with the distributions used in the model:</p>
+
+<p><pre class="report">
+<P>
+<HR><DIV align=center><H3>Distributions</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>Type</DIV></B></TD><TD><B><DIV align=left>Parameter 1</DIV></B></TD><TD><B><DIV align=left>Parameter 2</DIV></B></TD><TD><B><DIV align=left>Seed</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>ServiceTimeStream</TD><TD>0.0</TD><TD>304</TD><TD>Cont Uniform</TD><TD>3.0</TD><TD>7.0</TD><TD>71529105</TD></TR>
+<TR VALIGN=TOP><TD>TruckArrivalTimeStream</TD><TD>0.0</TD><TD>473</TD><TD>Cont Exponential</TD><TD>3.0</TD><TD> </TD><TD>91080577</TD></TR>
+</TABLE><P>
+</pre></p>
+
+<p>
+As you can see there were 304 samples drawn from the <tt>ServiceTimeStream</tt> (Obs). This number corresponds with the 304 trucks we observed having left the truck queue. If you add these 304 trucks and the 169 trucks currently waiting for service, you will end up with the 473 samples drawn from the <tt>TruckArrivalStream</tt>.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp0.html">prev</a></li><li><a href="exp2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/exp1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

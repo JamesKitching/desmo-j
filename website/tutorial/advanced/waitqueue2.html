@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+WaitQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Class
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue1.html">prev</a></li><li><a href="waitqueue3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html" id="current_middle">WaitQueue</a><ol>
+<li><a href="waitqueue0.html">Master-Slave Process Cooperation</a></li>
+<li><a href="waitqueue1.html">Model Description</a></li>
+<li><a href="waitqueue2.html" id="current_middle">The Model Class</a></li>
+<li><a href="waitqueue3.html">The Train Process</a></li>
+<li><a href="waitqueue4.html">The Ship Process</a></li>
+<li><a href="waitqueue5.html">The Process Cooperation Class</a></li>
+<li><a href="waitqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In the description of the implementation, we will focus on the <tt>WaitQueue</tt> construct and its use. As usual, we derive our own model class from <tt>desmoj.core.simulator.Model</tt>, define the necessary attributes (in this case: distributions, a counter for the number of serviced ships, a <tt>WaitQueue</tt> object, and a <tt>ProcessCoop</tt> object to use with the wait queue), and implement a constructor and the required methods <tt>description()</tt>, <tt>init()</tt> and <tt>doInitialSchedules()</tt> as well as a <tt>main()</tt> method. To be able to use the <tt>WaitQueue</tt> construct we will have to import the <tt>desmoj.core.advancedModellingFeatures</tt> package.
+</p>
+
+<p>The following code snippet shows only the parts of the model class relevant to the <tt>WaitQueue</tt> object</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+import desmoj.core.advancedModellingFeatures.*;
+
+/**
+ * This is the model class. It is the main class of a simple process-oriented
+ * model of a busy seaport loading coal from trains onto ships using direct
+ * process synchronisation via the WaitQueue construct.
+ */
+ public class WaitQueueExample extends Model {
+
+   /** A wait queue used to synchronise trains and ships */
+   protected WaitQueue&lt;Ship,Train&gt; transferPoint;
+   /** The transfer of coal from train to ship (a process cooperation)*/
+   protected CoalTransfer coalTransfer;
+
+   // additional model attributes: distributions and data collectors
+   ...
+
+   // constructor
+   ...
+
+   /**
+    * initialises static model components like distributions and queues.
+    */
+   public void init() {
+
+	// initialise distributions and data collectors
+	...
+
+	// initialise wait queue
+	transferPoint = new WaitQueue&lt;Ship,Train&gt;(this, "coal transfer", true, true);
+
+	// initialise the process cooperation
+	coalTransfer = new CoalTransfer(this);
+   }
+
+
+   // additional required methods
+   ...
+
+}
+</pre>
+
+<p>
+The first statement shown in the <tt>init()</tt> method initialises the <tt>WaitQueue</tt>. Trains will enter this wait queue as slaves, ships as masters, specifying the common task (in this case: unloading the train and loading the coal onto the ship) as a process cooperation. This process cooperation is instantiated by the last statement. Because cooperations are specific to models, a model designer has to implement their own process cooperation classes. In this case, we derive a subclass named <tt>CoalTransfer</tt> from DESMO-J's abstract <tt>ProcessCoop</tt> class.
+</p>
+
+<p>
+But first we will take a look at the two dynamic model components that use the wait queue. Let us start with the train.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue1.html">prev</a></li><li><a href="waitqueue3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/waitqueue2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

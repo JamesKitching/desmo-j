@@ -1,0 +1,186 @@
+
+  /* define color scheme */
+
+  /* body { background: #EBEBEB; color: black } */
+  body { color: black }
+
+  A:link { color: #3300CC; text-decoration: none }
+  A:visited { color: #333399; text-decoration: none }
+  A:active { color: #3300CC; text-decoration: none }
+
+  /* andere Farben für die Links der Navigationsleiste*/
+  /*A.left:link { color: #FFFFFF; text-decoration: none }
+  A.left:visited { color: #C0C0C0; text-decoration: none }
+  A.left:active { color: #FFFFFF; text-decoration: none }
+  A.left:hover { color: #FFFF33; text-decoration: none }*/
+
+
+  H1 { /*font-size: x-large;*/ font-family: Tahoma, Arial, sans-serif }
+  H2 { /*font-size: large;*/ font-family: Tahoma, Arial, sans-serif }
+  H3 { /*font-size: large;*/ font-family: Tahoma, Arial, sans-serif }
+
+  .table_def {
+   			 /*background: #EBEBEB; */
+			 border-width: 0;
+			 margin: 0;
+			 padding: 0;
+			 width: 100%;
+			 }
+
+  .col_left {
+  			/*background: #777799; */
+			color: #EBEBEB;
+			text-align: left; /*right; */
+			vertical-align: top;
+			width: 150;
+			padding-right: 10;
+			font-family: Tahoma, Arial, sans-serif;
+			font-size: medium;
+			}
+
+ .col_right {
+  			/*background: #EBEBEB;*/
+			padding-left: 10;
+			text-align: left;
+			vertical-align: text-top;
+			}
+
+ .row_nav {
+  		  background: #777799;
+		  color: #EBEBEB;
+		  text-align: left;
+		  vertical-align: middle;
+		  font-size: medium;
+		  font-family: Tahoma, Arial, sans-serif;
+		  }
+
+ .row_url {
+ 		  padding-left: 10;
+ 		  text-align: left;
+ 		  vertical-align: text-bottom;
+ 		  font-size: small;
+ 		  font-family: Tahoma, Arial, sans-serif;
+ 		  }
+
+ .colorblock {
+  		  background: #1B2367; /* #172258;  #333399; */
+		  width: 25;
+		  }
+
+ .code { font-family: Courier, monospace; font-size: medium; text-align: left; background: white }
+
+ .note { font-size: small }
+
+ .report { text-align: left; background: white }
+
+
+/* the navigation bar */
+
+div#navbar ul {
+	display: block;
+	margin: 4px 0 4px 0;
+	padding: 0;
+	background: #777799;
+	color: #EBEBEB;
+	font-weight: normal;
+	list-style: none;
+	}
+
+div#navbar li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+	}
+
+div#navbar li a {
+	text-decoration: none;
+	text-align: center;
+	color: #EBEBEB;
+	display: inline;
+	margin: 0;
+	padding: 5px 10px 5px 10px;
+	border-right: 1px dotted #EBEBEB;
+	}
+
+div#navbar li a:hover {
+	color: #EBEBEB;
+	background: #9999BB;
+	text-decoration: none;
+	}
+
+div#navbar li a:active {
+	color: #FFFF33;
+	background: #BBBBDD;
+	text-decoration: none;
+	}
+
+
+/* the navigation menu (on the left) */
+
+div#navigation ul {
+	list-style: none;
+	font-weight: normal;
+	display: block;
+	margin: 0 0 0 5px;
+	padding: 0;
+	}
+
+div#navigation ol {
+	list-style: none;
+	font-weight: normal;
+	display: block;
+	margin: 0 0 0 5px;
+	padding: 0;
+	}
+
+html>body div#navigation ol{
+	margin: 0 0 0 15px;
+	}
+
+div#navigation li {
+	display: block;
+	margin: 0;
+	padding: 0;
+	}
+
+div#navigation li a {
+	text-decoration: none;
+	border-spacing: 0;
+	display: block;
+	margin: 0 0 0 1px;
+	padding: 2px 2px 2px 12px;
+	color: #EBEBEB;
+	border-top: 0 none;
+	}
+
+/*html>body div#navigation li a {
+	margin: 0 0 0 5px;
+	padding: 2px 2px 2px 12px;
+	}*/
+
+div#navigation li a#current_top {
+	border-top: 1px dotted #EBEBEB;
+	color: #E8B715;
+	}
+
+div#navigation li a#current_middle {
+	color: #E8B715;
+	}
+
+div#navigation li a#current_bottom {
+	border-top: 1px dotted #EBEBEB;
+	}
+
+
+div#navigation li a:hover {
+	color: #EBEBEB;
+	background: #9999BB;
+	text-decoration: none;
+	}
+
+div#navigation li a:active {
+	color: #FFFF33;
+	background: #BBBBDD;
+	text-decoration: none;
+	}
+

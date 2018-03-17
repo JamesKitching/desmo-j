@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Bin
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="bin4.html">prev</a></li><li><a href="bin5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html" id="current_middle">Bin</a><ol>
+<li><a href="bin0.html">What Is a Bin?</a></li>
+<li><a href="bin1.html">Model Description</a></li>
+<li><a href="bin2.html">The Model Class</a></li>
+<li><a href="bin3.html">The Ship Process</a></li>
+<li><a href="bin4.html">The Train Process</a></li>
+<li><a href="bin5.html" id="current_middle">The Model Trace</a></li>
+</ol></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+We take a look at the model trace at the randomly chosen simulation time 31.8825.
+At this time Ship#9 arrives and delivers new containers to each bin:
+</p>
+
+<pre class="report">
+<DIV align=center><H3>BinExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left> </DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.0</TD><TD>TraceOn#1</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<tr><td> </td><td>...</td><td> </td><td>...</td><td>...</td></tr>
+<TR VALIGN=TOP><TD> </TD><TD>31.8825</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#9' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 7.7612 until 39.6437</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#9</TD><TD>stores 348 to ' Eastern Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>number of containers in east: 431</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>stores 87 to ' Northern Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>number of containers in north: 423</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>stores 260 to ' Central Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>number of containers in central: 500</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>stores 179 to ' Germany '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>number of containers in german: 205</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>leaves the port</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Ship#9 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Train to Germany#39</TD><TD>takes 65 from 'Germany'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Train to Germany#40' at 32.3825</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Train to Germany#39 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Train to Eastern Europe#23</TD><TD>takes 90 from 'Eastern Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Train to Eastern Europe#24' at 32.3825</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Train to Eastern Europe#23 terminates</TD></TR>
+</table>
+</pre>
+
+<p>
+Trains load containers and leave the terminal, heading for the four destinations. After a while, at simulation time 36.0713, the northern bound trains aren't able to obtain their requested number of containers anymore. The same happens to the central bound train directly afterwards. Then the next ship (Ship#10) arrives and frees the trains by delivering enough containers to the storage areas.
+</p>
+
+<pre class="report">
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD> </TD><TD>36.0713</TD><TD> </TD><TD>Train to Northern Europe#44</TD><TD>Train length:  54 containers</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>36.0713</TD><TD> </TD><TD> </TD><TD>awaits 54 of 'Northern Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>36.3802</TD><TD> </TD><TD>Train to Central Europe#33</TD><TD>Train length:  56 containers</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>36.3802</TD><TD> </TD><TD> </TD><TD>awaits 56 of 'Central Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#10' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>holds for 0.7393 until 40.3831</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>Ship#10</TD><TD>stores 171 to ' Eastern Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>number of containers in east: 199</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>stores 49 to ' Northern Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>number of containers in north: 65</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>stores 95 to ' Central Europe '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>number of containers in central: 137</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>stores 179 to ' Germany '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>number of containers in german: 203</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>leaves the port</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>Ship#10 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>Train to Germany#42</TD><TD>takes 30 from 'Germany'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>activates 'Train to Germany#43' at 40.1437</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>Train to Germany#42 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>Train to Central Europe#33</TD><TD>takes 56 from 'Central Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>activates 'Train to Central Europe#34' at 40.1437</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>Train to Central Europe#33 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>Train to Northern Europe#44</TD><TD>takes 54 from 'Northern Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>activates 'Train to Northern Europe#45' at 40.1437</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>Train to Northern Europe#44 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD>Train to Eastern Europe#30</TD><TD>takes 51 from 'Eastern Europe'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>activates 'Train to Eastern Europe#31' at 40.1437</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>39.6437</TD><TD> </TD><TD> </TD><TD>Train to Eastern Europe#30 terminates</TD></TR>
+</table>
+</pre>
+
+<p>
+You may download the full <a href="../downloads/BinExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="bin4.html">prev</a></li><li><a href="bin5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/bin5.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

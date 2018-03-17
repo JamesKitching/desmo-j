@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+WaitQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Train Process
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue2.html">prev</a></li><li><a href="waitqueue4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html" id="current_middle">WaitQueue</a><ol>
+<li><a href="waitqueue0.html">Master-Slave Process Cooperation</a></li>
+<li><a href="waitqueue1.html">Model Description</a></li>
+<li><a href="waitqueue2.html">The Model Class</a></li>
+<li><a href="waitqueue3.html" id="current_middle">The Train Process</a></li>
+<li><a href="waitqueue4.html">The Ship Process</a></li>
+<li><a href="waitqueue5.html">The Process Cooperation Class</a></li>
+<li><a href="waitqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Trains are modelled as simulation processes. Since the actual unloading of a train is not part of our model, a ship doesn't have much to do. Let's have a look at the <tt>lifeCycle()</tt> of the <tt>Train</tt> class:
+</p>
+
+<pre class="code">
+/**
+ * Describes this train's life cycle:
+ *
+ * On arrival, the train requests to be unloaded, which may result
+ * in the train having to wait for an empty ship. After transferring
+ * its coal onto a ship a train leaves the harbour again.
+ */
+public void lifeCycle() throws SuspendExecution {
+
+   // get a reference to the model
+   WaitQueueExample model = (WaitQueueExample)getModel();
+
+   // create and schedule successor
+   new Train(model).activate(new TimeSpan(model.trainArrivals.sample(), TimeUnit.MINUTES));
+
+   // arrive at the harbour:	
+   // request to be unloaded --> may cause delay
+   model.transferPoint.waitOnCoop();
+
+   // leave the system
+}
+</pre>
+
+<p>
+As you can see, the train's life cycle is very simple. After arriving at the harbour the train immediately requests unloading. As train processes are modelled as slaves, this means the train calls the <tt>waitOnCoop()</tt> method of the <tt>transferPoint</tt> wait queue to wait for a suitable master (ship process). If there are no ships available, the wait queue automatically enqueues the train and passivates it. Otherwise, the wait queue retrieves the first master process from its internal master queue and starts the cooperation of both, ship (master) and train (slave).
+</p>
+
+<p>
+The train process will be automatically re-activated after unloading is finished. The train just leaves the system after that.
+</p>
+
+<p>
+One statement in the train's life cycle might need some additional explanation. What's the deal with creating and scheduling a successor process? Well, it is just one of the options a model designer has to generate new objects. In other process-oriented models, we have usually implemented a separate generator process to let the temporary processes arrive in the system. Having each process generate its successor is just another possibility to do this.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue2.html">prev</a></li><li><a href="waitqueue4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/waitqueue3.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

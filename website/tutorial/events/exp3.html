@@ -1,0 +1,241 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Experimentation
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp2.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html">Compiling and Running the Model</a></li>
+<li><a href="exp1.html">A Look at the Results</a></li>
+<li><a href="exp2.html">Changing Parameter Values</a></li>
+<li><a href="exp3.html" id="current_middle">The Model Trace</a></li>
+<li><a href="exp4.html">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+We will take a short look into the trace file now, because this file will let you gain a good insight of the model's behaviour. It shows how the entities in our model interact and how the events are scheduled.
+</p>
+
+<p>
+The trace file starts with messages showing that recording the trace and debug output is started. Then the external truck generator event schedules the arrival of the first truck (TruckArrivalEvent#1) and reschedules itself for simulation time 0.9500 when the next truck is due to enter the system. During the first truck arrival event Truck#1 inserts itself into the queue of waiting trucks. It then proceeds to remove the first idle van carrier (VanCarrier#1) from its queue. Finally, a new service end event is scheduled for simulation time 3.1666. The next thing happening in our model is the arrival of another truck at simulation time 0.9500. This truck is serviced by the second van carrier until simulation time 7.3666.
+</p>
+
+<p>
+In the meantime, the third truck arrives at the terminal (at 1.0333) and the service of the first truck is finished (at 3.1666) which results in Truck#1 leaving the system and VanCarrier#1 moving on to load the newly arrived Truck#3.
+</p>
+
+<p><pre class="report">
+<DIV align=center><H3>EventExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left</DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.0000</TD><TD>----</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Debug switched on</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 0.0000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckGenerator#1</TD><TD> </TD><TD>schedules 'TruckArrivalEvent#1' of 'Truck#1' at 0.0000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 0.9500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#1</TD><TD>Truck#1</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes VanCarrier#1 from 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes itself from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#1' of 'VanCarrier#1' and 'Truck#1' at 3.1666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.9500</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#2' of 'Truck#2' at 0.9500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 1.0333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#2</TD><TD>Truck#2</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes VanCarrier#2 from 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes itself from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#2' of 'VanCarrier#2' and 'Truck#2' at 7.3666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>1.0333</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#3' of 'Truck#3' at 1.0333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 5.6500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#3</TD><TD>Truck#3</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3.1666</TD><TD>ServiceEndEvent#1</TD><TD>VanCarrier#1 and Truck#1</TD><TD>Truck#1 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#3 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#3' of 'VanCarrier#1' and 'Truck#3' at 8.5000.</TD></TR>
+</table>
+</pre></p>
+
+<p>
+Later on, a number of trucks arrive in short succession while both van carriers are busy, resulting in the queue of waiting trucks starting to build up. But as the report has already proven, they are able to decrease the queue again.
+</p>
+
+<p><pre class="report">
+ <TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD> </TD><TD>13.5666</TD><TD>ServiceEndEvent#4</TD><TD>VanCarrier#2 and Truck#4</TD><TD>Truck#4 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#7 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#7' of 'VanCarrier#2' and 'Truck#7' at 19.8333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>13.7166</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#8' of 'Truck#8' at 13.7166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 15.6166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#8</TD><TD>Truck#8</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>15.6166</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#9' of 'Truck#9' at 15.6166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 15.8666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#9</TD><TD>Truck#9</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 2</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>15.8666</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#10' of 'Truck#10' at 15.8666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 19.7333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#10</TD><TD>Truck#10</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>17.0666</TD><TD>ServiceEndEvent#6</TD><TD>VanCarrier#1 and Truck#6</TD><TD>Truck#6 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#8 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#8' of 'VanCarrier#1' and 'Truck#8' at 21.7000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.7333</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#11' of 'Truck#11' at 19.7333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 20.1000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#11</TD><TD>Truck#11</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.8333</TD><TD>ServiceEndEvent#7</TD><TD>VanCarrier#2 and Truck#7</TD><TD>Truck#7 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#9 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#9' of 'VanCarrier#2' and 'Truck#9' at 24.3833.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.1000</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#12' of 'Truck#12' at 20.1000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 20.6500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#12</TD><TD>Truck#12</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.6500</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#13' of 'Truck#13' at 20.6500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 21.8000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#13</TD><TD>Truck#13</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.7000</TD><TD>ServiceEndEvent#8</TD><TD>VanCarrier#1 and Truck#8</TD><TD>Truck#8 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#10 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#10' of 'VanCarrier#1' and 'Truck#10' at 26.1666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.8000</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#14' of 'Truck#14' at 21.8000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 22.6333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#14</TD><TD>Truck#14</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>22.6333</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#15' of 'Truck#15' at 22.6333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 27.6666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#15</TD><TD>Truck#15</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 5</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>24.3833</TD><TD>ServiceEndEvent#9</TD><TD>VanCarrier#2 and Truck#9</TD><TD>Truck#9 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#11 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#11' of 'VanCarrier#2' and 'Truck#11' at 27.7166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>26.1666</TD><TD>ServiceEndEvent#10</TD><TD>VanCarrier#1 and Truck#10</TD><TD>Truck#10 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#12 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#12' of 'VanCarrier#1' and 'Truck#12' at 31.5166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>27.6666</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#16' of 'Truck#16' at 27.6666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 31.5166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#16</TD><TD>Truck#16</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>27.7166</TD><TD>ServiceEndEvent#11</TD><TD>VanCarrier#2 and Truck#11</TD><TD>Truck#11 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#13 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#13' of 'VanCarrier#2' and 'Truck#13' at 32.3833.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>31.5166</TD><TD>ServiceEndEvent#12</TD><TD>VanCarrier#1 and Truck#12</TD><TD>Truck#12 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#14 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#14' of 'VanCarrier#1' and 'Truck#14' at 37.9500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#17' of 'Truck#17' at 31.5166.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 32.2833.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#17</TD><TD>Truck#17</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>32.2833</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#18' of 'Truck#18' at 32.2833.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 35.2666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#18</TD><TD>Truck#18</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>32.3833</TD><TD>ServiceEndEvent#13</TD><TD>VanCarrier#2 and Truck#13</TD><TD>Truck#13 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#15 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#15' of 'VanCarrier#2' and 'Truck#15' at 35.3833.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>35.2666</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#19' of 'Truck#19' at 35.2666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 46.7000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#19</TD><TD>Truck#19</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>35.3833</TD><TD>ServiceEndEvent#15</TD><TD>VanCarrier#2 and Truck#15</TD><TD>Truck#15 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#16 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#16' of 'VanCarrier#2' and 'Truck#16' at 41.8000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>37.9500</TD><TD>ServiceEndEvent#14</TD><TD>VanCarrier#1 and Truck#14</TD><TD>Truck#14 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#17 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#17' of 'VanCarrier#1' and 'Truck#17' at 44.8500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>41.8000</TD><TD>ServiceEndEvent#16</TD><TD>VanCarrier#2 and Truck#16</TD><TD>Truck#16 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#18 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#18' of 'VanCarrier#2' and 'Truck#18' at 47.8666.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>44.8500</TD><TD>ServiceEndEvent#17</TD><TD>VanCarrier#1 and Truck#17</TD><TD>Truck#17 leaves the terminal</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#19 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'ServiceEndEvent#19' of 'VanCarrier#1' and 'Truck#19' at 51.5333.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>46.7000</TD><TD>TruckGenerator#1</TD><TD>----</TD><TD>schedules 'TruckArrivalEvent#20' of 'Truck#20' at 46.7000.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>schedules 'TruckGenerator#1' at 50.7500.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD>TruckArrivalEvent#20</TD><TD>Truck#20</TD><TD>inserts itself into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>TruckQueueLength: 1</TD></TR>
+
+</table>
+</pre></p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp2.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/exp3.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

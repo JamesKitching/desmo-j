@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Advanced Modelling Features
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Advanced Modelling Features
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Interrupts
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Van Carrier Process
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt3.html">prev</a></li><li><a href="interrupt5.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html">Model Description</a></li>
+<li><a href="interrupt2.html">The Model Class</a></li>
+<li><a href="interrupt3.html">The Truck Process</a></li>
+<li><a href="interrupt4.html" id="current_middle">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+In the life cycle of a van carrier, we now have to add code to handle interrupts. In our model there is only one kind of interrupt: an urgent truck interrupts a busy van carrier in the service of a non-urgent truck. As the service is modelled via a <tt>hold()</tt> statement, the van carrier process now has to check for interruption when regaining control after this statement.
+</p>
+
+<p>
+The method <tt>isInterrupted()</tt> returns <tt>true</tt> if the process was interrupted; otherwise <tt>false</tt>. If there has been an interrupt, the van carrier has to stop servicing the current truck and start service for the urgent truck. We model this by having the van carrier insert the current truck back into the queue of waiting trucks after raising its priority by 1. This ensures that an interrupted truck has a higher priority than a standard truck but still a lower priority than an urgent truck -- which in turn ensures that it is sorted into the queue behind any urgent trucks but in front of any standard trucks. Thus the van carrier will resume service on the interrupted truck right after finishing the urgent truck.
+</p>
+
+<p>
+Since the van carrier's life cycle operates in a constant loop, placing the interrupted truck into the waiting queue at an approriate place is enough to handle the interrupt. The van carrier will now return to the top of the <tt>while</tt> loop, find that the truck queue is NOT empty and proceed with servicing the first truck in the queue. Due to the priority-based order of the queue, the first truck is just the urgent truck that has caused the interruption!
+</p>
+
+<p>
+So all left to do in the interrupt handling is re-setting the status of the van carrier process from <em>interrupted</em> to <em>non-interrupted</em>. This is done via the <tt>clearInterruptCode()</tt> method.
+</p>
+
+<pre class="code">
+public void lifeCycle() throws SuspendExecution {
+
+   // the van carrier is always on duty and will never stop working
+   while (true) {
+      // check if there is someone waiting
+      if (myModel.truckQueue.isEmpty()) {
+
+         // NO, there is no one waiting
+         // --> insert self into the idle VC queue and passivate
+         ...
+      }
+      else {
+
+         // YES, here is a customer (truck) waiting
+         // --> remove the first truck from the queue of waiting trucks
+         Truck truck = myModel.truckQueue.first();
+         myModel.truckQueue.remove(truck);
+
+         // insert self into busy VC queue
+         myModel.busyVCQueue.insert(this);
+
+         // fetch container and load it onto truck
+         hold(new TimeSpan(myModel.getServiceTime(), TimeUnit.MINUTES));
+
+         // check if an urgent truck interrupted the service
+         if (isInterrupted()) {
+
+            // yes, there has been an interrupt
+            // --> handle the interrupt
+            sendTraceNote("interrupted!");
+
+            // raise priority of the interrupted truck
+            truck.setQueueingPriority(truck.getQueueingPriority() + 1);
+            // insert it back into the queue of waiting trucks
+            // --> due to higher priority it will be inserted before any
+            //     "normal" trucks so that it will be served prior to them
+            myModel.truckQueue.insert(truck);
+
+            // clear interrupt code
+            this.clearInterruptCode();
+         }
+         else {
+            // no, there has been no interrupt
+            // --> the service is completed and the truck may leave
+            truck.activate();
+         }
+      }
+   }
+}
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt3.html">prev</a></li><li><a href="interrupt5.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt4.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

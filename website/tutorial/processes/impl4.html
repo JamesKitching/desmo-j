@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Implementation (1)
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The main() Method
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl3.html">prev</a></li><li><a href="impl4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html" id="current_middle">Model Implementation (1)</a><ol>
+<li><a href="impl0.html">Deriving the Model Class</a></li>
+<li><a href="impl1.html">Defining Static Model Components</a></li>
+<li><a href="impl2.html">The init() Method</a></li>
+<li><a href="impl3.html">The doInitialSchedules() Method</a></li>
+<li><a href="impl4.html" id="current_middle">The main() Method</a></li>
+</ol></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+We won't use any of DESMO-J's GUI features for this simple model. Therefore, we have to implement a <tt>main()</tt> method to run the model. The <tt>main()</tt> method of a DESMO-J model has a very typical structure. The main tasks of this method are:
+</p>
+
+<ol>
+<li>instantiate an experiment</li>
+<li>instantiate the model</li>
+<li>connect the model to the experiment</li>
+<li>determine the length of the simulation run or set an ending criterion for the simulation run</li>
+<li>set the start and end time for the trace file</li>
+<li>start the scheduler</li>
+<li>initiate reporting</li>
+<li>clean up after the simulation run has ended</li>
+</ol>
+
+<p>We will now take a step by step look at the <tt>main()</tt> method of our van carrier model.</p>
+
+<pre class="code">
+/**
+ * Runs the model.
+ *
+ * @param args is an array of command-line arguments (will be ignored here)
+ */
+public static void main(java.lang.String[] args) {
+
+   // create model and experiment
+   ProcessesExample model = new ProcessesExample(null,
+                         "Simple Process-Oriented Van Carrier Model", true, true);
+   // null as first parameter because it is the main model and has no mastermodel
+
+   Experiment exp = new Experiment("ProcessExampleExperiment");
+   // ATTENTION, since the name of the experiment is used in the names of the
+   // output files, you have to specify a string that's compatible with the
+   // filename constraints of your computer's operating system.
+</pre>
+
+<p>
+The first statement instantiates a model object. Please note that the first parameter of the model constructor is passed the value <tt>null</tt>. This is to express that the model just instantiated is not part of another model (no <code>ModelComponent</code>). This is probably the only time, where you pass <tt>null</tt> as value to the constructor. All other parts of the model (<code>ModelComponent</code>s) receive this newly created model as a reference to the model they belong to.
+</p>
+
+<p>The second statement creates a new experiment. As you can see in the comment, it is necessary to choose a name that is a valid filename for your OS. DESMO-J does not check the given string, it will only add the four suffixes:
+</p>
+
+       <ul>
+          <li>"_report"</li>
+          <li>"_trace"</li>
+          <li>"_error"   and </li>
+          <li>"_debug"</li>
+       </ul>
+
+<p>and then write all model output to these files.</p>
+
+<p>
+Note that the experiment has no model parameter in its constructor call. It is not a part of the model, it only gets connected to it.
+</p>
+
+<pre class="code">
+   // ... main() continued
+
+   // connect both
+   model.connectToExperiment(exp);
+</pre>
+
+<p>
+This method is used to create a connection between the model and its associated experiment. From now on, all components of the model have access to the simulation infrastructure (e.g. event list, simulation clock) hidden inside the experiment. The framework will call the model's <tt>init()</tt> method within this statement.
+</p>
+
+<pre class="code">
+   // ... main() continued
+
+   // set experiment parameters
+   exp.setShowProgressBar(true);  // display a progress bar (or not)
+   exp.stop(new TimeInstant(1500, TimeUnit.MINUTES));   // set end of simulation at 1500 minutes
+   exp.tracePeriod(new TimeInstant(0), new TimeInstant(100, TimeUnit.MINUTES));
+                                              // set the period of the trace
+   exp.debugPeriod(new TimeInstant(0), new TimeInstant(50, TimeUnit.MINUTES));   // and debug output
+      // ATTENTION!
+      // Don't use too long periods. Otherwise a huge HTML page will
+      // be created which crashes Netscape :-)
+</pre>
+
+<p>
+The first statement specifies if the progress of the simulation experiment is to be visualised via a progress bar. Pass the value <tt>true</tt> to the <tt>setShowProgressBar()</tt> method if you want a progress bar to be displayed.
+</p>
+
+<p>
+The second statement specifies the commonly used end criterion: a point in simulation time at which the simulation shall stop. It is also possible to set a more <a href="../../doc/desmoj/core/simulator/Experiment.html#stop(desmoj.core.simulator.Condition)">complex ending criterion (API)</a> with a predefined condition.
+</p>
+
+<p>
+The third and fourth statement specify the length of the trace and debug record. DESMO-J will stop recording these two report files for the simulation run after the given period of simulation time. Don't use too long periods, otherwise the size of the written HTML files will become quite huge. Your browser might encounter severe problems with displaying the files and crash. </p>
+
+<pre class="code">
+   // ... main() continued
+
+   // start the experiment at simulation time 0.0
+   exp.start();
+
+   // --> now the simulation is running until it reaches its end criterion
+   // ...
+   // ...
+   // <-- afterwards, the main thread returns here
+
+   // generate the report (and other output files)
+   exp.report();
+
+   // stop all threads still alive and close all output files
+   exp.finish();
+}
+</pre>
+
+<p>What's left is to start the experiment... and then collect its results and shut everything off nicely. That's all.</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl3.html">prev</a></li><li><a href="impl4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl4.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

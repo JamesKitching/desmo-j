@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Advanced Modelling Features
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Advanced Modelling Features
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Interrupts
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Model Class
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt1.html">prev</a></li><li><a href="interrupt3.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html">Model Description</a></li>
+<li><a href="interrupt2.html" id="current_middle">The Model Class</a></li>
+<li><a href="interrupt3.html">The Truck Process</a></li>
+<li><a href="interrupt4.html">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+In the description of the implementation, we will focus on how to use the interrupt feature in DESMO-J. Thus we will only regard the necessary additions to the source code of the <tt>ProcessesExample</tt> model. As the <tt>interrupt()</tt> method is already part of the <tt>desmoj.core.simulator.SimProcess</tt> class, we don't have to import any additional packages. What we do need in the model class, however, is a queue for the busy van carriers so that urgent trucks may get a reference to one of them for interruption. We also add a boolean distribution to determine if a new truck is urgent and the interrupt code to pass as a parameter to an interrupted van carrier.
+</p>
+
+<p>The following code snippet shows only the relevant parts of the model class.</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+
+/**
+ * This is the model class. It is the main class of a process-oriented
+ * model of the loading zone of a container terminal where urgent trucks
+ * are always serviced first.
+ */
+public class InterruptsExample extends Model {
+
+   /** Random number stream used to determine if a truck is urgent. */
+   private BoolDistBernoulli urgentStream;
+
+   /** Queue for busy VCs. This is needed in order for an urgent truck to be
+    *  able to interrupt a VC if there is no idle VC available.
+    */
+   protected ProcessQueue&lt;VanCarrier&gt; busyVCQueue;
+
+   /** An interrupt code to tell the interrupted VC that an urgent truck
+    *  is awaiting service.
+    */
+   protected InterruptCode urgentTruckArrived;
+
+   // additional model attributes: other distributions and queues
+   ...
+
+   // constructor
+   ...
+
+   /**
+    * initialises static model components like distributions and queues.
+    */
+   public void init() {
+
+        // initialise distributions
+        urgentStream = new BoolDistBernoulli(this, "UrgentTruckStream", 0.1,
+                                             true, false);
+           // 10% of all trucks are considered urgent
+        ...
+
+        // initialise queues
+        busyVCQueue = new ProcessQueue&lt;VanCarrier&gt;(this, "busy VC Queue", true, true);
+        ...
+
+        // initialise interrupt code
+        urgentTruckArrived = new InterruptCode("Urgent Truck Arrived");
+   }
+
+   /** Returns a sample of the random stream used to determine
+    *  if a truck is urgent.
+    *  @return boolean  <tt>true</tt> if the truck is urgent; <tt>false</tt> otherwise
+    */
+   public boolean getTruckIsUrgent() {
+        return urgentStream.sample();
+   }
+
+   // additional required methods
+   ...
+
+}
+</pre>
+
+<p>
+Nothing special here, as you can see. The real changes have to be made to the life cycles of the process classes. Let us start with the truck.
+</p>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt1.html">prev</a></li><li><a href="interrupt3.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt2.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

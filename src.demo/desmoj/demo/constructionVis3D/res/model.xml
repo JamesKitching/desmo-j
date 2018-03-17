@@ -1,0 +1,18 @@
+<Models>
+	<ActiveObjects>
+		<Model VisualModel="Excavator" FileName=".\src.demo\desmoj\demo\constructionVis3D\res\bagger.obj"/>
+		<Model VisualModel="Truck" FileName=".\src.demo\desmoj\demo\constructionVis3D\res\truck.obj"/>
+	</ActiveObjects>
+	
+	<Decorations>
+		<DecorItem FileName=".\src.demo\desmoj\demo\constructionVis3D\res\sky.obj">
+			<Rotate y="2.0"/>
+			<Scale x="1.0" y="1.0" z="1.0"/>
+			<Position x="0.0" y="0.0" z="0.0"/>	
+		</DecorItem>
+		<DecorItem FileName=".\src.demo\desmoj\demo\constructionVis3D\res\city.obj"/>
+		<DecorItem FileName=".\src.demo\desmoj\demo\constructionVis3D\res\street2.obj"/>
+		<DecorItem FileName=".\src.demo\desmoj\demo\constructionVis3D\res\construct.obj"/>
+		/src.demo/desmoj/demo/constructionVis3D/res
+	</Decorations>
+</Models>

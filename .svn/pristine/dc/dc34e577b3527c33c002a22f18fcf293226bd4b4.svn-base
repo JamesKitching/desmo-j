@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Events Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Events Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Experimentation
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+Compiling and Running the Model
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp0.html">prev</a></li><li><a href="exp1.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html" id="current_middle">Compiling and Running the Model</a></li>
+<li><a href="exp1.html">A Look at the Results</a></li>
+<li><a href="exp2.html">Changing Parameter Values</a></li>
+<li><a href="exp3.html">The Model Trace</a></li>
+<li><a href="exp4.html">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+Now that all necessary classes are implemented, you need to compile them in order to be able to run the model. In case you did not succeed with implementing the classes on your own, you may download the complete <a
+href="../downloads/EventsExample.zip">source code</a> of the <tt>EventsExample</tt> model. Of course you will also need the <a href="../../download.html">DESMO-J framework</a>, so if you haven't downloaded it yet now is the time to do so. Make sure you add the <tt>desmoj-2.5.1e-bin.jar</tt> file (or a different distribution you have chooen) as a library to your IDE or - if you don't use an IDE - place it in the same directory as your source files.
+</p>
+
+<p>Compiling and running the model is easiest from inside an IDE. If you don't use an IDE, follow these steps:</p>
+
+<ol>
+<li>In a command shell, change into the directory where your source files (and the <code>desmoj-2.5.1e-bin.jar</code> file) are located.</li>
+<li>Invoke the java compiler by issuing the command <br/><code>javac -cp desmoj-2.5.1e-bin.jar; *.java</code> (Windows environment) or <br/><code>javac -cp desmoj-2.5.1e-bin.jar: *.java</code> (Linux environment).</li>
+<li>If the compiler generates any error messages, return to your editor and correct the syntax errors. Save the modified file(s) and try compiling them again. Repeat this procedure until compilation is successful.</li>
+<li>Run the model by issuing the command <br/><code>java -cp desmoj-2.5.1e-bin.jar; EventsExample</code> (Windows environment) or <br/><code>java -cp desmoj-2.5.1e-bin.jar: EventsExample</code> (Linux environment).</li>
+</ol>
+
+<p>With or without IDE, running the model will produce output to the shell. You will see the following start-up message:</p>
+
+<pre class="code">
+
+EventsExampleExperiment starts at simulation time 0.0
+ ...please wait...
+
+</pre>
+
+<p>
+If you've set the experiment to show a progress bar (via <code>exp.setShowProgressBar(true);</code>) then a progress bar window will pop up. Note that you'll have to close this window manually after the simulation stops to really stop execution of the model.
+</p>
+
+<p>
+<img src="../images/progressbar_e.gif" title="The progress bar window" alt="The progress bar window"></img>
+</p>
+
+<p>The execution stops quite unspectacularly with the message:</p>
+
+<pre class="code">
+
+EventsExampleExperiment stopped at simulation time 1500.0
+
+</pre>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp0.html">prev</a></li><li><a href="exp1.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/exp0.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

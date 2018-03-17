@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Design
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Description of Behaviour (Events)
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design0.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html" id="current_middle">Model Design</a><ol>
+<li><a href="design0.html">Identification of Relevant Entities</a></li>
+<li><a href="design1.html" id="current_middle">Description of Behaviour (Events)</a></li>
+<li><a href="design2.html">UML Diagrams of Events</a></li>
+</ol></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+The relevant entities in our model are the van carrier(s) and the trucks. As our model is very simple, neither of them has any special attributes. The identity of the entities is ensured by the framework and we won't monitor these objects for further information, like average service time or type of container received. We will represent each type of entity by a different subclass of DESMO-J's <tt>Entity</tt> class when we implement our conceptual model later.
+</p>
+
+<p>We have identified the following types of entities:</p>
+
+<ul>
+<li>A van carrier is a server in our queueing system. It is a permanent entity, i.e. it is always part of the system, never entering or leaving.</li>
+<li>A truck requests service and can therefore be called a customer in our queueing system. It is a temporary entity, i.e. that it is not always present. It enters the system at some point in time, stays for a while, and then leaves again at some other point in time. In fact, there will be a constant "flow" of trucks through the system.</li>
+</ul>
+
+<p>
+<table><tr><td><img src="../images/pp.gif"></img></td><td>&nbsp;</td>
+<td valign=top>The second step in designing our model of the truck loading zone of a container terminal is to describe the behaviour of the system. To do this, we need to identify the events that "drive" our model. So now it's your turn again: Write down the types of events that occur at the truck loading zone. It might be helpful to picture the states a truck goes through from the point in time it enters the system until the point in time it leaves again. For each event type, specify the transformations and interactions of the relevant entities, e.g. by drawing a UML activity diagram.
+</td></tr></table>
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="design0.html">prev</a></li><li><a href="design2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/design1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Res
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Class
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res1.html">prev</a></li><li><a href="res3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html" id="current_middle">Res</a><ol>
+<li><a href="res0.html">What Is a Res?</a></li>
+<li><a href="res1.html">Model Description</a></li>
+<li><a href="res2.html" id="current_middle">The Model Class</a></li>
+<li><a href="res3.html">The Ship Process</a></li>
+<li><a href="res4.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In the description of the implementation, we will focus on the <tt>Res</tt> construct and its use. As usual, we derive our own model class from <tt>desmoj.core.simulator.Model</tt>, define the necessary attributes (in this case: distributions and a <tt>Res</tt> object), and implement a constructor and the required methods <tt>description()</tt>, <tt>init()</tt> and <tt>doInitialSchedules()</tt> as well as a <tt>main()</tt> method. To be able to use the <tt>Res</tt> construct we will have to import the <tt>desmoj.core.advancedModellingFeatures</tt> package.
+</p>
+
+<p>The following code snippet shows only the parts of the model class relevant to the <tt>Res</tt> object.</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import desmoj.core.dist.*;
+import desmoj.core.advancedModellingFeatures.Res;
+
+/**
+ * This is the model class. It is the main class of a simple process-oriented
+ * model of the quay of a container terminal using resources to represent berths.
+ */
+public class ResExample extends desmoj.core.simulator.Model {
+
+   /** model parameter: the number of berths at the quay */
+   static int NUM_BERTHS = 8;
+
+   /** A Res construct used to model the berths	*/
+   Res berths;
+
+   // additional model attributes, e.g. distributions
+   ...
+
+   // constructor
+   ...
+
+   /**
+    * initialises static model components like distributions and queues.
+    */
+   public void init() {
+
+      // initialise distributions
+      ...
+
+      // initialise the Res construct
+      berths = new Res(this, "Berths", NUM_BERTHS, true, true);
+   }
+
+
+   // additional required methods
+   ...
+
+}
+</pre>
+
+<p>
+In this case the <tt>Res</tt> object receives a number of 8 initial resources which it can distribute to its customers. Remember, these resources are not consumable and it is not possible to add additional resources during the use of the object.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res1.html">prev</a></li><li><a href="res3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/res2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Distributions
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Distributions
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Overview
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="0.html" id="current_top">Distributions</a><ol>
+<li><a href="0.html" id="current_middle">Overview</a></li>
+<li><a href="1.html">General Use</a></li>
+</ol></li>
+<li><a href="../statistics/0.html" id="current_bottom">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Distributions in DESMO-J provide you with a powerful possibility to supply your simulations with a nearly endless stream of random numbers. DESMO-J uses Java's built-in random number generator (<tt>java.util.Random</tt>) which uses a linear congruential method with a cycle of 2<sup>45</sup> random numbers. The produced samples of one period can be considered statistically independent. So although computer generated random numbers are of course always deterministic (or pseudo-random), this ensures enough "randomness" to model stochastic processes.
+</p>
+
+<p>
+Based on the data type of the produced samples, DESMO-J differentiates between numerical distributions, entity distributions and boolean distributions
+(base classes <tt>NumericalDist</tt>, <tt>EntityDist</tt> and <tt>BoolDist</tt>).. At the moment, the following distributions are ready to use:
+</p>
+
+<p>
+<table>
+<tr><th align="left">Class</th><th>&nbsp;&nbsp;</th><th align="left">Return type</th><th>&nbsp;&nbsp;</th><th align="left">Distribution</th></tr>
+<tr><td><tt>BoolDistBernoulli</tt></td>        <td width="5">&nbsp;</td> <td><tt>boolean</tt></td>         <td width="5">&nbsp;</td> <td>Bernoulli distribution</td></tr>
+<tr><td><tt>BoolDistConstant</tt></td>         <td width="5">&nbsp;</td> <td><tt>boolean</tt></td>         <td width="5">&nbsp;</td> <td>Constant boolean distribution</td></tr>
+<tr><td><tt>ContDistEmpirical</tt></td>        <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Continuous empirical distribution</td></tr>
+<tr><td><tt>ContDistErlang</tt></td>           <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Erlang distribution</td></tr>
+<tr><td><tt>ContDistExponential</tt></td>      <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Exponential distribution</td></tr>
+<tr><td><tt>ContDistGamma</tt></td>            <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Gamma distribution</td></tr>
+<tr><td><tt>ContDistNormal</tt></td>           <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Normal distribution</td></tr>
+<tr><td><tt>ContDistTriangular</tt></td>       <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Triangular distribution</td></tr>
+<tr><td><tt>ContDistUniform</tt></td>          <td width="5">&nbsp;</td> <td><tt>Double</tt></td>          <td width="5">&nbsp;</td> <td>Continuous uniform distribution</td></tr>
+<tr><td><tt>DiscreteDistBinomial</tt></td>     <td width="5">&nbsp;</td> <td><tt>Long</tt                  <td width="5">&nbsp;</td> <td>Binomial distribution</td></tr>
+<tr><td><tt>DiscreteDistConstant</tt></td>     <td width="5">&nbsp;</td> <td>Flexible, e.g. <tt>Integer</tt></td> <td width="5">&nbsp;</td> <td>Constant numerical distribution</td></tr>
+<tr><td><tt>DiscreteDistEmpirical</tt></td>    <td width="5">&nbsp;</td> <td>Flexible, e.g. <tt>Integer</tt></td> <td width="5">&nbsp;</td> <td>Discrete empirical distribution</td></tr>
+<tr><td><tt>DiscreteDistPoisson</tt></td>      <td width="5">&nbsp;</td> <td><tt>Long</tt                  <td width="5">&nbsp;</td> <td>Discrete empirical distribution</td></tr>
+<tr><td><tt>DiscreteDistUniform</tt></td>      <td width="5">&nbsp;</td> <td><tt>Long</tt                  <td width="5">&nbsp;</td> <td>Discrete (integer) uniform distribution</td></tr>
+<tr><td><tt>EntityDistEmpirical</tt></td>      <td width="5">&nbsp;</td> <td><tt>Entity</tt></td>          <td width="5">&nbsp;</td> <td>Distribution of Entities (probabilities assigned per entity)</td></tr>
+<tr><td><tt>EntityDistUniform</tt></td>        <td width="5">&nbsp;</td> <td><tt>Entity</tt></td>          <td width="5">&nbsp;</td> <td>Distribution of Entities (probabilities equal for all entities)</td></tr>
+
+
+</table>
+</p>
+
+<p>
+The constant distributions are provided for testing purposes. Instances of these two classes always return the same value. </p>
+<p>
+In addition, <tt>ContDistAggregate</tt> allows to aggregate (e.g. add or multiply) two distributions, while <tt>ContDistCustom</tt> is parameterised using an arbitrary cumulative distribution function implementing the interface <tt>desmoj.core.dist.Function</tt>.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/distributions/0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

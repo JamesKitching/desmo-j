@@ -1,0 +1,206 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Events Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Events Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Model Implementation (2)
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Truck Arrival Event
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl21.html">prev</a></li><li><a href="impl23.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html">The Entities</a></li>
+<li><a href="impl21.html">The Truck Generator Event</a></li>
+<li><a href="impl22.html" id="current_middle">The Truck Arrival Event</a></li>
+<li><a href="impl23.html">The Service End Event</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+To implement the <b>truck arrival event</b> derive a class named <tt>TruckArrivalEvent</tt> from <tt>Event</tt>: This is the subclass of <tt>AbstractEvent</tt> able to handle a single entity (the truck), add the appropriate import statement and define the constructor. This time, we also define a field (attribute) to store a reference to the model in and assign it a value inside the constructor.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+/**
+ * This class represents the truck arrival event
+ * in the EventsExample model.
+ * It occures when a truck arrives at the terminal
+ * to request loading of a container.
+ */
+public class TruckArrivalEvent extends Event&lt;Truck&gt; {
+
+   /**
+    * A reference to the model this event is a part of.
+    * Useful shortcut to access the model's static components
+    */
+   private EventsExample myModel;
+
+   /**
+    * Constructor of the truck arrival event
+    *
+    * Used to create a new truck arrival event
+    *
+    * @param owner the model this event belongs to
+    * @param name this event's name
+    * @param showInTrace flag to indicate if this event shall produce output
+    *                    for the trace
+    */
+   public TruckArrivalEvent(Model owner, String name, boolean showInTrace) {
+      super(owner, name, showInTrace);
+      // store a reference to the model this event is associated with
+      myModel = (EventsExample)owner;
+   }
+</pre>
+
+<p>
+Now we have to implement the <tt>eventRoutine()</tt> method. Please refer to the <a href="design2.html#TruckArrivalEvent">conceptual model</a> if you need a reminder of what happens when a truck arrives in the loading zone. We start with inserting the truck entity into the queue of waiting trucks (which models the parking lot) and checking if there is a van carrier availabe for service.
+</p>
+
+<pre class="code">
+   /**
+    * This eventRoutine() describes what happens when a truck
+    * enters the terminal.
+    *
+    * On arrival, the truck will enter the queue (parking lot). It will then
+    * check if the van carrier is available.
+    * If this is the case, it will occupy the van carrier and schedule a
+    * service end event.
+    * Otherwise the truck just waits (does nothing).
+    */
+   public void eventRoutine(Truck truck) {
+
+      // truck enters parking-lot
+      myModel.truckQueue.insert(truck);
+      sendTraceNote("TruckQueueLength: "+ myModel.truckQueue.length());
+
+      // check if a VC is available
+      if (!myModel.idleVCQueue.isEmpty())
+</pre>
+
+<p>
+We will now follow the "YES" branch of the statement, meaning there is at least one van carrier available, so service can start immediately. For this we have to
+</p>
+
+<ol>
+<li>remove the VC from the queue of idle van carriers</li>
+<li>then remove the truck from the queue of waiting trucks again</li>
+<li>and finally create and schedule a service end event to model the unloading of the truck. The time it takes for the unloading to be completed will be determined by a sample from a suitable distribution (the model's service time stream).</li>
+</ol>
+
+<p>
+We already mentioned that the reason for inserting the van carrier into the <tt>busyVCQueue</tt> is that we need to keep a reference to the van carrier <em>past</em> the termination of the current <tt>eventRoutine()</tt>.
+</p>
+
+<pre class="code">
+      {
+         // yes, it is
+
+         // get a reference to the first VC from the idle VC queue
+         VanCarrier vanCarrier = myModel.idleVCQueue.first();
+         // remove it from the queue
+         myModel.idleVCQueue.remove(vanCarrier);
+
+         // remove the truck from the queue
+         myModel.truckQueue.remove(truck);
+
+         // create a service end event
+         ServiceEndEvent serviceEnd = new ServiceEndEvent (myModel,
+                                                       "ServiceEndEvent", true);
+
+         // and place it on the event list
+         serviceEnd.schedule(vanCarrier, truck, new TimeSpan(myModel.getServiceTime(), TimeUnit.MINUTES));
+
+      }
+
+   }
+}
+</pre>
+
+<p>
+Observe that two entities (a van carrier and a truck) are passed to the <tt>ServiceEndEvent</tt> when calling it's <tt>schedule(...)</tt> method: A
+<tt>ServiceEndEvent</tt> refers to two entities as we will see on the next page.
+</p>
+
+<p>
+We don't need to implement a "NO" branch for the if-statement, because in case there is no VC available, there is nothing the truck has to do at the moment; remember we have already inserted it into the appropriate queue at the beginning of the event routine - preliminarily, the truck will stay in this queue.
+</p>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl21.html">prev</a></li><li><a href="impl23.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/impl22.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

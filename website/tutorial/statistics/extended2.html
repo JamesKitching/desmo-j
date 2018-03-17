@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Statistical Data Collectors
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Statistical Data Collectors
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+An Extended Example
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Necessary Changes to the Train and Ship Classes
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="extended1.html">prev</a></li><li><a href="extended3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="0.html" id="current_top">Statistical Data Collectors</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="1.html">General Use</a></li>
+<li><a href="counter0.html">Using a Counter</a></li>
+<li><a href="extended0.html" id="current_middle">An Extended Example</a><ol>
+<li><a href="extended0.html">Model Description</a></li>
+<li><a href="extended1.html">Necessary Changes to the Model Class</a></li>
+<li><a href="extended2.html" id="current_middle">Necessary Changes to the Train and Ship Classes</a></li>
+<li><a href="extended3.html">The Report</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../advanced/0.html" id="current_bottom">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In the life cycles of the dynamic model components, the actual update of the data collectors has to be done. The <b>ship process</b> delivers containers to the storage area, thus changing its current load level. After finishing unloading containers and before leaving the terminal, a ship now updates the <tt>storageLoadLevel</tt> accumulate, using the new <tt>getCurrentStorageLoad()</tt> method of the model class, and the <tt>loadLevelNorth</tt> time series. It also updates the <tt>shipSize</tt> histogram with its size, i.e. the number of containers it delivered to all four bins.
+</p>
+
+<pre class="code">
+
+public void lifeCycle() throws SuspendExecution {
+
+   // arrive at the terminal and deliver containers
+   ...
+
+   // ship is unloaded and can leave the system
+
+   // NEW: update statistics
+   // (1) update the accumulate with the new storage load level
+   myModel.storageLoadLevel.update(myModel.getCurrentStorageLoad());
+   // (2) update the time series with the new load level of the Northern Europe bin
+   myModel.loadLevelNorth.update(myModel.north.getAvail());
+   // (3) update the histogram with this ship's size
+   myModel.shipSize.update(numEast+numNorth+numCentral+numGermany);
+
+   ...
+
+}
+
+</pre>
+
+<p>
+The <b>train process</b> retrieves containers from one of the storage areas, thus also changing its current load level. After finishing  loading containers and before leaving the terminal, a train now updates the <tt>storageLoadLevel</tt> accumulate, using the new <tt>getCurrentStorageLoad()</tt> method of the model class, and -- if it is heading to Northern Europe -- the <tt>loadLevelNorth</tt> time series. It also updates the <tt>trainWaitTime</tt> tally with the time span it had to wait before loading containers. To be able to do this, we add a variable <tt>arrivalTime</tt> at the beginning of the life cycle to record the arrival time of this train. When updating the tally, we only have to subtract this arrival time from the current simulation time value to calculate the train's waiting time.
+</p>
+
+<pre class="code">
+
+public void lifeCycle() throws SuspendExecution {
+
+   // arrive at the terminal
+
+   // NEW: record arrival time to be able to calculate wait time later
+   double arrivalTime = presentTime().getTimeAsDouble();
+
+   // load containers
+   ...
+
+   // train is loaded and can leave the system
+
+   // update statistics
+   ...
+   // NEW: update the tally with the time this train spent waiting for containers
+   myModel.trainWaitTime.update(presentTime().getTimeAsDouble() - arrivalTime);
+   // NEW: update the accumulate with the new storage load level
+   myModel.storageLoadLevel.update(myModel.getCurrentStorageLoad());
+   // NEW: update the time series
+   if (this.storage == myModel.north)
+	myModel.loadLevelNorth.update(this.storage.getAvail());
+
+   ...
+
+}
+
+</pre>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="extended1.html">prev</a></li><li><a href="extended3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/statistics/extended2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

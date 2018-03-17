@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Res
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res3.html">prev</a></li><li><a href="res4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html" id="current_middle">Res</a><ol>
+<li><a href="res0.html">What Is a Res?</a></li>
+<li><a href="res1.html">Model Description</a></li>
+<li><a href="res2.html">The Model Class</a></li>
+<li><a href="res3.html">The Ship Process</a></li>
+<li><a href="res4.html" id="current_middle">The Model Trace</a></li>
+</ol></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Finally, let us have a look into the model trace, to see how the ship processes interact with the <tt>Res</tt> object. We jump right to simulation time 15.9412, because it provides us with a perfect example of the behaviour of the <tt>Res</tt> construct.
+</p>
+
+<pre class="report">
+<DIV align=center><H3>ResExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left></DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD></TD><TD>0.0</TD><TD>TraceOn#1</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<tr><td> </td><td>...</td><td> </td><td>...</td><td>...</td></tr>
+<TR VALIGN=TOP><TD> </TD><TD>15.9412</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#9' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 3.8806 until 19.8218</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#9</TD><TD>available berths: 0</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>awaits 2 of ' Berths '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.8218</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#10' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 0.3696 until 20.1915</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#10</TD><TD>available berths: 0</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>awaits 2 of ' Berths '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.1915</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#11' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 0.5649 until 20.7564</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#11</TD><TD>available berths: 0</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>awaits 1 of ' Berths '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.6818</TD><TD> </TD><TD>Ship#8</TD><TD>releases 2 to 'Berths'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>available berths: 2</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Ship#8 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#9</TD><TD>seizes 2 from 'Berths'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 14.8057 until 35.4875</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.7564</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#12' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 1.1599 until 21.9164</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#12</TD><TD>available berths: 0</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>awaits 2 of ' Berths '</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.9164</TD><TD> </TD><TD>ShipGenerator#1</TD><TD>activates 'Ship#13' now</TD></TR>
+</table>
+</pre>
+
+<p>
+At simulation time 15.9412 Ship#9 enters the harbour where no more berths are available. It tries to acquire 2 berths and the <tt>Res</tt> object automatically inserts Ship#9 into its internal waiting queue and passivates the process. Control passes back to the scheduler which activates the next process on the event list, in this case the ship generator again. Since no resources have been released in the meantime, the new Ship#10 has to wait in the <tt>Res</tt> object's internal queue as well. The same holds true for the next ship, Ship#11.
+</p>
+
+<p>
+At simulation time 20.6818 Ship#8 has finished unloading and releases its resources (2 berths) before it terminates, i.e. leaves the system. The <tt>Res</tt> object now automatically activates Ship#9, the first ship waiting in the internal queue, since its request of 2 berths can now be satisfied.
+</p>
+
+<p>
+You may download the full <a href="../downloads/ResExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res3.html">prev</a></li><li><a href="res4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/res4.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

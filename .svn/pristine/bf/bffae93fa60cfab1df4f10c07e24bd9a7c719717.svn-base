@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Model Description
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html" id="current_middle">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+The model we are going to use is a very simple one. It is an example of a queueing system where customers request the attention of capacity-constrained servers. In our case, the servers will be van carriers and the customers will be trucks transporting containers to and from a container terminal.
+</p>
+
+<p>
+A van carrier (VC) is a vehicle which can drive right over a truck and lift a complete container. It will then drive away with the container underneath its belly and drop it somewhere else lowering the container onto its target. This way a VC can store containers up to three layers high and it can load and unload containers from a truck without the need for either driver to leave their vehicle.
+</p>
+
+<p>
+<img src="../images/van_carrier.gif" width="148" height="104" title="A van carrier" alt="A van carrier"></img>
+</p>
+
+<p>
+You will find VCs in almost every major container port all around the world. The theoretical abstractions of all models used within this tutorial are more or less connected with the container terminal "Burchardkai" in the port of Hamburg.
+</p>
+
+<p>
+This terminal is operated by the "Hamburger Hafen- und Lagerhaus-AG" (<a href="http://www.hhla.de/en/index.htm">HHLA</a>) and is one of the biggest of its kind in the world, second biggest in Europe following Rotterdam with a capacity of 2.6 million TEU (Twenty foot Equivalent Units) per year. Ninety VCs operate the yard which contains a holding area of 53 truck lanes along with 18 quay gantry cranes and 4 gantry cranes for railway service.
+</p>
+
+<p>
+<img src="../images/bukai_luft.gif" width="199" height="146" title="The Burchardkai container terminal" alt="The Burchardkai container terminal"></img>
+</p>
+
+<p>
+Our model will represent only a small part of this gigantic logistical structure. Every day hundreds of trucks arrive at the terminal "Burchardkai" to load and unload containers to and from destinations all over the world. Let's have a closer look at the loading process: An empty truck wanting to load a container arrives at the terminal entrance gate. Its driver turns to the terminal office and requests loading of a particular container. He waits until all necessary preparations have been made and receives driving orders pointing him to one of the truck lanes.
+</p>
+
+<p>
+Meanwhile a VC receives an automatically generated order to pick up the target container and to deliver it to the truck lane previously assigned to the driver. It drives over the waiting truck, lowers the container, unhooks the clamps and drives off again. The truck driver may now leave the terminal for customs.
+</p>
+
+<p>
+Unloading is quite similar, the only difference being that the VC has to lift the container off the truck and store it at an automatically designated place on the yard. The truck may then leave empty or -- if unloading and loading are combined -- receive a new container from the same or another VC before leaving the terminal.
+</p>
+
+<p>
+This is the workflow our model will simulate. Although we will make some simplifications: We will consider only one VC and one truck lane called "loading zone". We don't differentiate between loading and unloading. We won't simulate the office operations or try to solve the "where do I find the matching container?" problem. We will assume that the VC is always able to find the container within a certain time span and transport it to the loading zone.
+</p>
+
+<p>
+There are many more specific details which influence the actual loading process, but for now the main model view is as follows:
+</p>
+
+<ol>
+<li>A truck arrives requesting a container. If the loading zone is occupied, it waits in line inside a designated parking lot.</li>
+<li>One VC is on service and will eventually pick up the container.</li>
+<li>The VC transports the container to the truck in the loading zone and loads it onto the truck.</li>
+<li>The truck leaves, freeing the loading zone, and the VC serves the next waiting truck (if there is any).</li>
+</ol>
+
+<p>
+The following picture shows a visualisation of this model: <img src="../images/firstmodel.gif" width="490" height="260" title="A visualisation of the model" alt="A visualisation of the model"></img>
+</p>
+
+<p>
+To the right there are the road and the parking lot where the arriving trucks wait in line for their call to proceed to the loading zone and receive their container. To the left is the container storage area with the VC moving between the storage area and the loading zone.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

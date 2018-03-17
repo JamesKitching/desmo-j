@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Processes Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Processes Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Model Implementation (2)
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The Truck Process
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl21.html">prev</a></li><li><a href="impl22.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html">The Dynamic Model Components</a></li>
+<li><a href="impl21.html">The Van Carrier Process</a></li>
+<li><a href="impl22.html" id="current_middle">The Truck Process</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+Implementing the <b>truck</b> simulation process starts out quite similar to implementing the van carrier process. First, derive a class named <tt>Truck</tt> from <tt>SimProcess</tt>, add the appropriate import statement and define the constructor. Then define a field (attribute) to store a reference to the model in and assign it a value inside the constructor.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+/**
+ * This class represents the truck in the ProcessesExample
+ * model.
+ *
+ * A truck arrives at the container terminal and requests
+ * loading of a container. If possible, it is served
+ * by the van carrier immediately. Otherwise it waits in the
+ * parking area for its turn.
+ * After service is completed, it leaves the system.
+ */
+public class Truck extends SimProcess {
+
+   /** a reference to the model this process is a part of
+    *  useful shortcut to access the model's static components
+    */
+   private ProcessesExample myModel;
+   /**
+    * Constructor of the truck process
+    *
+    * Used to create a new truck to be serviced by a van carrier.
+    *
+    * @param owner the model this process belongs to
+    * @param name this truck's name
+    * @param showInTrace flag to indicate if this process shall produce
+    *                    output for the trace
+    */
+   public Truck(Model owner, String name, boolean showInTrace) {
+
+      super(owner, name, showInTrace);
+      // store a reference to the model this truck is associated with
+      myModel = (ProcessesExample)owner;
+   }
+
+   ...
+
+} /* end of process class */
+</pre>
+
+<p>
+Now we have to implement the <tt>lifeCycle()</tt> method. Please refer to the <a href="design2.html#Truck">conceptual model</a> if you need a reminder of what a truck does. On arrival at the terminal, the truck enters the truck queue. It then checks if there is an idle VC available. If so, it activates the van carrier to service it. It then waits in the queue until it is reactivated by the van carrier after service is completed.
+</p>
+
+<p>Let us start with driving our truck onto the parking lot:</p>
+
+<pre class="code">
+   /**
+    * Describes this truck's life cycle:
+    *
+    * On arrival, the truck will enter the queue (parking lot).
+    * It will then check if the van carrier is available.
+    * If this is the case, it will activate the van carrier to
+    * get serviced and transfer the control to the VC.
+    * Otherwise it just passivates (waits).
+    * After service it leaves the system.
+    */
+   public void lifeCycle() throws SuspendExecution {
+
+      // enter parking-lot
+      myModel.truckQueue.insert(this);
+      sendTraceNote("TruckQueuelength: "+ myModel.truckQueue.length());
+
+      ...
+</pre>
+
+<p>
+By inserting the truck into the queue we make the queue keeping track of the statistical data automatically. Each queue is generating a report from the statistical data collected during the simulation run.
+</p>
+
+<p>
+The <tt>sendTraceNote()</tt> statement, a method of the <tt>ModelComponent</tt> class, is used to insert additional text into the trace file output. This is a very handy way of making the trace file better understandable to the reader. Every infomation added here will help you to understand the behaviour of the entities in your model. This might be <i>very</i> useful when debugging your code. You can add every accessable program information via this method to the trace file output.
+</p>
+
+<p>Next we have to implement the if-statement to test whether there is a van carrier available or not:</p>
+
+<pre class="code">
+      // ... lifeCycle() continued
+
+      // check if a VC is available
+      if (!myModel.idleVCQueue.isEmpty()) {
+         // yes, it is
+
+         // get a reference to the first  VC from the idle VC queue
+         VanCarrier vanCarrier = myModel.idleVCQueue.first();
+         // remove the van carrier from the queue
+         myModel.idleVCQueue.remove(vanCarrier);
+
+         // place the VC on the eventlist right after me,
+         // to ensure that I will be the next customer to get serviced
+         vanCarrier.activateAfter(this);
+      }
+
+      ...
+</pre>
+
+<p>
+Note the inverse query starting with not ("!") due to the question style of the <tt>isEmpty()</tt> method. To remove an idle van carrier from the queue we again have to first get a reference to it by calling the <tt>first()</tt> method and then actually remove it by calling <tt>remove()</tt>.
+</p>
+
+<p>
+With the <tt>activateAfter()</tt> statement above we ensure that the van carrier will be activated by the <tt>scheduler</tt> right after the currently active truck process. The van carrier will then look into the <tt>truckQueue</tt> and service the first truck in line. It should be the one just having activated the VC.
+</p>
+
+<pre class="code">
+      // ... lifeCycle() continued
+
+      // wait for service
+      passivate();
+
+      // Ok, I am back online again, which means I was serviced
+      // by the VC. I can leave the systems now.
+      // Luckily I don't have to do anything more than sending
+      // a message to the trace file, because the
+      // Java VM garbage collector will get the job done.
+      // Bye!
+      sendTraceNote("Truck was serviced and leaves system.");
+   }
+</pre>
+
+<p>The truck can now "sit back and wait" until it gets serviced by the van carrier. The <tt>passivate()</tt> statement above</p>
+
+<ul>
+<li>stops the execution of this process at this point,</li>
+<li>stores its status somewhere so it can be continued right from this point and</li>
+<li>hands the control over to the scheduler,</li>
+</ul>
+
+<p>which now activates the next entity on its internal event list (the VC).</p>
+
+<p>
+When the scheduler returns control back to our truck object, the truck will just send a message to the trace output before it ends its life cycle. There is nothing more for it to do.
+</p>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl21.html">prev</a></li><li><a href="impl22.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl22.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

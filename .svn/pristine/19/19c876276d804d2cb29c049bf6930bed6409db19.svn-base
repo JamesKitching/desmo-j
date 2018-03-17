@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+CondQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue5.html">prev</a></li><li><a href="condqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html" id="current_middle">CondQueue</a><ol>
+<li><a href="condqueue0.html">What Is a CondQueue?</a></li>
+<li><a href="condqueue1.html">Model Description</a></li>
+<li><a href="condqueue2.html">The Model Class</a></li>
+<li><a href="condqueue3.html">The Ship Process</a></li>
+<li><a href="condqueue4.html">The Truck Process</a></li>
+<li><a href="condqueue5.html">The Condition Class</a></li>
+<li><a href="condqueue6.html" id="current_middle">The Model Trace</a></li>
+</ol></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Let us now take a look at the trace output of this example to see how the simulation processes interact via the <tt>CondQueue</tt> construct. We start at simulation time 3300.0. At this point of time the terminal office announces 5 new ships to arrive at different times. One additional ship is still expected to come to port (Ship#3 at SimTime 3971.2864), which adds up to a total number of 6 awaited ships in the next two days.
+</p>
+
+<pre class="report">
+<DIV align=center><H3>CondQueueExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left> </DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD></TD><TD>0.0</TD><TD>TraceOn#1</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<tr><td> </td><td>...</td><td> </td><td>...</td><td>...</td></tr>
+<TR VALIGN=TOP><TD> </TD><TD>3300.0</TD><TD> </TD><TD>TerminalOffice#1</TD><TD>Ships to be activated : 5</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>activates 'Ship#4' at 5622.7317</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>activates 'Ship#5' at 5899.1735</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>activates 'Ship#6' at 3896.7990</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>activates 'Ship#7' at 5936.8766</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>activates 'Ship#8' at 5241.4043</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>New total of incoming ships : 6</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 1440.0 until 4740.0</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3308.9090</TD><TD> </TD><TD>TruckGenerator#1</TD><TD>activates 'Truck#73' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 59.7177 until 3368.6267</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#73</TD><TD> is assigned to Ship#3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>waits in 'Waiting Trucks' until 'Your Ship Arrived!' </TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3368.6267</TD><TD> </TD><TD>TruckGenerator#1</TD><TD>activates 'Truck#74' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 15.6957 until 3384.3225</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#74</TD><TD> is assigned to Ship#5</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>waits in 'Waiting Trucks' until 'Your Ship Arrived!' </TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3384.3225</TD><TD> </TD><TD>TruckGenerator#1</TD><TD>activates 'Truck#75' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 41.0230 until 3425.3455</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#75</TD><TD> is assigned to Ship#8</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>waits in 'Waiting Trucks' until 'Your Ship Arrived!' </TD></TR>
+</table>
+</pre>
+
+<p>
+Now trucks start to arrive at the terminal and wait for their particular ship. At simulation time 3896.7990 Ship#6 arrives and signals the condition queue <tt>waitingTrucks</tt>.
+</p>
+
+<pre class="report">
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD> </TD><TD>3896.7990</TD><TD> </TD><TD>Ship#6</TD><TD> arrives at the port</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>signals 'Waiting Trucks'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD> leaves the port</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>Ship#6 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#88</TD><TD>leaves 'Waiting Trucks', because 'Your Ship Arrived!' </TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>Truck for Ship#6 was serviced and leaves</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>Truck#88 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3927.7726</TD><TD> </TD><TD>TruckGenerator#1</TD><TD>activates 'Truck#89' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 4.5426 until 3932.3152</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#89</TD><TD> is assigned to Ship#4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>waits in 'Waiting Trucks' until 'Your Ship Arrived!' </TD></TR>
+</table>
+</pre>
+
+<p>There was only Truck#88 waiting in the condition queue for Ship#6. (Must have been quite a small ship... :) )</p>
+
+<p>Trucks and ships continue to arrive and leave until the simulation is over.</p>
+
+<p>
+You may download the full <a href="../downloads/CondQueueExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue5.html">prev</a></li><li><a href="condqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/condqueue6.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>DESMO-J Download</TITLE>
+
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<A NAME="top"></A>
+
+<TABLE BORDER="0" CELLSPACING="15" CELLPADDING="0" WIDTH="800" NOSAVE >
+ <TR>
+  <td align="right" valign="top">
+        <a href="http://www.uni-hamburg.de"><img src="./images/uhhlogo.gif" width="49" height="49" border="0"></a>
+  </td>
+  <td align="left" valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr><td>
+        <a href="http://www.informatik.uni-hamburg.de"><img src="./images/fbilogo.gif" border="0"></a>
+        </td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td valign="bottom">University of Hamburg<br />Department of Computer Science</td>
+        </tr></table>
+  </td>
+ </TR>
+
+   <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+  <TR>
+    <TD ALIGN="right" VALIGN="bottom">
+        <a href="./home.html">
+        <img src="./images/desmoj150.jpg" alt="DESMO-J Logo" border="0">
+        </a>
+    </TD>
+    <TD ALIGN="left" valign="bottom">
+        <b>Download</b>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top"> &nbsp;
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <p>
+        We provide the DESMO-J software in different distributions as compiled code and as source code.
+        <table width="100%" border="0" bordercolor="#000000" cellpadding="1" cellspacing="2">
+         <tr>
+          <td>&nbsp;</td>
+          <td align="center" colspan="2" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><b>Distribution</b></td>
+         </tr>
+         <tr>
+          <td width="68%">&nbsp;</td>
+          <td bgcolor="#F2F4C0" width="16%" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><b>Complete</b></td>
+          <td width="16%" align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><b>Demo</b></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">The <b>core infrastruture</b> of DESMO-J<br/>(modelling, simulation, experiments,...)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes*</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes*</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">Extension: <b>A GUI for Experimentation</b><br/>(various authors)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">Extension: <b>Production systems simulation</b><br/>(S&ouml;nke Claassen)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">Extension: <b>Container terminal simulation</b><br/>(Eugenia Neufeld)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">Extension: <b>2D Animation</b>, see <a href="http://www.wi-bw.tfh-wildau.de/~cmueller/SimulationAnimation/">author's website</a><br/>(Prof. Dr. Christian M&uuml;ller)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes&diams;</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes&diams;</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">Extension: <b>3D Visualization</b><br/>(Fred Sun)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes&#8226</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes&#8226</b></font></font></td>
+         </tr>
+         <tr>
+          <td style="border-left:1px solid #000; border-top:1px solid #000">A simple contrainer terminal as <b>example model</b><br/>(Eugenia Neufeld)</td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000"><font size="+2"><font color="#F04400"><b>No</b></font></font></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000"><font size="+2"><font color="#00AA55"><b>Yes&dagger;</b></font></font></td>
+         </tr>
+         <tr>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-bottom:1px solid #000"><b><font size="+2">Download</font></b></td>
+          <td bgcolor="#F2F4C0" align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-bottom:1px solid #000"><a href="http://sourceforge.net/projects/desmoj/files/desmoj/2.5.1e/desmoj-2.5.1e-src.zip"><b>Source</b></a><br/>
+        <a href="http://sourceforge.net/projects/desmoj/files/desmoj/2.5.1e/desmoj-2.5.1e-bin.jar"><b>Binary</b></a></td>
+          <td align="center" style="border-left:1px solid #000; border-top:1px solid #000; border-right:1px solid #000; border-bottom:1px solid #000"><a href="http://sourceforge.net/projects/desmoj/files/desmoj/2.5.1e/desmoj-2.5.1e-demo-src.zip"><b>Source</b></a><br/>
+        <a href="http://sourceforge.net/projects/desmoj/files/desmoj/2.5.1e/desmoj-2.5.1e-demo-bin.jar"><b>Binary</b></a></td>
+         </tr>
+         <tr>
+          <td>&nbsp;</td>
+          <td bgcolor="#F0F020" align="center" style="border-left:1px solid #000; border-bottom:1px solid #000; border-right:1px solid #000">Prefer,<br/>if not sure</td>
+          <td>&nbsp;</td>
+         </tr>
+
+        </table>
+        
+        
+        
+        <p><font color="#00AA55" size="+2">*</font> Process execution based on fibers (optional) activated by calling <code>Experiment.setCoroutineModel(CoroutineModel.FIBERS)</code>. Requires the
+        quasar agent made available to the JVM, using command line switch <code>-javaagent:[path of Quasar-jar file]</code>. Please download the jar from the <a href="http://docs.paralleluniverse.co/quasar/">Quasar project website</a> or fetch the JDK8 version it from our <a href="https://sourceforge.net/p/desmoj/code/HEAD/tree/DESMO-J/libs_fiber/quasar-core-0.7.3-jdk8.jar?format=raw">repository</a>.</p>        
+
+        <p><font color="#00AA55" size="+2">&diams;</font> 2D visualization features are based on <a href="http://www.jfree.org/jfreechart/">JFreeChart</a>, which for licence reasons cannot be made available together with DESMO-J. To compile or execute models that use 2D visualization, please add <code>jfreechart-1.0.14.jar</code> and <code>jcommon-1.0.17.jar</code> to your classpath. Both jar files can be found in folder <code>/lib</code> of the <a href="http://sourceforge.net/projects/jfreechart/files/1.%20JFreeChart/1.0.14/jfreechart-1.0.14.zip/download">JFreeChart 1.0.14 download bundle (zip)</a>. Note that due to changes in the JFreeChart API, later versions of JFreeChart may not work correctly.</p>
+
+        <p><font color="#00AA55" size="+2">&#8226;</font> 3D visualization features require <a href="http://java3d.java.net/binary-builds.html">Java 3D</a>.</p>
+
+        <p><font color="#00AA55" size="+2">&dagger;</font> Execute the demo model by double-clicking on the JAR file or from the command line by entering <code>java -jar desmoj-2.5.1e-demo-bin.jar</code>.</p>
+
+        <p>The complete <b>API documentation</b> can be downloaded as <a href="http://sourceforge.net/projects/desmoj/files/desmoj/2.5.1e/desmoj-2.5.1e-API.zip">zip-archive</a>.
+
+        The API documentation can also be <a href="./doc/index.html">browsed online</a>.</p>
+
+        <p>Alternatively, you may also refer directly to the <a href="http://sourceforge.net/projects/desmoj/download">DESMO-J SourceForge download site</a>. The repository may have <a href="https://sourceforge.net/p/desmoj/code/HEAD/tree/DESMO-J/">preview builds</a>.</p>
+        <p>Note that compiling and executing DESMO-J models requires a <a href="http://www.oracle.com/technetwork/java/javase/downloads">Java Development Kit (JDK)</a>, version 7 or higher. In case you want to run compliled models only (e.g. the example model available above), a <a href="http://www.java.com/">Java Runtime Enviroment (JRE)</a> suffices.
+    </TD>
+  </TR>
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+<b>Version History</b>
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <p>The current version of DESMO-J is 2.5.1e as of March 2017. Please refer to the
+        <a href="./version_history.html">version history</a> if you are interested in DESMO-J's development.</p>
+    </TD>
+  </TR>
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+<b>License</b>
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <p>DESMO-J is licensed under the Apache License, Version 2.0 (the "License");
+    you may not use any DESMO-J file except in compliance with the License. You
+    may obtain a copy of the License at
+    <a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+    <p>Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS"
+    BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.</p>
+
+    </TD>
+  </TR>
+
+  <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+ <TR>
+    <TD ALIGN="right" VALIGN="top">
+     <FONT SIZE=-1><A HREF="#top">top</A></FONT>
+    </TD>
+    <TD ALIGN="left" valign="top"><FONT SIZE=-1>http://desmoj.sourceforge.net/download.html</FONT></TD>
+  </TR>
+
+  <TR>
+    <TD WIDTH="250"><SPACER type=horizontal size=200></TD>
+    <TD WIDTH="550"><SPACER type=horizontal size=600></TD>
+  </TR>
+</TABLE>
+
+&nbsp;
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+DESMO-J Distilled
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+DESMO-J Distilled
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Model Design
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="0.html" id="current_top">DESMO-J Distilled</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html" id="current_middle">Model Design</a></li>
+<li><a href="2.html">Model Implementation (1)</a></li>
+<li><a href="3.html">Model Implementation (2)</a></li>
+<li><a href="4.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../at_work/0.html" id="current_bottom">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Model design can be thought of as progressive refinement of a conceptual model, starting perhaps from a rather vague mind map or textual description. The goal of model design is to arrive at a more formal representation which is precise enough to be mapped to executable code during the implementation phase.
+</p>
+
+<p>
+As DESMO-J is an object-oriented simulation framework, we recommend using object-oriented techniques to develop the formal conceptual model. Class diagrams and especially activity diagrams have proven valuable in capturing model components and their behaviour. We will use the UML notation throughout this tutorial.
+</p>
+
+<p>
+Designing a formal model using DESMO-J means that you first need to get familiar with the static and dynamic model components DESMO-J offers. Refer to the <a href="../nutshell/1.html">Basic Features</a> subsection of <a href="../nutshell/0.html">DESMO-J in a Nutshell<a> for a quick overview or to the <a href="../../doc/index.html">API documentation</a>. You then have to decide on the modelling style you want to apply. This determines if your dynamic model components are described as processes (subclasses of <tt>desmoj.core.simulator.SimProcess</tt>) or as entities in combination with events (subclasses of <tt>desmoj.core.simulator.Entity</tt> or <tt>desmoj.core.simulator.AbstractEvent</tt>, respectively). If you prefer the process interaction approach, you specify each model component's behaviour as the life cycle of a process. If you prefer the event scheduling approach, you specify the entities' behaviour in event routines. In both cases you may use activity diagrams to plot their actions.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="2.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/distilled/1.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

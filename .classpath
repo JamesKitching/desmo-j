@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src.core"/>
+	<classpathentry kind="src" path="src.core.lib"/>
+	<classpathentry kind="src" path="src.experimentation"/>
+	<classpathentry kind="src" path="src.application"/>
+	<classpathentry kind="src" path="src.demo"/>
+	<classpathentry kind="src" path="src.visual2d"/>
+	<classpathentry kind="src" path="src.visual3d"/>
+	<classpathentry excluding="**" kind="src" path="src.development"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry excluding="**" kind="src" path="src.testFramework"/>
+	<classpathentry kind="src" path="src.new"/>
+	<classpathentry exported="true" kind="lib" path="libs/desmoj_libs.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/j3dcore.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/j3dutils.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/vecmath.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/commons-collections-3.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/commons-math-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jxl.jar"/>
+	<classpathentry kind="lib" path="libs_jfreechart/jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="libs_jfreechart/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="libs_fiber/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="libs_fiber/hamcrest-core_1.3.0.jar"/>
+	<classpathentry kind="lib" path="libs_fiber/kryo-2.24.0.jar"/>
+	<classpathentry kind="lib" path="libs_fiber/kryo-serializers-0.36.jar"/>
+	<classpathentry kind="lib" path="libs_fiber/quasar-core-0.7.3-jdk8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

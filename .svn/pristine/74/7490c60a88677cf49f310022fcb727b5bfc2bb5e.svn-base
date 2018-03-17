@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" pageWidth="1315" pageHeight="842" columnWidth="1275" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="title" class="java.lang.String"/>
+	<field name="model" class="java.lang.String"/>
+	<field name="time" class="java.lang.String"/>
+	<field name="event" class="java.lang.String"/>
+	<field name="entity" class="java.lang.String"/>
+	<field name="action" class="java.lang.String"/>
+	<title>
+		<band height="50">
+			<textField>
+				<reportElement x="84" y="0" width="416" height="39"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{model} + "Experiment - Trace"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="10" width="250" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Model"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="10" width="853" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["action(s)"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="10" width="80" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["event"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="10" width="78" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["time"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="10" width="80" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["entity"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="25" width="250" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{model}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="25" width="78" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{time}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="25" width="80" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{event}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="408" y="25" width="80" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{entity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="488" y="25" width="853" height="25"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{action}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

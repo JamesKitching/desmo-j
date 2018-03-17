@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+CondQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Truck Process
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue3.html">prev</a></li><li><a href="condqueue5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html" id="current_middle">CondQueue</a><ol>
+<li><a href="condqueue0.html">What Is a CondQueue?</a></li>
+<li><a href="condqueue1.html">Model Description</a></li>
+<li><a href="condqueue2.html">The Model Class</a></li>
+<li><a href="condqueue3.html">The Ship Process</a></li>
+<li><a href="condqueue4.html" id="current_middle">The Truck Process</a></li>
+<li><a href="condqueue5.html">The Condition Class</a></li>
+<li><a href="condqueue6.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Trucks are also modelled as simulation processes. The <tt>Truck</tt> class stores the ship it is assigned to as an attribute called <tt>myShip</tt>. Let's have a look at the <tt>lifeCycle()</tt> of this process:
+</p>
+
+<pre class="code">
+/**
+ * Describes this truck's life cycle:
+ *
+ * On arrival, the truck enters the queue for waiting trucks to wait
+ * until its assigned ship arrives at the terminal.
+ * Then it directly leaves the system again since (un)loading is not
+ * modelled.
+ */
+public void lifeCycle() throws SuspendExecution {
+
+   // get a reference to the model
+   CondQueueExample model = (CondQueueExample)getModel();
+
+   // arrive at the harbour
+   // send additional information to trace
+   sendTraceNote(" is assigned to " + myShip.getName());
+
+   // enter CondQ for waiting
+   model.waitingTrucks.waitUntil(model.shipArrived);
+
+   // now the ship has arrived --> leave system
+   sendTraceNote("Truck for "+ myShip.getName() +" was serviced and leaves");
+}
+</pre>
+
+<p>
+On arrival at the terminal the truck sends a trace note to record which ship it is assigned to. It then enters the model's <tt>CondQueue</tt> named <tt>waitingTrucks</tt> via calling its <tt>waitUntil()</tt> method. Since each truck waits on the same condition -- that a particular ship has arrived at the port -- they all pass the same <tt>Condition</tt> object as a parameter to the condition queue. This <tt>Condition</tt> object is therefore stored as an attribute named <tt>shipArrived</tt> of the <a href="./condQueue2.html">model class</a>.
+</p>
+
+<p>
+Calling the <tt>waitUntil()</tt> method results in automatically passivating the truck process unless its condition already evaluates to <tt>true</tt>. The execution of the truck's life cycle is suspended and control passes back to the scheduler which can activate the next process on the event list. Only when the condition this truck is waiting on is finally met, its <tt>lifeCycle()</tt> method resumes execution with the statement following the call to <tt>waitUntil()</tt>. In our case, the process just sends another trace note and terminates.
+</p>
+
+<p>Let's now have a look at how the condition is expressed in DESMO-J.</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="condqueue3.html">prev</a></li><li><a href="condqueue5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/condqueue4.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

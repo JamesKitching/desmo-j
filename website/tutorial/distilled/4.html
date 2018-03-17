@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+DESMO-J Distilled
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+DESMO-J Distilled
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Experimentation
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="3.html">prev</a></li><li><a href="4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="0.html" id="current_top">DESMO-J Distilled</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Design</a></li>
+<li><a href="2.html">Model Implementation (1)</a></li>
+<li><a href="3.html">Model Implementation (2)</a></li>
+<li><a href="4.html" id="current_middle">Experimentation</a></li>
+</ol></li>
+<li><a href="../at_work/0.html" id="current_bottom">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Having successfully compiled all classes you are ready to run your model. A 
+DESMO-J experiment automatically produces a number of pre-formatted files 
+(default is HTML output):
+</p>
+
+<ol>
+<li><tt>&lt;Experiment_Name&gt;_report.html</tt> contains the model’s results as computed by 
+the used data collectors.</li> 
+<li><tt>&lt;Experiment_Name&gt;_trace.html</tt> contains a detailed trace of the model’s 
+behaviour. Note that you have to set a trace period as one of the experiment’s 
+parameters before running the model in order to generate any content in 
+here.</li> 
+<li><tt>&lt;Experiment_Name&gt;_debug.html</tt> contains snapshots of the event list. As with 
+the trace file, you have to set a debug period in order to generate content for 
+this file.</li> 
+<li><tt>&lt;Experiment_Name&gt;_error.html</tt> contains any warnings or error messages that 
+occurred during the simulation run, e.g. if an attempt was made to remove an 
+entity from a queue in which it wasn’t contained. Such an error in the model’s 
+logic might not result in an immediate abortion of the run. Thus, you should 
+always have a look at the error file since a completed experiment does not 
+guarantee the model is working correctly.</li>
+</ol>
+
+<p>
+These files are usually placed in the current working directory. They can be 
+redirected by explicitly specifying a path when instantiating an experiment.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="3.html">prev</a></li><li><a href="4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/distilled/4.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

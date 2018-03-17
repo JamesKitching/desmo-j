@@ -1,0 +1,260 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Experimentation
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp2.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html">Compiling and Running the Model</a></li>
+<li><a href="exp1.html">A Look at the Results</a></li>
+<li><a href="exp2.html">Changing Parameter Values</a></li>
+<li><a href="exp3.html" id="current_middle">The Model Trace</a></li>
+<li><a href="exp4.html">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+
+<p>
+We will take a short look at the trace file now, because this file will let you gain a good insight of the model's behaviour. It shows how the processes in our model interact and how they become activated by the DESMO-J scheduler.
+</p>
+
+<p>The trace file starts with messages showing that recording the trace and debug output is started. Then the two van carriers start their life cycle by inserting themselves into the idle VC queue and then passivating, since there are no trucks waiting yet. After this, it's the turn for the truck generator (named <tt>TruckArrival</tt>) to activate the first truck. This truck requests the service of Van Carrier#1 (the first in line inside the <tt>idleVCQueue</tt>) and then passivates itself (remember that trucks are modelled as passive customers whereas the van carriers are the active servers during their joint activity of loading a container). Van Carrier#1 regains control, removes Truck#1 from the queue and then holds for the period of simulation time it takes to service the truck. The next thing happening in our model is the arrival of another truck at simulation time 0.9500. This truck is serviced by the second van carrier until simulation time 7.3875.
+</p>
+
+<p>
+In the meantime, the third truck arrives at the terminal (at 1.0507) and the service of the first truck is finished (at 3.1711) which results in Van Carrier#1 moving on to load the newly arrived Truck#3 and Truck#1 terminating (leaving the system).
+</p>
+
+<p><pre class="report">
+ <DIV align=center><H3>ProcessesExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left> </DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.0000</TD><TD>----</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Debug switched on</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Van Carrier#1' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Van Carrier#2' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Van Carrier#1</TD><TD>inserts itself into 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Van Carrier#2</TD><TD>inserts itself into 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#1' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#1</TD><TD>TruckQueuelength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Van Carrier#1 from 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Van Carrier#1' after 'Truck#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Van Carrier#1</TD><TD>removes Truck#1 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 3.1666 until 3.1666</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.9500</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#2' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#2</TD><TD>TruckQueuelength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Van Carrier#2 from 'idle VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>activates 'Van Carrier#2' after 'Truck#2'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Van Carrier#2</TD><TD>removes Truck#2 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.4166 until 7.3666</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>1.0333</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#3' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#3</TD><TD>TruckQueuelength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>3.1666</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#1' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#3 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 5.3333 until 8.5000</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#1</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#1 terminates</TD></TR>
+
+</table>
+ </pre></p>
+
+<p>
+Later on, a number of trucks arrive in short succession while both van carriers are busy, resulting in the queue of waiting trucks starting to build up. But as the report has already proven, they are able to decrease the queue again.
+</p>
+
+<p><pre class="report">
+ <TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD> </TD><TD>13.5666</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#4' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#7 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.2666 until 19.8333</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#4</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#4 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>13.7166</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#8' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#8</TD><TD>TruckQueuelength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>15.6166</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#9' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#9</TD><TD>TruckQueuelength: 2</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>15.8666</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#10' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#10</TD><TD>TruckQueuelength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>17.0666</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#6' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#8 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 4.6333 until 21.7000</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#6</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#6 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.7333</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#11' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#11</TD><TD>TruckQueuelength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.8333</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#7' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#9 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 4.5500 until 24.3833</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#7</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#7 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.1000</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#12' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#12</TD><TD>TruckQueuelength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>20.6500</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#13' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#13</TD><TD>TruckQueuelength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.7000</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#8' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#10 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 4.4666 until 26.1666</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#8</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#8 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.8000</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#14' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#14</TD><TD>TruckQueuelength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>22.6333</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#15' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#15</TD><TD>TruckQueuelength: 5</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>24.3833</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#9' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#11 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 3.3333 until 27.7166</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#9</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#9 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>26.1666</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#10' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#12 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 5.3500 until 31.5166</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#10</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#10 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>27.6666</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#16' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#16</TD><TD>TruckQueuelength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>27.7166</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#11' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#13 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 4.6666 until 32.3833</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#11</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#11 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>31.5166</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#12' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#14 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.4333 until 37.9500</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#17' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#17</TD><TD>TruckQueuelength: 3</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#12</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#12 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>32.2833</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#18' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#18</TD><TD>TruckQueuelength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>32.3833</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#13' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#15 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 3.0000 until 35.3833</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#13</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#13 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>35.2666</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#19' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#19</TD><TD>TruckQueuelength: 4</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>35.3833</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#15' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#16 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.4166 until 41.8000</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#15</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#15 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>37.9500</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#14' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#17 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.9000 until 44.8500</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#14</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#14 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>41.8000</TD><TD> </TD><TD>Van Carrier#2</TD><TD>activates 'Truck#16' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#18 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.0666 until 47.8666</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#16</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#16 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>44.8500</TD><TD> </TD><TD>Van Carrier#1</TD><TD>activates 'Truck#17' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>removes Truck#19 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 6.6833 until 51.5333</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#17</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>Truck#17 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>46.7000</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#20' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Truck#20</TD><TD>TruckQueuelength: 1</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+</table>
+ </pre></p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp2.html">prev</a></li><li><a href="exp4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/exp3.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

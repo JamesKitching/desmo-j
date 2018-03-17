@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Interrupts
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt4.html">prev</a></li><li><a href="interrupt5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html">Model Description</a></li>
+<li><a href="interrupt2.html">The Model Class</a></li>
+<li><a href="interrupt3.html">The Truck Process</a></li>
+<li><a href="interrupt4.html">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html" id="current_middle">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Let us now take a look at the trace output of this example to see how interrupting a process's execution works. We start at simulation time 29.2158 where the van carrier finishes loading Truck#6 and starts service on Truck#7. Note that the end of service (the <tt>hold()</tt>) is scheduled to happen at 35.4954. At simulation time 31.6672 though, the first urgent truck (Truck#17) arrives and interrupts VanCarrier#1. The van carrier then inserts the truck it is currently serving (Truck#7) back into the truck queue and immediately starts service on the urgent Truck#17 until simulation time 36.3058.
+</p>
+
+<p>
+In the meantime, two more trucks arrive and wait in line. When the van carrier has finished service for the urgent truck it resumes servicing Truck#7 whose service got interrupted. This shows that we implemented the service order correctly.
+</p>
+
+<pre class="report">
+<DIV align=center><H3>InterruptsExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>model</DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>InterruptsExample</TD><TD>0.0</TD><TD>TraceOn#1</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<tr><td> </td><td>...</td><td> </td><td>...</td><td>...</td></tr>
+<TR VALIGN=TOP><TD> </TD><TD>29.2158</TD><TD> </TD><TD>VanCarrier#1</TD><TD>activates 'Truck#6' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>removes Truck#7 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>inserts itself into 'busy VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 6.2796 until 35.4954</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#6</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>Truck#6 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>31.6672</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#17' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#17</TD><TD>TruckQueuelength: 10</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>removes VanCarrier#1 from 'busy VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>interrupts 'VanCarrier#1', with reason Urgent Truck Arrived [1]</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>VanCarrier#1</TD><TD>interrupted!</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>inserts Truck#7 into 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>removes Truck#17 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>inserts itself into 'busy VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 4.6386 until 36.3058</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>32.4497</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#18' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#18</TD><TD>TruckQueuelength: 11</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>35.4435</TD><TD> </TD><TD>TruckArrival#1</TD><TD>activates 'Truck#19' after 'TruckArrival#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#19</TD><TD>TruckQueuelength: 12</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>passivates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>36.3058</TD><TD> </TD><TD>VanCarrier#1</TD><TD>activates 'Truck#17' now</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>removes Truck#7 from 'Truck Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>inserts itself into 'busy VC Queue'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>holds for 4.5527 until 40.8586</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD>Truck#17</TD><TD>Truck was serviced and leaves system.</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD></TD><TD> </TD><TD> </TD><TD>Truck#17 terminates</TD></TR>
+</table>
+</pre>
+
+<p>
+You may download the full <a href="../downloads/InterruptsExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt4.html">prev</a></li><li><a href="interrupt5.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt5.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

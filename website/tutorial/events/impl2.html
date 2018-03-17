@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+        <title>The DESMO-J Tutorial :
+Events Step by Step
+        </title>
+        <link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <H1>
+Events Step by Step
+                   </H1>
+                   <!--<p> -->
+                      <H1>
+Model Implementation (1)
+                   </H1>
+                   <!-- </p> -->
+                   <p>
+                   <H2>
+The init() Method
+                   </H2>
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl1.html">prev</a></li><li><a href="impl3.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>
+                       <div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html" id="current_middle">Model Implementation (1)</a><ol>
+<li><a href="impl0.html">Deriving the Model Class</a></li>
+<li><a href="impl1.html">Defining Static Model Components</a></li>
+<li><a href="impl2.html" id="current_middle">The init() Method</a></li>
+<li><a href="impl3.html">The doInitalSchedules() Method</a></li>
+<li><a href="impl4.html">The main() Method</a></li>
+</ol></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+                           </ul></div>
+           </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+                      <p>
+<p>
+We will now implement the second method inherited from <tt>desmoj.core.simulator.Model</tt> called <tt>init()</tt>. The purpose of this method is to instantiate all static model components like queues and distributions. Although it is common practice to instantiate Java objects in the constructor of a class, it is not recommended to do so in DESMO-J.
+</p>
+
+<p>
+The <a href="../../doc/desmoj/core/simulator/Model.html#init()">DESMO-J API explicitly warns</a> you to do this. In DESMO-J an instance of a model is always connected to an experiment. All other objects of a DESMO-J model will use this connection to send their reports and other communications to the experiment which takes care of the reporting and the administration of the model.
+</p>
+
+<p>
+If you don't use the <tt>init()</tt> method to instantiate your static model components, this communication can not be guaranteed to work properly. A simulation run of your model will not produce the desired results.
+</p>
+
+<p>
+In order to implement the <tt>init()</tt> method the right way, we will follow the field definitions already listed in the model class (the ones we just set up) and instantiate an object for each field we just have created. Take a look at the code:
+</p>
+
+<p><b><u>TIP:</u></b><br>
+Perhaps you should start coding these lines on your own and take a look at the following code later. This way you might get a deeper understanding of what you are doing and afterwards you will be able to <b>write</b> models on your own. Otherwise you might only be able to <b>copy</b> models on your own. ;-)
+</p>
+
+<pre class="code">
+/**
+ * Initialises static model components like distributions and queues.
+ */
+public void init() {
+
+   // initialise the serviceTimeStream
+   // Parameters:
+   // this                = belongs to this model
+   // "ServiceTimeStream" = the name of the stream
+   // 3.0                 = minimum time in minutes to deliver a container
+   // 7.0                 = maximum time in minutes to deliver a container
+   // true                = show in report?
+   // false               = show in trace?
+   serviceTime= new ContDistUniform(this, "ServiceTimeStream",
+                                    3.0, 7.0, true, false);
+</pre>
+
+<p>
+We have just written down the code for the first DESMO-J object to be instantiated. Let us take a closer look at its constructor. The most interesting parameter is the first one. Every DESMO-J object demands a parameter of the type <tt>desmoj.core.simulator.Model</tt> as its first constructor entry. This parameter defines which model this model component belongs to.
+</p>
+
+<p>
+A DESMO-J model always consists of a collection of model components derived from <tt>desmoj.core.simulator.ModelComponent</tt>. Almost all the classes within the DESMO-J framework inherit from this <tt>ModelComponent</tt> class. Even <tt>Model</tt> itself inherits from <tt>ModelComponent</tt> in order to allow submodels being a <code>ModelComponent</code> of another <code>Model</code>. Only the <tt>NamedObject</tt> class and the <tt>Experiment</tt> class (and all classes derived from that one) form an exception to this rule, thus they can never be a part of a model.
+</p>
+
+<p>
+It is possible that there is more than one model active in the namespace of your computer at a given point of time (if you build submodels or parallel models). In this case the framework needs to know which model component belongs to which model. This is determined by the first model parameter.
+</p>
+
+<p>
+Doubtlessly, it is a burden to carry this parameter through each and every object of your model. But it helps keeping all the different models apart from each other. This way no entity of a certain model can manipulate other entities belonging to a different model.
+</p>
+
+<p>
+It is likely that you will never write a submodel or a parallel model. But you have to pay attention to this parameter and handle it with care while you instantiate DESMO-J objects.
+</p>
+
+<p>
+In this case it gets passed the value <tt>this</tt>, because this distribution is about to become a part of this, the <tt>EventsExample</tt> model.
+</p>
+
+<pre class="code">
+   // ... init() continued
+
+   // initalise the truckArrivalTimeStream
+   // Parameters:
+   // this                     = belongs to this model
+   // "TruckArrivalTimeStream" = the name of the stream
+   // 3.0                      = mean time in minutes between arrival of trucks
+   // true                     = show in report?
+   // false                    = show in trace?
+   truckArrivalTime= new ContDistExponential(this, "TruckArrivalTimeStream",
+                                                   3.0, true, false);
+
+   // necessary because an inter-arrival time can not be negative, but
+   // a sample of an exponential distribution can...
+   truckArrivalTime.setNonNegative(true);
+
+   // ...
+</pre>
+
+<p>
+Every distribution in <tt>desmoj.core.dist</tt> inherits a method called <tt>setNonNegative()</tt> <a href="../../doc/desmoj/core/dist/Distribution.html#setNonNegative(boolean)">(API)</a> from <tt>desmoj.core.dist.Distribution</tt>. With this method it is possible to influence the random stream to only produce samples that are greater or equal to zero (&gt;=0).
+</p>
+
+<p>
+Due to the fact that entries on the schedulers event list can only be made with positive time stamps, and therefore <tt>TimeSpan</tt> objects can only be instantiated with positive values, it is extremely handy to use this feature instead of checking every sample drawn with hand written code before using it as a time stamp. DESMO-J will stop the execution if you try to use a negative time value.
+</p>
+
+<pre class="code">
+   // ... init() continued
+
+   // initalise the truckQueue
+   // Parameters:
+   // this          = belongs to this model
+   // "Truck Queue" = the name of the Queue
+   // true          = show in report?
+   // true         = show in trace?
+   truckQueue = new Queue&lt;Truck&gt;(this, "Truck Queue", true, true);
+
+   // initalise the idleVCQueue
+   // Parameters:
+   // this            = belongs to this model
+   // "idle VC Queue" = the name of the Queue
+   // true            = show in report?
+   // true            = show in trace?
+   idleVCQueue = new Queue&lt;VanCarrier&gt;(this, "idle VC Queue", true, true);
+
+   // ...
+</pre>
+
+<p>
+If you check the <a href="../../doc/index.html">DESMO-J API</a>, you will probably recognise that every <tt>ModelComponent</tt> carries a <tt>boolean</tt> field called <code>traceMode</code> and every <tt>Reportable</tt> carries a <tt>boolean</tt> field called <code>reportMode</code>. These fields will be set by parameters found in the constructors of these classes. The parameters are called <code>showInTrace</code> and <code>showInReport</code>. They determine whether the object will produce trace messages being shown in the trace file or generating a report being shown in the report file.
+</p>
+
+<p>
+Every <tt>ModelComponent</tt> also has a field called <code>debugMode</code>. The value of this field can be checked using the <tt>debugIsOn()</tt> method and set calling the <tt>debugOn()</tt> or <tt>debugOff()</tt> method. Setting it on will make the <tt>ModelComponent</tt> produce very detailed debug messages being shown in the debug file of your simulation run. For a more detailed description of these parameters check the API.
+</p>
+
+<p>
+Last but not least, we have to place the van carrier entities into the <tt>idleVCQueue</tt> here so that they are ready for service. Remember, they are permanent entities and need to be there from the very first second of our simulation run.
+</p>
+
+<pre class="code">
+   //...init() continued
+
+   // place the van carriers into the idle queue
+   // We don't do this in the doInitialSchedules() method because
+   // we aren't placing anything on the event list here.
+   VanCarrier VC;
+   for (int i = 0; i < NUM_VC ; i++)
+   {
+      // create a new VanCarrier
+      VC = new VanCarrier(this, "VanCarrier", true);
+      // put it on his parking spot
+      idleVCQueue.insert(VC);
+   }
+}
+</pre>
+
+<p>
+<b>Note: </b>Your IDE may inform you here, that it can't create a <tt>VanCarrierEntity</tt> for you, because there is no such entity class yet. Ignore this tip for now, because you are soon going to implement the entity classes.
+</p>
+<br /><br />
+                   </p>
+           </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+               <div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl1.html">prev</a></li><li><a href="impl3.html">next</a></li>
+                </ul></div>
+           </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/impl2.html
+           </td>
+</tr>
+</table>
+
+</body>
+</html>

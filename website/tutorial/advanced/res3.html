@@ -1,0 +1,146 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Res
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Ship Process
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res2.html">prev</a></li><li><a href="res4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html" id="current_middle">Res</a><ol>
+<li><a href="res0.html">What Is a Res?</a></li>
+<li><a href="res1.html">Model Description</a></li>
+<li><a href="res2.html">The Model Class</a></li>
+<li><a href="res3.html" id="current_middle">The Ship Process</a></li>
+<li><a href="res4.html">The Model Trace</a></li>
+</ol></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Ships are modelled as simulation processes. The <tt>Ship</tt> class carries a single attribute <tt>size</tt>, the ship's size in number of berths needed. Let's have a look at the <tt>lifeCycle()</tt> of this process:
+</p>
+
+<pre class="code">
+/**
+ * Describes this ship's life cycle:
+ *
+ * On arrival, the ship will request a number of berths according to its size.
+ * This will result in having the ship wait until enough space is available.
+ * It will then proceed to the quay for unloading.
+ * After service it leaves the system.
+ */
+public void lifeCycle() throws SuspendExecution {
+
+   // get a reference to the model
+   ResExample model = (ResExample)getModel();
+
+   // arrive at the harbour
+   // trace note just for information
+   sendTraceNote("available berths: " + model.berths.getAvail());
+
+   // try to acquire the needed berths
+   // --> the process may be passivated and placed on an internal queue
+   //     by the res if there are not enough berths available
+   model.berths.provide(size);
+
+   // now the ship got its resources and can proceed with the unloading
+   hold(new TimeSpan(model.getServiceTime() * this.size, TimeUnit.MINUTES));
+                               // the time needed depends on the size of ship
+
+   // ship has been serviced
+   // --> releases its resources (leaves the quay)
+   model.berths.takeBack(size);
+
+   // trace note for information
+   sendTraceNote("available berths: " + model.berths.getAvail());
+   // leaves the system
+}
+</pre>
+
+<p>
+We start with sending some information to the trace output when the ship arrives. Thus we'll see in the trace report how many resources are available in the <tt>Res</tt> object before the <tt>ship</tt> requests any. Using the <tt>provide()</tt> method the ship then tries to acquire the amount of berths corresponding to its size. This may result in the ship process to be automatically passivated by the <tt>Res</tt> object, if there are <b>not</b> enough resources available. The ship process may be inserted into the internal waiting queue of the <tt>Res</tt> object then. Otherwise it receives its resources immediately and proceeds.
+</p>
+
+<p>
+Docking and unloading is modelled as a <tt>hold()</tt>. The duration for that <tt>hold()</tt> depends on the ship's size. Finally, the ship hands its occupied resources back to the <tt>Res</tt> and leaves the system.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="res2.html">prev</a></li><li><a href="res4.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/res3.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

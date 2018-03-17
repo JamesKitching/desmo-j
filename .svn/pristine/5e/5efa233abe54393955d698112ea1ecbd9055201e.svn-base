@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Implementation (2)
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Dynamic Model Components
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl21.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html" id="current_middle">The Dynamic Model Components</a></li>
+<li><a href="impl21.html">The Van Carrier Process</a></li>
+<li><a href="impl22.html">The Truck Process</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+After finishing the model class we have to implement the dynamic model components of our model. Using the process-oriented modelling style, dynamic model components are represented as simulation processes. In our model, we have identified the trucks, the van carriers and the truck generator to be dynamic model components (also called active entities). For each type of active entity we will derive a class from <tt>desmoj.core.simulator.SimProcess</tt> and specify its behaviour in the <tt>lifeCycle()</tt> method.
+</p>
+
+<p>
+Let's start with the easiest one, the <b>truck generator</b>. It just loops continually through (i) generating a new truck, (ii) activating that truck, and (iii) determining the next arrival time and schedule itself for reactivation for this point in time. Refer to the <a href="design2.html#TruckGenerator">conceptual model</a> if you need to look up the details of its life cycle again.
+</p>
+
+<p>
+First of all, derive a class named <tt>TruckGenerator</tt> from <tt>SimProcess</tt>. Don't forget to import the <tt>desmoj.core.simulator</tt> package. Add the constructor, which is equally straightforward as the one in our model class as it only passes all parameters to the constructor of the superclass.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+import co.paralleluniverse.fibers.SuspendExecution;
+/**
+ * This class represents a process source, which continually generates
+ * trucks in order to keep the simulation running.
+ *
+ * It will create a new truck, activate it (so that it arrives at
+ * the terminal) and then wait until the next truck arrival is
+ * due.
+ */
+public class TruckGenerator extends SimProcess {
+
+   /**
+    * TruckGenerator constructor comment.
+    * @param owner the model this truck generator belongs to
+    * @param name this truck generator's name
+    * @param showInTrace flag to indicate if this process shall produce output
+    *                    for the trace
+    */
+   public TruckGenerator(Model owner, String name, boolean showInTrace) {
+      super(owner, name, showInTrace);
+   }
+
+   ...
+
+} /* end of process class */
+</pre>
+
+<p>Now all left to do is actually define what the truck generator does, i.e. implement its <tt>lifeCycle()</tt> method.</p>
+
+<pre class="code">
+   /**
+    * describes this process's life cycle: continually generate new trucks.
+    */
+   public void lifeCycle() throws SuspendExecution {
+
+      // get a reference to the model
+      ProcessesExample model = (ProcessesExample)getModel();
+
+      // endless loop:
+      while (true) {
+
+         // create a new truck
+         // Parameters:
+         // model       = it's part of this model
+         // "Truck"     = name of the object
+         // true        = yes please, show the truck in trace file
+         Truck truck = new Truck(model, "Truck", true);
+
+         // now let the newly created truck roll on the parking-lot
+         // which means we will activate it after this truck generator
+         truck.activateAfter(this);
+
+         // wait until next truck arrival is due
+         hold(new TimeSpan(model.getTruckArrivalTime(), TimeUnit.MINUTES));
+         // from inside to outside...
+         // we draw a new inter-arrival time
+         // we make a TimeSpan object out of it and
+         // we wait for exactly this period of time
+      }
+   }
+</pre>
+
+<p>The activities performed inside the endless <tt>while()</tt> loop are:</p>
+
+<ol>
+<li>Instantiate a new truck object by calling the constructor of our own <tt>Truck</tt> class (we will implement this later).</li>
+<li>Schedule an activation note for the truck process by calling its <tt>activateAfter()</tt> method and passing it a reference to this truck generator. This ensures that the new truck will be activated at the current point in simulation time, right after the truck generator passes control back to the scheduler.<p>Note: Alternatively, we could have used the following statement:</p><p><code>truck.activate(new TimeSpan(0), TimeUnit.MINUTES));</code></p><p>This also schedules an activation note for the truck process at the current point in simulation time. The only difference is that the truck process might not be activated directly after the truck generator passes control to the scheduler. If there are already other processes scheduled for activation at the same point in time, the activation note for the new truck process will be inserted <em>behind</em> these other activation notes. Using the <tt>activateAfter()</tt> method will result in inserting the truck's activation note at the top of the event list, <em>before</em> all other entries. You should be aware of these details as they can result in so-called simulation artifacts.</p></li>
+<li>Wait until the next truck will arrive. As we know when this will happen -- by drawing a sample from the random number stream modelling inter-arrival times -- we will use the <tt>hold()</tt> method of the <tt>SimProcess</tt> class to express waiting for a pre-defined duration. Calling <tt>hold()</tt> results in scheduling the truck generator for activation at the next truck's arrival time and then passing control over to the scheduler. This means the <tt>lifeCycle()</tt> of the truck generator will be interrupted and resumed right after the <tt>hold()</tt> statement when it is reactivated.</li>
+</ol>
+
+<p>
+Observe that <tt>lifeCycle()</tt> method is declared to throw a <tt>SuspendExecution</tt>. This is required for the internal process scheduling logic, putting a &quot;mark&quot; where process execution can be interrupted.
+</p>
+
+<p>
+One detail remains to be explained: What is the purpose of the first statement inside the <tt>lifeCycle()</tt> method? The answer is simple: It's there to provide us with a convenient reference to the model so that we can access its static model components. In this case, we need to draw a sample from the truck arrival time distribution by calling the <tt>getTruckArrival()</tt> method of our model. To be able to do so, we need a reference to the model object. DESMO-J provides the <tt>getModel()</tt> method as a member of the <tt>ModelComponent</tt> class for this aim. All subclasses of <tt>ModelComponent</tt> like <tt>SimProcess</tt> or <tt>Model</tt> inherit this method. The problem we run into when using the method is that it returns an object of type <tt>Model</tt> while we need an object of the more specialised type <tt>ProcessesExample</tt>. Thus we are forced to perform a type cast, resulting in rather awkward code. For example, the <tt>hold()</tt> statement in the above life cycle would look like this:
+</p>
+
+<p><code>hold(new TimeSpan(((ProcessesExample)getModel()).getTruckArrivalTime(), TimeUnit.MINUTES));</code></p>
+
+<p>
+This is rather cumbersome to type, especially if we have to access model components more than once during a life cycle, and doesn't make the code easy to read. So calling <tt>getModel()</tt> and performing the requested type cast once at the beginning of the <tt>lifeCycle()</tt> method provides for a good shortcut. Alternatively, you may add a field to the process class and assign it the associated model inside the constructor. We will use this approach in the two remaining classes.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl21.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/impl20.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Processes Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Processes Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Experimentation
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Changing Parameter Values
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp1.html">prev</a></li><li><a href="exp3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="0.html" id="current_top">Processes Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html">Model Implementation (2)</a></li>
+<li><a href="exp0.html" id="current_middle">Experimentation</a><ol>
+<li><a href="exp0.html">Compiling and Running the Model</a></li>
+<li><a href="exp1.html">A Look at the Results</a></li>
+<li><a href="exp2.html" id="current_middle">Changing Parameter Values</a></li>
+<li><a href="exp3.html">The Model Trace</a></li>
+<li><a href="exp4.html">Conclusion</a></li>
+</ol></li>
+</ol></li>
+<li><a href="../events/0.html" id="current_bottom">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Let us try to make the life of the truck drivers a little bit easier. We are going to add service power to our model by adding one more van carrier. Our source code changes in one single section: We only have to set the model parameter NUM_VC to 2.
+</p>
+
+<p><pre class="code">
+public class ProcessesExample extends Model {
+
+   /**
+    * Model parameter: the number of van carriers
+    */
+   protected static int NUM_VC = 2;
+
+   ...
+}
+</pre></p>
+
+<p>Now compile and run the model again, then have a look a the newly created report file.</p>
+
+<p><pre class="report">
+ <P>
+<HR><DIV align=center><H3>Queues</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left>Title</DIV></B></TD><TD><B><DIV align=left>Qorder</DIV></B></TD><TD><B><DIV align=left>(Re)set</DIV></B></TD><TD><B><DIV align=left>Obs</DIV></B></TD><TD><B><DIV align=left>QLimit</DIV></B></TD><TD><B><DIV align=left>Qmax</DIV></B></TD><TD><B><DIV align=left>Qnow</DIV></B></TD><TD><B><DIV align=left>Qavg.</DIV></B></TD><TD><B><DIV align=left>Zeros</DIV></B></TD><TD><B><DIV align=left>avg.Wait</DIV></B></TD><TD><B><DIV align=left>refus.</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD>Truck Queue</TD><TD>FIFO</TD><TD>0.0</TD><TD>473</TD><TD>unlimit.</TD><TD>6</TD><TD>0</TD><TD>0.9103</TD><TD>161</TD><TD>2.88678</TD><TD>0</TD></TR>
+<TR VALIGN=TOP><TD>idle VC Queue</TD><TD>FIFO</TD><TD>0.0</TD><TD>161</TD><TD>unlimit.</TD><TD>2</TD><TD>2</TD><TD>0.43163</TD><TD>1</TD><TD>3.99436</TD><TD>0</TD></TR>
+</TABLE><P>
+</pre></p> 
+
+<p>
+Surprisingly enough, this little adjustment turned the picture around completely. Adding another van carrier leads to a dramatic change in the service time behaviour of our queueing system. There is currently no truck waiting for service (Qnow) and the maximum number of trucks waiting in the queue at one time is reduced to 6. Compare this to the 169 waiting trucks of our first experiment!
+</p>
+
+<p>
+The average waiting time dropped from an unacceptable 4 hours waste of time to a very comfortable 3 minute time span. 161 trucks were  serviced immediately without any delay and both van carriers are idly waiting right now for the next truck to arrive.
+</p>
+
+<p>At first, this seems to be a rather surprising result. But considering some facts it's not that surprising anymore:</p>
+
+<ul>
+<li>We have doubled the service capacity. We raised it for 100 % by adding a second van carrier.</li>
+<li>Take a look at our assumed arrival and service times. Approximately every three minutes a truck arrives, but a van carrier needs an average of 5 minutes to service one truck. That means that one van carrier alone is not able to service the arriving trucks fast enough. This is exactly what the simulation results show for our first experiment. But with two van carriers we are easily able to fulfil the requests.</li>
+</ul>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="exp1.html">prev</a></li><li><a href="exp3.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/processes/exp2.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

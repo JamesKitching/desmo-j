@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report5" language="groovy" pageWidth="1439" pageHeight="842" columnWidth="1399" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Heading" fontSize="14"/>
+	<subDataset name="New Dataset 1"/>
+	<field name="model" class="java.lang.String"/>
+	<field name="Parameter" class="java.lang.String"/>
+	<field name="Value" class="java.lang.String"/>
+	<field name="Description" class="java.lang.String"/>
+	<field name="a_Title" class="java.lang.String"/>
+	<field name="a_(Re)set" class="java.lang.String"/>
+	<field name="a_Obs" class="java.lang.String"/>
+	<field name="a_Mean" class="java.lang.String"/>
+	<field name="a_Std.Dev" class="java.lang.String"/>
+	<field name="a_Min" class="java.lang.String"/>
+	<field name="a_Max" class="java.lang.String"/>
+	<field name="t_LastLength" class="java.lang.String"/>
+	<field name="t_Max/Last" class="java.lang.String"/>
+	<field name="t_Min/Last" class="java.lang.String"/>
+	<field name="t_Mean/Last" class="java.lang.String"/>
+	<field name="t_Mean" class="java.lang.String"/>
+	<field name="t_Min" class="java.lang.String"/>
+	<field name="t_Max" class="java.lang.String"/>
+	<field name="t_Std.Dv/Last" class="java.lang.String"/>
+	<field name="t_Title" class="java.lang.String"/>
+	<field name="t_(Re)set" class="java.lang.String"/>
+	<field name="t_Obs" class="java.lang.String"/>
+	<field name="c_Title" class="java.lang.String"/>
+	<field name="c_Type" class="java.lang.String"/>
+	<field name="c_(Re)set" class="java.lang.String"/>
+	<field name="c_Obs" class="java.lang.String"/>
+	<field name="c_Current Value" class="java.lang.String"/>
+	<field name="c_Min" class="java.lang.String"/>
+	<field name="c_Max" class="java.lang.String"/>
+	<field name="t_Std.Dv" class="java.lang.String"/>
+	<field name="q_Title" class="java.lang.String"/>
+	<field name="q_max.Wait" class="java.lang.String"/>
+	<field name="q_Zeros" class="java.lang.String"/>
+	<field name="q_Qavg." class="java.lang.String"/>
+	<field name="q_Qmin" class="java.lang.String"/>
+	<field name="q_Qmax" class="java.lang.String"/>
+	<field name="q_QLimit" class="java.lang.String"/>
+	<field name="q_Obs" class="java.lang.String"/>
+	<field name="q_(Re)set" class="java.lang.String"/>
+	<field name="q_Qorder" class="java.lang.String"/>
+	<field name="q_refus." class="java.lang.String"/>
+	<field name="q_avg.Wait" class="java.lang.String"/>
+	<field name="d_Title" class="java.lang.String"/>
+	<field name="d_Obs" class="java.lang.String"/>
+	<field name="d_Parameter 2" class="java.lang.String"/>
+	<field name="d_Seed" class="java.lang.String"/>
+	<field name="d_Parameter 1" class="java.lang.String"/>
+	<field name="d_Type" class="java.lang.String"/>
+	<field name="d_(Re)set" class="java.lang.String"/>
+	<field name="q_Qnow" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<textField>
+				<reportElement x="142" y="0" width="318" height="50"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{model} + " Report" + "\n" +" Model " + $F{model}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="17" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="52" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<property name="net.sf.jasperreports.export.pdf.tag.h1"/>
+					<property name="net.sf.jasperreports.export.pdf.tag.th"/>
+					<printWhenExpression><![CDATA[($F{Description} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Description}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<property name="net.sf.jasperreports.export.pdf.tag.h1"/>
+					<property name="net.sf.jasperreports.export.pdf.tag.th"/>
+					<printWhenExpression><![CDATA[($F{Description} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Description"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{Parameter} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Parameter}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{Value} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Value}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{Parameter} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Parameter"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{Value} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Value"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="52">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Title}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_(Re)set}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Obs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Mean} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Mean}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Std.Dev} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Std.Dev}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Min}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{a_Max}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Mean} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Mean"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Min"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Title"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Obs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Std.Dev} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Std.Dev"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Re)set"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{a_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Max"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Title"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Re)set"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Obs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="529" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Std.Dv} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Std.Dv"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="586" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Min"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="643" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Max"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="700" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Mean/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Mean/Last"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="769" y="0" width="82" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Std.Dv/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Std.Dv/Last"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="851" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Min/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Min/Last"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="908" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Max/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="none">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Max/Last"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="965" y="0" width="78" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_LastLength} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["LastLength"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="643" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Max}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="586" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Min}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="700" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Mean/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Mean/Last}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Title}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="908" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Max/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Max/Last}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="529" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Std.Dv} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Std.Dv}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="769" y="25" width="82" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Std.Dv/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Std.Dv/Last}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="851" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Min/Last} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Min/Last}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="965" y="25" width="78" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_LastLength} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_LastLength}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_(Re)set}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Obs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="114" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Mean} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Mean"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="25" width="114" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{t_Mean} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{t_Mean}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Title"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Max"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Type} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Type"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Re)set"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Obs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Current Value} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Current Value"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Min"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_(Re)set}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Min} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Min}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Type} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Type}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Max} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Max}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Title}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Current Value} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Current Value}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{c_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{c_Obs}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Title"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qorder} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Qorder"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Re)set"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Obs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_QLimit} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["QLimit"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qmax} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Qmax"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qnow} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Qnow"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="640" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qavg.} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Qavg."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="697" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Zeros} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Zeros"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="754" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_max.Wait} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["max.Wait"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="811" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_avg.Wait} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["avg.Wait"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="868" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_refus.} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["refus."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="526" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qmax} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Qmax}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="469" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_QLimit} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_QLimit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Obs} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Obs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qorder} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Qorder}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="754" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_max.Wait} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_max.Wait}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="640" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qavg.} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Qavg.}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Qnow} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Qnow}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_(Re)set} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_(Re)set}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="868" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_refus.} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_refus.}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="811" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_avg.Wait} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_avg.Wait}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Title}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="697" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{q_Zeros} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{q_Zeros}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="50">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="0" width="94" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Type"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="506" y="0" width="77" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Parameter 1"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="0" width="79" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Parameter 2"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="662" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Seed"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="0" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Title"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Re)set"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="0" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Obs"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="583" y="25" width="79" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Parameter 2}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="506" y="25" width="77" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Parameter 1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="10" y="25" width="288" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Title}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="412" y="25" width="94" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Type}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="662" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Seed}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_(Re)set}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="355" y="25" width="57" height="25" isRemoveLineWhenBlank="true">
+					<printWhenExpression><![CDATA[($F{d_Title} != null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{d_Obs}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

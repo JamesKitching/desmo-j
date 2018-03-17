@@ -1,0 +1,187 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Events Step by Step
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Events Step by Step
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Model Implementation (2)
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Truck Generator Event
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl22.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="0.html" id="current_top">Events Step by Step</a><ol>
+<li><a href="0.html">Introduction</a></li>
+<li><a href="1.html">Model Description</a></li>
+<li><a href="design0.html">Model Design</a></li>
+<li><a href="impl0.html">Model Implementation (1)</a></li>
+<li><a href="impl20.html" id="current_middle">Model Implementation (2)</a><ol>
+<li><a href="impl20.html">The Entities</a></li>
+<li><a href="impl21.html" id="current_middle">The Truck Generator Event</a></li>
+<li><a href="impl22.html">The Truck Arrival Event</a></li>
+<li><a href="impl23.html">The Service End Event</a></li>
+</ol></li>
+<li><a href="exp0.html">Experimentation</a></li>
+</ol></li>
+<li><a href="../distributions/0.html" id="current_bottom">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Next we have to implement the events to finally define our model's behaviour. Let's start with the easiest one, the <b>truck generator event</b>. It just (i) generates a new truck, (ii) schedules a new truck arrival event for that truck, and (iii) determines the next arrival time and schedules itself again for this point in time. Refer to the <a href="design2.html#TruckGeneratorEvent">conceptual model</a> if you need to look up the details of its event routine again.
+</p>
+
+<p>
+First of all, derive a class named <tt>TruckGeneratorEvent</tt> from <tt>ExternalEvent</tt>. As our truck does not yet exist, there is no entity the event has to refer to, which yield <tt>ExternalEvent</tt> the appropriate choice for this event: All other subclasses of <tt>ExternalEvent</tt> assume one more entities referred to. Don't forget to import the <tt>desmoj.core.simulator</tt> package. Add the constructor, which is equally straightforward as the one in our model class since it only passes all parameters to the constructor of the superclass.
+</p>
+
+<pre class="code">
+import desmoj.core.simulator.*;
+/**
+ * This class represents an entity (and event) source, which continually generates
+ * trucks (and their arrival events) in order to keep the simulation running.
+ *
+ * It will create a new truck, schedule its arrival at the terminal (i.e. create
+ * and schedule an arrival event) and then schedule itself for the point in
+ * time when the next truck arrival is due.
+ */
+public class TruckGeneratorEvent extends ExternalEvent {
+
+   /**
+    * Constructs a new TruckGeneratorEvent.
+    *
+    * @param owner the model this event belongs to
+    * @param name this event's name
+    * @param showInTrace flag to indicate if this event shall produce output
+    *                    for the trace
+    */
+   public TruckGeneratorEvent(Model owner, String name, boolean showInTrace) {
+      super(owner, name, showInTrace);
+   }
+
+   ...
+
+}
+</pre>
+
+<p>
+Now all left to do is actually define what happens at the truck generator event, i.e. implement its <tt>eventRoutine()</tt> method.
+</p>
+
+<pre class="code">
+   /**
+    * The eventRoutine() describes the generating of a new truck.
+    *
+    * It creates a new truck, a new TruckArrivalEvent
+    * and schedules itself again for the next new truck generation.
+    */
+   public void eventRoutine() {
+
+      // get a reference to the model
+      EventsExample model = (EventsExample)getModel();
+
+      // create a new truck
+      Truck truck = new Truck(model, "Truck", true);
+      // create a new truck arrival event
+      TruckArrivalEvent truckArrival = new TruckArrivalEvent(model,
+                                              "TruckArrivalEvent", true);
+      // and schedule it for the current point in time
+      truckArrival.schedule(truck, new TimeSpan(0, TimeUnit.MINUTES));
+
+      // schedule this truck generator again for the next truck arrival time
+      schedule(new TimeSpan(model.getTruckArrivalTime(), TimeUnit.MINUTES));
+      // from inside to outside...
+      // draw a new inter-arrival time value
+      // wrap it in a TimeSpan object
+      // and schedule this event for the current point in time + the
+      // inter-arrival time
+
+   }
+</pre>
+
+<p>The actions performed are:</p>
+
+<ol>
+<li>Instantiate a new truck object by calling the constructor of our own <tt>Truck</tt> entity class.</li>
+<li>Instantiate a new truck arrival event object by calling the constructor of our own <tt>TruckArrivalEvent</tt> class (we will implement this later) ...</li>
+<li>and schedule it for the current point in time.</li>
+<li>Wait for the next truck to arrive by drawing a sample from the random number stream modelling inter-arrival times and scheduling the truck generator event for this time.</li>
+</ol>
+
+<p>
+One detail remains to be explained: What is the purpose of the first statement inside the <tt>eventRoutine()</tt> method? The answer is simple: It's there to provide us with a convenient reference to the model so that we can access its static model components. In this case, we need to draw a sample from the truck arrival time distribution by calling the <tt>getTruckArrival()</tt> method of our model. To be able to do so, we need a reference to the model object. DESMO-J provides the <tt>getModel()</tt> method as a member of the <tt>ModelComponent</tt> class for this aim. All subclasses of <tt>ModelComponent</tt> like <tt>Event</tt> or <tt>Entity</tt> inherit this method. The problem we run into when using the method is that it returns an object of type <tt>Model</tt> while we need an object of the more specialised type <tt>EventsExample</tt>. Thus we are forced to perform a type cast, resulting in rather awkward code. For example, the <tt>schedule()</tt> statement for the truck generator event in the above event routine would look like this:
+</p>
+
+<p><code>schedule(new TimeSpan(((EventsExample)getModel()).getTruckArrivalTime(), TimeUnit.MINUTES));</code></p>
+
+<p>
+This is rather cumbersome to type, especially if we have to access model components more than once during an event routine, and doesn't make the code easy to read. So calling <tt>getModel()</tt> and performing the requested type cast once at the beginning of the <tt>eventRoutine()</tt> method provides for a good shortcut. Alternatively, you may add a field to the event class and assign it the associated model inside the constructor. We will use this approach in the two remaining classes.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="impl20.html">prev</a></li><li><a href="impl22.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/events/impl21.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

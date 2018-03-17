@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+DESMO-J in a Nutshell
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+DESMO-J in a Nutshell
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+What Is DESMO-J?
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="0.html" id="current_top">DESMO-J in a Nutshell</a><ol>
+<li><a href="0.html" id="current_middle">What Is DESMO-J?</a></li>
+<li><a href="1.html">Basic Features</a></li>
+<li><a href="2.html">Not (yet) available...</a></li>
+</ol></li>
+<li><a href="../distilled/0.html" id="current_bottom">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="../advanced/0.html">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+DESMO-J is an object-oriented framework targeted at programmers developing 
+simulation models. The acronym "DESMO-J" stands for "Discrete-Event Simulation 
+and MOdelling in Java". This longer name highlights DESMO-J's two significant 
+properties:
+</p>
+
+<ul>
+<li>DESMO-J supports the discrete-event simulation paradigm. In models of this 
+type, all system state changes are supposed to happen at discrete points in 
+time. Between such events the system state is assumed to remain constant. 
+Discrete-event simulation is therefore particularly suitable for systems in 
+which relevant changes of state occur suddenly and irregularly, like queueing 
+networks for example.</li>
+<li>DESMO-J is implemented in Java. Using this framework to build simulation 
+models ultimately results in writing a Java program.</li>
+</ul>
+
+<p>
+Thus, you need to understand both the basic concepts of discrete-event 
+simulation and programming in Java in order to apply DESMO-J. Please refer to 
+the <a href="../prerequisites/1.html">Prerequisites</a> section of this tutorial 
+if you need assistance on how to obtain knowledge of these topics.
+</p>
+
+<p>
+DESMO-J is based on a number of earlier DESMO systems, all developed at the 
+University of Hamburg in the context of students' projects. The original DESMO, 
+written 1989 in the programming language Modula-2, was derived from DEMOS, a 
+package for discrete-event simulation in Simula developed by Graham Birtwistle 
+in 1979. For a more in-depth account of DESMO-J's history you may refer to the 
+<a href="http://www.desmoj.de">DESMO-J web site</a>.
+Since 1999, when the core DESMO-J framework was completed, it has been extended 
+in various aspects, e.g. to provide special components for the simulation of 
+production systems or harbour logistics.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/nutshell/0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

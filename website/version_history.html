@@ -1,0 +1,420 @@
+<HTML>
+
+<HEAD>
+
+<TITLE>DESMO-J's Version History</TITLE>
+
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+
+<A NAME="top"></A>
+
+<TABLE BORDER="0" CELLSPACING="15" CELLPADDING="0" WIDTH="800" NOSAVE >
+ <TR>
+  <td align="right" valign="top">
+        <a href="http://www.uni-hamburg.de"><img src="./images/uhhlogo.gif" width="49" height="49" border="0"></a>
+  </td>
+  <td align="left" valign="top">
+        <table border="0" cellspacing="0" cellpadding="0">
+        <tr><td>
+        <a href="http://www.informatik.uni-hamburg.de"><img src="./images/fbilogo.gif" border="0"></a>
+        </td><td>&nbsp;&nbsp;&nbsp;</td>
+        <td valign="bottom">University of Hamburg<br />Department of Computer Science</td>
+        </tr></table>
+  </td>
+ </TR>
+
+   <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+  <TR>
+    <TD ALIGN="right" VALIGN="bottom">
+        <a href="./home.html">
+        <img src="./images/desmoj150.jpg" alt="DESMO-J Logo" border="0">
+        </a>
+    </TD>
+    <TD ALIGN="left" valign="bottom">
+        <b>Version History</b>
+    </TD>
+  </TR>
+  
+              <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.5.1e/<br/>Version 2.5.0<br/>March 2017/<br/>November 2015
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>More efficient <b>process execution</b> based on fibers.<br/>
+        Call <code>Experiment.setCoroutineModel(CoroutineModel.FIBERS)</code> to activate. Requires
+        quasar agent made available to the JVM, using command line switch 
+        <code>"-javaagent:[path of Quasar-jar file]"</code>.<br/>
+        Please download the jar from the <a href="http://docs.paralleluniverse.co/quasar/">Quasar project website</a> or fetch the JDK8 version it from our <a href="https://sourceforge.net/p/desmoj/code/HEAD/tree/DESMO-J/libs_fiber/quasar-core-0.7.3-jdk8.jar?format=raw">repository</a>.       
+        <p>
+        Note: Since 2.5.0, DESMO-J is <b>not</b> fully compatible to prior versions: Fiber-based process execution requires methods the consume simulation time
+        (most importantly <code>Simproces.lifeCycle()</code>) declaring <code>throws co.paralleluniverse.fibers.SuspendExecution</code>. <br/> 
+        In addition, many deprecated classes (e.g. <code>SimTime</code>, Distributions <code>Real....</code>/<code>Int...</code>) have been discarded.
+        </li></ud>
+    </TD>
+  </TR>
+
+            <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.4.2<br/>November 2014
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Histogram and TimeSeries plots now included in HTML report output, based on JavaScript.</li>
+        </ul>
+    </TD>
+  </TR>
+
+          <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.4.0<br/>June 2013
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Various minor improvements.</li>
+        </ul>
+    </TD>
+  </TR>
+
+        <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.5<br/>February 2013
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Various visualization improvements.</li>
+        <li>Minor bug fixes.
+        <br/>
+        Note: DESMO-J now requires Java 7 (aka JDK 1.7.X) or newer.
+        </li></ud>
+    </TD>
+  </TR>
+
+      <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.4<br/>May 2012
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Chaining components, e.g. for generic production systems.</li>
+        <li>Event and process prioritzation.</li>
+        <li>Minor bug fixes and documentation improvements.</li>
+        </ul>
+    </TD>
+  </TR>
+
+    <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.3/<br/>Version 2.3.3b<br/>November 2011
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Extensions to 2D animation, e.g. background images, more flexibility how to draw entities and their transport routes.</li>
+        <li>Minor bug and documentation fixes, including event list output in class  <tt>Scheduler</tt>.</li>
+        </ul>
+    </TD>
+  </TR>
+
+  <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.2<br /> September 2011
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Extensions to 2D animation, e.g. prioritized queues, background lines.</li>
+        <li>New download package &quot;core_gui&quot; inclduds core package plus experimentation GUI, thus providing expieriment parameterization without requiring the &quot;complete&quot; package.</li>
+        <li>Minor bug and documentation fixes.</li>
+        </ul>
+    </TD>
+  </TR>
+
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.1<br /> May 2011
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Minor bug and documentation fixes, including class <tt>Accumulate</tt>.</li>
+        </ul>
+    </TD>
+  </TR>
+
+
+
+  <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.3.0<br /> April 2011
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li> New event classes <tt>EventOf2Entities</tt> and <tt>EventOf3Entities</tt> referring to more than one entity. Entities may be scheduled more than once at the same time. </li>
+        <li> 2D animation component, thanks to <a href="http://www.wi-bw.tfh-wildau.de/~cmueller/SimulationAnimation/">Prof. Dr. Christian M&uuml;ller (TH Wildau, Germany) and his research group (in german)</a></li>
+        <li> 3D visualisation based on Java 3D. </li>
+        <li> Distribution package <tt>desmoj.core.dist</tt> refactored. New distributions include Binomial, Gamma, Triangular and custom distributions based on any cumulative distribution function.
+        <li> Various minor bug fixes and improvents, e.g. separation of <tt>desmoj.core.Condition</tt> (refers to an entity) and <tt>desmoj.core.ModelCondition</tt> (refers to the model as whole, previously <tt>desmoj.core.Condition</tt>, too) and a model's initial schedules now producing trace and debug output if desired.
+        </ul>
+    </TD>
+  </TR>
+
+    <TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.2.0<br /> June 2010
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Classes <tt>TimeSpan</tt> and <tt>TimeInstant</tt> distinguish between duration and point in time; <tt>SimTime</tt> can still be used, but is deprecated. </li>
+                <li>Experiments now can be executed real-time-synchronously, see <tt>Experiment.setExecutionSpeedRate(double)</tt>. </li>
+        <br/>
+        Note: DESMO-J now requires Java 6 (aka JDK 1.6.X) or newer.
+        </li></ud>
+    </TD>
+  </TR>
+<a href="http://www.wi-bw.tfh-wildau.de/~cmueller/SimulationAnimation/">
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1.4b<br /> November 2008
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Bug fixes in classes <tt>Accumulate</tt> and <tt>Aggregate</tt>.</li>
+        </ul>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1.4<br />October 2008
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Small additions (e.g. classes <tt>TallyRunning</tt> and <tt>Aggregate</tt>,
+        the latter providing a non-integer (double) equivalent to <tt>Count</tt>),
+        minor bug fixes.</li>
+        </ul>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1.3<br />July 2008
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Classes <tt>Event</tt>, <tt>Queue</tt> and <tt>ProcessQueue</tt> are now
+        generic; assiging types of entities enqueued or referred to increases type
+        safety and reduces the number of casts required. Various bug fixes.</li>
+        <br/>
+        Note: DESMO-J now requires Java 5 (aka JDK 1.5.X) or newer.
+        </li></ud>
+
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1.2<br />April 2008
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>Several small additions and improvements, e.g. higher run-time efficiency,
+        Mersenne-Twister pseudo random number generation, and various bug fixes.</li>
+        </ul>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1.1<br />April 2006
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>The graphical experiment starter with integrated XML reporting has been re-introduced
+        with some modifications.</li>
+        <li>Most important, charting facilities are now built right into DESMO-J.
+        The external JFreeCharts library is no longer necessary. Charts can be registered with two of the
+        most important statistical observers (<code>TimeSeries</code> and <code>Histogram</code>).</li>
+        </ul>
+    </TD>
+  </TR>
+
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.1<br />Feb. 2006
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>DESMO-J is now licenced under the Apache License, Version 2.0. Comments and reports
+        have been adapted accordingly (No functional change). Bugfix in IntDistUniform.</li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.0.1<br />Feb. 2005
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>DESMO-J is now licenced under the GNU Lesser GPL. Comments and reports
+        have been adapted accordingly. (No functional change)</li>
+        <li>The method <tt>deliver(long n)</tt> of class <tt>Bin</tt> (unlimited buffer)
+        has been renamed to <tt>retrieve(long n)</tt> to match the signature of class
+        <tt>Stock</tt> (limited buffer).</li>
+        </ul>
+    </TD>
+  </TR>
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 2.0<br />Nov. 2004
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>DESMO-J has been completely re-factored so that its package structure
+        doesn't comply with that of older versions anymore. <br /><b>Note:</b> Older versions
+        are no longer supported!</li>
+        <li>The standard HTML output has been supplemented by an output in XML.</li>
+        <li>We proudly present a basic graphical user interface to facilitate
+        experimentation with DESMO-J models.</li>
+        </ul>
+    </TD>
+  </TR>
+<TR>
+    <TD ALIGN="right" VALIGN="top">
+        <b>Version 1.6<br />Aug. 2003
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>The package desmoj.harbour has been added to the DESMO-J distribution. This package contains specialized
+        classes for modelling harbour logistics that were developed by Eugenia Neufeld in her diploma thesis.</li>
+        <li>Due to the integration of these new classes some minor modifications (mainly changes of access modifiers)
+        were made to the core DESMO-J classes.</li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.5<br />May 2001</b>
+    </TD>
+    <TD ALIGN="left" valign="top">
+        <ul>
+        <li>in many QueueBased-Classes (i.e. Bin, Entrepot, Res, etc.) there can be chosen to let the SimProcesses enqueued overtake each other. The reporters have been adjusted to display this option</li>
+<li>when changing the priority of an Entity which is enqueued in a queue according to its' old priority a warning will be generated</li>
+<li>when setting up a new Experiment the directory for the output files (i.e. report, trace, debug, error) and a reference time (when the experiement starts) together with a reference time unit can be determined. So the start and stop time of an experiment can be given in 'real time'. In case a stop time is given a progress bar showing the progress of the experiment will be displayed</li>
+<li>Class TimeConverter added to convert simulation time to 'true time' and vice versa</li>
+<li>There have been some classes added (Transporter, SimpleTransporter, TransportJunction, TransportTerminal, Transportation) to make it easier to model the transportation of parts (represented as SimProcesses) from one point to another</li>
+<li>There have been some classes added (MachineProcess, Worker, WorkStation, PartsList, Processing) to make it easier to model a work station where parts (represented as SimProcesses) are manufactured</li>
+<li>Some minor bug fixes.</li>
+        </ul>
+
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.4<br />Dec. 2000</b>
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+<li>Class Resource added. Every resource is now represented as an individual object.</li>
+<li>Class ResourceDB added. Monitors the resource usage and reports deadlock situations.</li>
+<li>All queues now can have a limited capacity and the sort order (FIFO or LIFO) can be chosen, too.</li>
+<li>Class ArrivalProcess added to model the arrival of SimProcesses in a system more easily.</li>
+<li>Class ComplexSimProcess added to compose several SimProcesses to one 'entity'.</li>
+<li>Class Stock added to model an inventory with a limited capacity and four different restock processes.</li>
+<li>Class Entrepot added to model an inventory for SimProcesses with a process representing the demand and removing the SimProcesses from the Entrepot.</li>
+<li>The field epsilon (minimum distinguishable time span of simulation time) is deleted from class Experiment and is now in class SimClock only.</li>
+<li>Class desmoj.report.Message now has a field to record the SimTime the message was created at; is returned by method getSendTime().</li>
+<li>Some minor bug fixes.        </li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.3<br />May 2000</b>
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+<li> DESMO-J now licensed under GNU GPL. Comments and html-report have been adapted accordingly. (No functional change)</li>
+<li> New features as described in [Claa00]</li>
+<li>Added Classes for deadlock detection</li>
+<li>Res - for non-consumable resources now has individual ressources.</li>
+<li> These features are as yet under development! Anything else should work as expected.        </li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.2.1<br />Jan. 2000</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+<li>New methods: getEpsilon() and setEpsilon() in Class Experiment</li>
+<li>The order of parameters in the constructors for the random distributions (in package desmoj.dist) are changed, so showInReport and showInTrace are allways last.</li>
+<li>Method description() in Class Model is declared abstract to force the user to implement it.</li>
+<li>In method run() in Class SimThread the order of sendTraceNote() and freeThread() is changed to produce a better trace output.</li>
+<li>Some random distributions (e.g. RealDistNormal) can be set to nonNegative now to avoid getting negative values as samples.</li>
+<li> Bugfix in RealDistUniform, so this random distribution now returns "real" numbers.</li>
+<li>Class ValueSupplier contains no notifyStatistics() method without any parameter anymore. Use notifyStatistics(Object arg) with the parameter arg instead.        </li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.2<br />Jan. 2000</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+        <li>Found bug in thread synchronization causing a "nullpointerException" when surviving threads had to be killed after the end of a simulation. Bug has been removed</li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.0.9<br />Nov. 1999</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+<li> New features as described in [Claa99] and [PLCl00]</li>
+<li>Added Classes for process synchronization
+Bin - for consumable resources
+Res - for non-consumable resources
+WaitQ - for direct master/slave process-cooperation
+CondQ - for conditional waiting in a queue</li>
+<li> new classes for statistical functions
+Tally
+Count
+Accumulate</li>
+<li> Bugs that were discovered and squashed :
+Improved Report layout
+Fixed bug in distribution IntDistUniform that would decrement its actual range by 1        </li>
+        </ul>
+    </TD>
+  </TR><TR>
+    <TD ALIGN="right" VALIGN="top"> <b>Version 1.0<br />Aug. 1999</b>
+
+    </TD>
+    <TD ALIGN="left" valign="top">
+                <ul>
+        <li>Basic framework as described in [Lech99]</li>
+        </ul>
+    </TD>
+  </TR>
+  <!--Leerzeile-->
+  <TR> <TD ALIGN="right" VALIGN="top">&nbsp; </TD>  <TD ALIGN="left" valign="top">&nbsp; </TD>
+  </TR>
+  <!--Leerzeile-->
+
+ <TR>
+    <TD ALIGN="right" VALIGN="top">
+     <FONT SIZE=-1><A HREF="#top">top</A></FONT>
+    </TD>
+    <TD ALIGN="left" valign="top"><FONT SIZE=-1>http://desmoj.sourceforge.net/version_history.html</FONT></TD>
+  </TR>
+
+  <TR>
+    <TD WIDTH="250"><SPACER type=horizontal size=160></TD>
+    <TD WIDTH="550"><SPACER type=horizontal size=350></TD>
+  </TR>
+</TABLE>
+
+&nbsp;
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,158 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+WaitQueue
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+The Model Trace
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue5.html">prev</a></li><li><a href="waitqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html" id="current_middle">WaitQueue</a><ol>
+<li><a href="waitqueue0.html">Master-Slave Process Cooperation</a></li>
+<li><a href="waitqueue1.html">Model Description</a></li>
+<li><a href="waitqueue2.html">The Model Class</a></li>
+<li><a href="waitqueue3.html">The Train Process</a></li>
+<li><a href="waitqueue4.html">The Ship Process</a></li>
+<li><a href="waitqueue5.html">The Process Cooperation Class</a></li>
+<li><a href="waitqueue6.html" id="current_middle">The Model Trace</a></li>
+</ol></li>
+<li><a href="interrupt0.html">Interrupts</a></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+Let us now take a look at the trace output of this example to see how the simulation processes interact via the <tt>WaitQueue</tt> construct.
+</p>
+
+<pre class="report">
+<DIV align=center><H3>WaitQueueExampleExperiment - Trace</H3></DIV>
+<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=3 WIDTH="100%" >
+<TR VALIGN=TOP><TD><B><DIV align=left> </DIV></B></TD><TD><B><DIV align=left>time</DIV></B></TD><TD><B><DIV align=left>event</DIV></B></TD><TD><B><DIV align=left>entity</DIV></B></TD><TD><B><DIV align=left>action(s)</DIV></B></TD></TR>
+<TR VALIGN=TOP><TD></TD><TD>0.0</TD><TD>TraceOn#1</TD><TD>----</TD><TD>Trace switched on</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>0.0</TD><TD>----</TD><TD>Train#1</TD><TD>activates 'Train#2' at 1.3117</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#1</TD><TD>activates 'Ship#2' at 19.0933</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>cooperates 'Train#1' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 62.4310 until 62.4310</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>1.3117</TD><TD> </TD><TD>Train#2</TD><TD>activates 'Train#3' at 59.9158</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>19.0933</TD><TD> </TD><TD>Ship#2</TD><TD>activates 'Ship#3' at 21.0152</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>cooperates 'Train#2' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 135.6634 until 154.7567</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>21.0152</TD><TD> </TD><TD>Ship#3</TD><TD>activates 'Ship#4' at 113.6750</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_M'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>59.9158</TD><TD> </TD><TD>Train#3</TD><TD>activates 'Train#4' at 86.4204</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#3</TD><TD>cooperates 'Train#3' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 147.9702 until 207.8861</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>62.4310</TD><TD> </TD><TD>Ship#1</TD><TD>activates 'Train#1' after 'Ship#1'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_M'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Train#1</TD><TD>Train#1 terminates</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>86.4204</TD><TD> </TD><TD>Train#4</TD><TD>activates 'Train#5' at 135.1555</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#1</TD><TD>cooperates 'Train#4' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 156.7804 until 243.2008</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>113.6750</TD><TD> </TD><TD>Ship#4</TD><TD>activates 'Ship#5' at 181.4499</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_M'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>135.1555</TD><TD> </TD><TD>Train#5</TD><TD>activates 'Train#6' at 135.6200</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Ship#4</TD><TD>cooperates 'Train#5' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 168.2988 until 303.4544</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>135.6200</TD><TD> </TD><TD>Train#6</TD><TD>activates 'Train#7' at 156.2915</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>waits in 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD>154.7567</TD><TD> </TD><TD>Ship#2</TD><TD>activates 'Train#2' after 'Ship#2'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>cooperates 'Train#6' from 'coal transfer_S'</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD> </TD><TD>holds for 84.8666 until 239.6234</TD></TR>
+<TR VALIGN=TOP><TD> </TD><TD> </TD><TD> </TD><TD>Train#2</TD><TD>Train#2 terminates</TD></TR>
+</table>
+</pre>
+
+<p>
+The first train arrives at the harbour, schedules the arrival of the next train for simulation time 1.3117, and then waits in the internal slave queue (<tt>coal transfer_S</tt>) of the wait queue for ships to arrive. The first ship also schedules the arrival of its successor and then proceeds to cooperate with Train#1. The transfer of coal from Train#1 to Ship#1 will take until simulation time 62.4310. The same happens for the second train and ship, they are paired off by the wait queue and their cooperation will be finished at simulation time 154.7567. When Ship#3 arrives at 21.0152 though, there is no train available so it has to wait in the internal master queue (<tt>coal transfer_M</tt>) until Train#3 arrives at 59.9158.
+</p>
+
+<p>
+At simulation time 62.4310 the (un)loading of Train#1 and Ship#1 is completed which results in the slave process (Train#1) being scheduled for activation after the master process (Ship#1). The master process gains control and, since ships need two train loads of coal, requests another cooperation, which results in Ship#1 being enqueued in the wait queue and automatically passivated. Now Train#1 (the former slave) is activated to leave the system. Trains and ships then continue to arrive and wait on each other to transfer coal.
+</p>
+
+<p>
+You may download the full <a href="../downloads/WaitQueueExample.zip">source code</a> of this example if you want to try it out yourself.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="waitqueue5.html">prev</a></li><li><a href="waitqueue6.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/waitqueue6.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

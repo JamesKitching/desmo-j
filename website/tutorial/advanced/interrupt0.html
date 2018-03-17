@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Advanced Modelling Features
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Advanced Modelling Features
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+Interrupts
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+What Are Interrupts?
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt0.html">prev</a></li><li><a href="interrupt1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="../statistics/0.html">Statistical Data Collectors</a></li>
+<li><a href="0.html" id="current_top">Advanced Modelling Features</a><ol>
+<li><a href="0.html">Overview</a></li>
+<li><a href="res0.html">Res</a></li>
+<li><a href="bin0.html">Bin</a></li>
+<li><a href="condqueue0.html">CondQueue</a></li>
+<li><a href="waitqueue0.html">WaitQueue</a></li>
+<li><a href="interrupt0.html" id="current_middle">Interrupts</a><ol>
+<li><a href="interrupt0.html" id="current_middle">What Are Interrupts?</a></li>
+<li><a href="interrupt1.html">Model Description</a></li>
+<li><a href="interrupt2.html">The Model Class</a></li>
+<li><a href="interrupt3.html">The Truck Process</a></li>
+<li><a href="interrupt4.html">The Van Carrier Process</a></li>
+<li><a href="interrupt5.html">The Model Trace</a></li>
+</ol></li>
+</ol></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In DESMO-J you may interrupt the execution of a simulation process by calling its <tt>interrupt(InterruptCode interruptReason)</tt> method. The currently active process can choose to interrupt any other process, conceptually active ones (currently performing a <tt>hold()</tt>) or conceptually passive ones (currently waiting after having called <tt>passivate()</tt> on themselves). The interrupted process will be activated directly after the interrupting process returns control to the scheduler.
+</p>
+
+<p>
+The <tt>InterruptCode</tt> object passed as a parameter to the <tt>interrupt()</tt> method carries information about the reason for the interrupt in the form of an <tt>integer</tt> value and a <tt>String</tt>. The interrupted process can then react according to the reason. Note that a model designer has to explicitly define the handling of interrupts in the process' life cycle.
+</p>
+
+<p>
+A typical example for the use of interrupts is a queueing scenario where high-priority customers interrupt the server in the service of lower-prioritised customers. We will return to the simple model of a container terminal loading zone from the <a href="../processes/0.html">Processes Step by Step</a> section to demonstrate interrupts in DESMO-J.
+</p>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="interrupt0.html">prev</a></li><li><a href="interrupt1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/advanced/interrupt0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

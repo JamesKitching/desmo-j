@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>The DESMO-J Tutorial :
+Statistical Data Collectors
+	</title>
+	<link rel="stylesheet" type="text/css" href="../templates/style_blue.css" title="tutorial">
+</head>
+
+<body background="../images/background_light_lilac.gif">
+
+<!-- Das Basis-Seitenlayout: Tabelle mit 3 Spalten und 5 Zeilen -->
+
+<table class=table_def>
+<tr>
+       <td class=col_left><img src="../images/logo.gif" border="0"></td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <H1>
+Statistical Data Collectors
+		   </H1>
+		   <!--<p> -->
+	   	   <H1>
+		   </H1>
+		   <!-- </p> -->
+		   <p>
+		   <H2>
+Overview
+		   </H2>
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>
+       		<div id="navigation"><ul>
+<li><a href="../overview/0.html">The DESMO-J Tutorial</a></li>
+<li><a href="../prerequisites/0.html">Prerequisites</a></li>
+<li><a href="../nutshell/0.html">DESMO-J in a Nutshell</a></li>
+<li><a href="../distilled/0.html">DESMO-J Distilled</a></li>
+<li><a href="../at_work/0.html">DESMO-J at Work</a></li>
+<li><a href="../processes/0.html">Processes Step by Step</a></li>
+<li><a href="../events/0.html">Events Step by Step</a></li>
+<li><a href="../distributions/0.html">Distributions</a></li>
+<li><a href="0.html" id="current_top">Statistical Data Collectors</a><ol>
+<li><a href="0.html" id="current_middle">Overview</a></li>
+<li><a href="1.html">General Use</a></li>
+<li><a href="counter0.html">Using a Counter</a></li>
+<li><a href="extended0.html">An Extended Example</a></li>
+</ol></li>
+<li><a href="../advanced/0.html" id="current_bottom">Advanced Modelling Features</a></li>
+	   		</ul></div>
+	   </td>
+       <td>&nbsp;</td>
+       <td class=col_right>
+	   	   <p>
+<p>
+In DESMO-J, many model components like queues, distributions, and higher modelling constructs like resources or condition queues automatically collect and report statistical data about their use. Additional data collectors can be used to collect, evaluate and report simulation results, e.g. mean residence times of customers or the average utilisation of a server. 
+</p>
+
+<p>At the moment there are the following data collectors available in DESMO-J's <tt>desmoj.core.statistic</tt> package:</p>
+
+<ul>
+<li><p>
+<b>Counters:</b> The <tt>Count</tt> class provides a counter that can be used to record occurrences of events like the number of customer arrivals. A counter reports the number of observations, its current value and minimum and maximum values.
+</p></li>
+<li><p>
+<b>Tallies:</b> The <tt>Tally</tt> class provides the possibility to record mean and standard deviation of a (time) series of values. Each observation carries the same weight. Computing the average time customers spent in the system is a typical example of when to use a tally. Each tally reports the number of observations, mean, standard deviation, minimum and maximum values. 
+</p></li>
+<li><p>
+<b>Accumulates:</b> The <tt>Accumulate</tt> class also provides the possibility to record mean and standard deviation of a time series of values. In contrast to a tally, however, each observation is weighed by the interval during which the value has endured. The relevant reports therefore return time-weighted statistics. A typical example for the use of an <tt>Accumulate</tt> object is to compute the utilisation of a server.
+</p></li>
+<li><p>
+<b>Histograms:</b> The <tt>Histogram</tt> class ranks the measured values into predefined classes and draws a simple diagram. It also reports the number of observations, mean, standard deviation, minimum and maximum values.
+</p></li>
+<li><p>
+<b>Regressions:</b> The <tt>Regression</tt> class allows for the regressional analysis of two different collected value series (x and y). It reports the number of observations, mean (for x and y), regression and correlation coefficients, standard deviations and interception.
+</p></li>
+<li><p>
+<b>Time Series:</b> The <tt>TimeSeries</tt> class provides the possibility to log a time series into a text file. Its output consists of pairs of simulation time and value.
+</p></li>
+</ul>
+<br /><br />
+		   </p>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left>&nbsp;</td>
+       <td  class=colorblock>&nbsp;</td>
+       <td class=row_nav>
+       	<div id="navbar"><ul>
+<li><a href="0.html">start</a></li><li><a href="0.html">prev</a></li><li><a href="1.html">next</a></li>
+		</ul></div>
+	   </td>
+</tr>
+<tr>
+       <td class=col_left><div id="navigation">&nbsp;</div></td>
+       <td>&nbsp;</td>
+       <td class=row_url>
+http://desmoj.sourceforge.net/tutorial/statistics/0.html
+	   </td>
+</tr>
+</table>
+
+</body>
+</html>

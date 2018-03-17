@@ -1,0 +1,9 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+ <html>
+   <head>
+     <title>desmoj.extensions.crossbar</title>
+   </head>
+   <body>
+        A higher-level construct to facilitate indirect process synchronization based on exchanging massages.
+   </body>
+ </html>
